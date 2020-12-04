@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">HAppY</string>
+    <string name="title_home">Home</string>
+    <string name="title_happy_list">Happy List</string>
+    <string name="title_ideas">Idea List</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_settings">Settings</string>
+
+    <string name="Save">Save</string>
+    <string name="button_show_happy_list">Show me list of happy things</string>
+    <string name="button_show_ideas">Show me list of ideas</string>
+
+    <string name="question_are_you_happy">Are you happy?</string>
+    <string name="happy">Happy</string>
+    <string name="unhappy">Not happy</string>
+
+    <string name="text_what_made_you_happy">What made you happy today?</string>
+    <string name="text_what_made_you_happy_add_more">Do you want to add more things that made you happy today?</string>
+    <string name="question_what">What did you do?</string>
+    <string name="question_with">With whom?</string>
+    <string name="question_where">Where?</string>
+
+    <string name="text_not_happy_sorry">"I'm sorry that you had a bad day!"</string>
+    <string name="alert_too_many_unhappy_days">"It's been X days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>
+    <string name="title_activity_bottom_navigation_test">MainActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+
+</resources>

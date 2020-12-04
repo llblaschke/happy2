@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorHappy">#BD0B48</color>
+    <color name="colorHappyLight">#E686A7</color>
+    <color name="colorHappyDark">#420218</color>
+    <color name="colorNotHappy">#BD6D0B</color>
+    <color name="colorNotHappyLight">#EFC587</color>
+    <color name="colorNotHappyDark">#4E2603</color>
+
+    <color name="colorNeutralDark">#3F1B80</color>
+
+</resources>
