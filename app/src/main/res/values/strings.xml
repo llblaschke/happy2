@@ -20,6 +20,8 @@
     <string name="question_what">What did you do?</string>
     <string name="question_with">With whom?</string>
     <string name="question_where">Where?</string>
+    <string name="text_today">Today</string>
+    <string name="button_change_date">Change date</string>
 
     <string name="text_not_happy_sorry">"I'm sorry that you had a bad day!"</string>
     <string name="alert_too_many_unhappy_days">"It's been X days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>

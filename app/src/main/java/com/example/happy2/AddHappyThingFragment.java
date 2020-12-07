@@ -1,5 +1,7 @@
 package com.example.happy2;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -22,10 +24,12 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -38,7 +42,14 @@ public class AddHappyThingFragment extends Fragment {
     private EditText editTextWhat;
     private EditText editTextWith;
     private EditText editTextWhere;
+    private TextView editTextWhen;
+    private Button buttonChangeDate;
     private Button buttonSave;
+
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private TextView dateView;
+    private int year, month, day;
 
     public AddHappyThingFragment() {
         // Required empty public constructor
@@ -53,23 +64,26 @@ public class AddHappyThingFragment extends Fragment {
         editTextWhat = v.findViewById(R.id.edittextWhatDidYouDo);
         editTextWith = v.findViewById(R.id.edittextWithWhom);
         editTextWhere = v.findViewById(R.id.edittextWhere);
+        editTextWhen = v.findViewById(R.id.editTextWhen);
+        buttonChangeDate = v.findViewById(R.id.btnChangeDate);
         buttonSave = v.findViewById(R.id.btnSave);
+
+        buttonChangeDate.setOnClickListener(btnChangeDate);
 
         buttonSave.setOnClickListener(btnClickSave);
         buttonSave.setEnabled(false);
+
 
         editTextWhat.addTextChangedListener(addHappyTextWatcher);
         editTextWith.addTextChangedListener(addHappyTextWatcher);
         editTextWhere.addTextChangedListener(addHappyTextWatcher);
 
-        // as soon as a nicer way of hiding the bottomnavigationview is found, delete that:
-        // dont forget to delete the method hideKeyboardListener as well!
-        //editTextWhat.setOnTouchListener(hideKeyboardListener);
-        //editTextWith.setOnTouchListener(hideKeyboardListener);
-        //editTextWhere.setOnTouchListener(hideKeyboardListener);
 
-
-        // more comments!
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        //showDate(year, month+1, day);
 
         return v;
     }
@@ -99,8 +113,6 @@ public class AddHappyThingFragment extends Fragment {
             ((AppCompatEditText) parent.getViewById(R.id.edittextWhere)).setText("");
 
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
-            //getActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
-
             Toast.makeText(getContext(), "Currently not saving anything", Toast.LENGTH_LONG).show();
         }
     };
@@ -120,4 +132,32 @@ public class AddHappyThingFragment extends Fragment {
         @Override
         public void afterTextChanged(Editable s) { }
     };
+
+
+
+    private View.OnClickListener btnChangeDate = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            DatePickerDialog dialog = new DatePickerDialog(getContext(), myDateListener, year, month, day);
+            dialog.show();
+            //showDialog(999);
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // arg1 = year, arg2 = month, arg3 = day
+                    showDate(arg1, arg2+1, arg3);
+                }
+            };
+
+    private void showDate(int year, int month, int day) {
+
+        Log.d("lana", "showDate entered");
+        editTextWhen.setText(new StringBuilder().append(day).append(".")
+                .append(month).append(".").append(year));
+    }
 }
