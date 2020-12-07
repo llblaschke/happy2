@@ -32,11 +32,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddHappyThingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AddHappyThingFragment extends Fragment {
 
     private EditText editTextWhat;
@@ -73,17 +69,14 @@ public class AddHappyThingFragment extends Fragment {
         buttonSave.setOnClickListener(btnClickSave);
         buttonSave.setEnabled(false);
 
-
         editTextWhat.addTextChangedListener(addHappyTextWatcher);
         editTextWith.addTextChangedListener(addHappyTextWatcher);
         editTextWhere.addTextChangedListener(addHappyTextWatcher);
-
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        //showDate(year, month+1, day);
 
         return v;
     }
@@ -95,14 +88,6 @@ public class AddHappyThingFragment extends Fragment {
     }
 
 
-    private View.OnTouchListener hideKeyboardListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            getActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-            return false;
-        }
-    };
-
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -112,7 +97,6 @@ public class AddHappyThingFragment extends Fragment {
             ((AppCompatEditText) parent.getViewById(R.id.edittextWithWhom)).setText("");
             ((AppCompatEditText) parent.getViewById(R.id.edittextWhere)).setText("");
 
-            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
             Toast.makeText(getContext(), "Currently not saving anything", Toast.LENGTH_LONG).show();
         }
     };
@@ -155,8 +139,6 @@ public class AddHappyThingFragment extends Fragment {
             };
 
     private void showDate(int year, int month, int day) {
-
-        Log.d("lana", "showDate entered");
         editTextWhen.setText(new StringBuilder().append(day).append(".")
                 .append(month).append(".").append(year));
     }
