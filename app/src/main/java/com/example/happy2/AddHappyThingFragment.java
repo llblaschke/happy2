@@ -124,7 +124,6 @@ public class AddHappyThingFragment extends Fragment {
         public void onClick(View v) {
             DatePickerDialog dialog = new DatePickerDialog(getContext(), myDateListener, year, month, day);
             dialog.show();
-            //showDialog(999);
         }
     };
 
@@ -138,8 +137,13 @@ public class AddHappyThingFragment extends Fragment {
                 }
             };
 
-    private void showDate(int year, int month, int day) {
-        editTextWhen.setText(new StringBuilder().append(day).append(".")
-                .append(month).append(".").append(year));
+    private void showDate(int yearnew, int monthnew, int daynew) {
+        String string;
+        if(yearnew == year && monthnew == month+1 && daynew == day){
+            string = getString(R.string.text_today);
+        }else{
+            string = new StringBuilder().append(daynew).append(".").append(monthnew).append(".").append(yearnew).toString();
+        }
+        editTextWhen.setText(string);
     }
 }
