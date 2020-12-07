@@ -1,6 +1,7 @@
 package com.example.happy2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
@@ -31,8 +32,8 @@ public class HomeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ((Button)v.findViewById(R.id.btnHappy)).setOnClickListener(btnClickHappyNotHappy);
-        ((Button)v.findViewById(R.id.btnNotHappy)).setOnClickListener(btnClickHappyNotHappy);
+        ((Button)v.findViewById(R.id.btnHappy)).setOnClickListener(btnClickHappy);
+        ((Button)v.findViewById(R.id.btnNotHappy)).setOnClickListener(btnClickNotHappy);
 
         return v;
     }
@@ -46,23 +47,20 @@ public class HomeFragment extends Fragment {
 
 
 
-    private View.OnClickListener btnClickHappyNotHappy = new View.OnClickListener() {
+    private View.OnClickListener btnClickNotHappy = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Fragment fragment;
-            switch (v.getId()){
-                case R.id.btnHappy:
-                    fragment = new AddHappyThingFragment();
-                    break;
-                case R.id.btnNotHappy:
-                    fragment = new NotHappyFragment();
-                    break;
-                default:
-                    fragment = new HomeFragment();
-                    break;
-            }
-            FragmentManager fm = getParentFragmentManager();
-            fm.beginTransaction().replace(R.id.mainFragmentContainer, fragment).commit();
+            getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
+                    new NotHappyFragment()).commit();
+        }
+    };
+
+
+    private View.OnClickListener btnClickHappy = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getContext(), AddHappyActivity.class);
+            startActivity(intent);
         }
     };
 }

@@ -19,24 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
-
-        // from KeyboardListenerActivity
-        //attachKeyboardListeners();
     }
 
-    /*// from KeyboardListenerActivity
-    @Override
-    protected void onShowKeyboard(int keyboardHeight) {
-        // do things when keyboard is shown
-        Toast.makeText(getApplicationContext(), "Keyboard on", Toast.LENGTH_SHORT).show();
-    }
-
-    // from KeyboardListenerActivity
-    @Override
-    protected void onHideKeyboard() {
-        // do things when keyboard is hidden
-        Toast.makeText(getApplicationContext(), "Keyboard off", Toast.LENGTH_SHORT).show();
-    }*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,10 +47,6 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new HomeFragment();
                     break;
             }
-
-//            FragmentManager fm = ((AppCompatActivity)getParent()).getSupportFragmentManager();
-//            ((AppCompatActivity)getParent()).getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
-//                    selectedFragment).commit();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
                     selectedFragment).commit();
             return true;
