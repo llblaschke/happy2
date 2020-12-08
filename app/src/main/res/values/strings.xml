@@ -15,13 +15,17 @@
     <string name="happy">Happy</string>
     <string name="unhappy">Not happy</string>
 
-    <string name="text_what_made_you_happy">What made you happy today?</string>
-    <string name="text_what_made_you_happy_add_more">Do you want to add more things that made you happy today?</string>
+    <string name="text_what_made_you_happy">What made you happy?</string>
+    <string name="text_what_made_you_happy_add_more">Do you want to add more things that made you happy?</string>
+    <string name="text_what_made_you_happy_what_else">What else made you happy?</string>
     <string name="question_what">What did you do?</string>
     <string name="question_with">With whom?</string>
     <string name="question_where">Where?</string>
     <string name="text_today">Today</string>
     <string name="button_change_date">Change date</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string name="text_not_happy_sorry">"I'm sorry that you had a bad day!"</string>
     <string name="alert_too_many_unhappy_days">"It's been X days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>

@@ -35,10 +35,11 @@ import java.util.Objects;
 
 public class AddHappyThingFragment extends Fragment {
 
+    private TextView textViewAddHappyThing;
     private EditText editTextWhat;
     private EditText editTextWith;
     private EditText editTextWhere;
-    private TextView editTextWhen;
+    private EditText editTextWhen;
     private Button buttonChangeDate;
     private Button buttonSave;
 
@@ -47,6 +48,11 @@ public class AddHappyThingFragment extends Fragment {
     private TextView dateView;
     private int year, month, day;
 
+    private boolean updateAddMore;
+
+    public AddHappyThingFragment(boolean updateTextToAddElse) {
+        updateAddMore = updateTextToAddElse;
+    }
     public AddHappyThingFragment() {
         // Required empty public constructor
     }
@@ -57,6 +63,7 @@ public class AddHappyThingFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_add_happy_thing, container, false);
 
+        textViewAddHappyThing = v.findViewById(R.id.txtAddHappyThing);
         editTextWhat = v.findViewById(R.id.edittextWhatDidYouDo);
         editTextWith = v.findViewById(R.id.edittextWithWhom);
         editTextWhere = v.findViewById(R.id.edittextWhere);
@@ -64,11 +71,15 @@ public class AddHappyThingFragment extends Fragment {
         buttonChangeDate = v.findViewById(R.id.btnChangeDate);
         buttonSave = v.findViewById(R.id.btnSave);
 
+        if(updateAddMore) {
+            updateTxtAddHappyThing();
+        }
+
         buttonChangeDate.setOnClickListener(btnChangeDate);
 
+        // Save button enables only if all EditTexts contain input
         buttonSave.setOnClickListener(btnClickSave);
         buttonSave.setEnabled(false);
-
         editTextWhat.addTextChangedListener(addHappyTextWatcher);
         editTextWith.addTextChangedListener(addHappyTextWatcher);
         editTextWhere.addTextChangedListener(addHappyTextWatcher);
@@ -91,13 +102,9 @@ public class AddHappyThingFragment extends Fragment {
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ConstraintLayout parent = (ConstraintLayout) v.getParent();
-            ((AppCompatTextView) parent.getViewById(R.id.txtAddHappyThing)).setText(R.string.text_what_made_you_happy_add_more);
-            ((AppCompatEditText) parent.getViewById(R.id.edittextWhatDidYouDo)).setText("");
-            ((AppCompatEditText) parent.getViewById(R.id.edittextWithWhom)).setText("");
-            ((AppCompatEditText) parent.getViewById(R.id.edittextWhere)).setText("");
-
             Toast.makeText(getContext(), "Currently not saving anything", Toast.LENGTH_LONG).show();
+            AddMoreHappyThingsDiaglog dialog = new AddMoreHappyThingsDiaglog();
+            dialog.show(getParentFragmentManager(), "addmorehappythingsdialog");
         }
     };
 
@@ -146,5 +153,9 @@ public class AddHappyThingFragment extends Fragment {
             string = new StringBuilder().append(daynew).append(".").append(monthnew).append(".").append(yearnew).toString();
         }
         editTextWhen.setText(string);
+    }
+
+    public void updateTxtAddHappyThing() {
+        textViewAddHappyThing.setText(R.string.text_what_made_you_happy_what_else);
     }
 }
