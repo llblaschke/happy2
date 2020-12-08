@@ -15,8 +15,6 @@
             android:label="@string/title_activity_add_happy"
             android:parentActivityName=".MainActivity">
         </activity>
-        <activity android:name=".IdeaListActivity" />
-        <activity android:name=".HappyListActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
