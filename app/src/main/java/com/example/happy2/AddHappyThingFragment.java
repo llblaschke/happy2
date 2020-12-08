@@ -123,6 +123,7 @@ public class AddHappyThingFragment extends Fragment {
         @Override
         public void onClick(View v) {
             DatePickerDialog dialog = new DatePickerDialog(getContext(), myDateListener, year, month, day);
+            dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
             dialog.show();
         }
     };
