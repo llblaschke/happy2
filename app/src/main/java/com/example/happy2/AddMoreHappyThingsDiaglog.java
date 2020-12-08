@@ -16,7 +16,7 @@ public class AddMoreHappyThingsDiaglog extends DialogFragment {
         builder.setMessage(R.string.text_what_made_you_happy_add_more)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        AddHappyThingFragment fragment = new AddHappyThingFragment(true);
+                        AddHappyThingFragment fragment = AddHappyThingFragment.newInstance(true);
                         getParentFragmentManager().beginTransaction().replace(R.id.addHappyFragmentContainer,
                                 fragment, "updatedFragmentAddHappy").commit();
                     }

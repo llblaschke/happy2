@@ -35,6 +35,10 @@ import java.util.Objects;
 
 public class AddHappyThingFragment extends Fragment {
 
+
+    private static final String TEXTVIEW_UPDATED = "updateAddMore";
+    private boolean updateAddMore;
+
     private TextView textViewAddHappyThing;
     private EditText editTextWhat;
     private EditText editTextWith;
@@ -48,13 +52,27 @@ public class AddHappyThingFragment extends Fragment {
     private TextView dateView;
     private int year, month, day;
 
-    private boolean updateAddMore;
 
-    public AddHappyThingFragment(boolean updateTextToAddElse) {
-        updateAddMore = updateTextToAddElse;
-    }
     public AddHappyThingFragment() {
         // Required empty public constructor
+    }
+
+    public static AddHappyThingFragment newInstance(boolean updateAddMore) {
+        AddHappyThingFragment fragment = new AddHappyThingFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(TEXTVIEW_UPDATED, updateAddMore);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            updateAddMore = getArguments().getBoolean((TEXTVIEW_UPDATED));
+        }else{
+            updateAddMore = false;
+        }
     }
 
     @Override
@@ -92,12 +110,6 @@ public class AddHappyThingFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onInflate(@NonNull Context context, @NonNull AttributeSet attrs,
-                          @Nullable Bundle savedInstanceState) {
-        super.onInflate(context, attrs, savedInstanceState);
-    }
-
 
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
@@ -111,7 +123,6 @@ public class AddHappyThingFragment extends Fragment {
     private TextWatcher addHappyTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String textWhat = editTextWhat.getText().toString().trim();
@@ -119,12 +130,9 @@ public class AddHappyThingFragment extends Fragment {
             String textWhere = editTextWhere.getText().toString().trim();
             buttonSave.setEnabled(!textWhat.isEmpty() && !textWith.isEmpty() && !textWhere.isEmpty());
         }
-
         @Override
         public void afterTextChanged(Editable s) { }
     };
-
-
 
     private View.OnClickListener btnChangeDate = new View.OnClickListener() {
         @Override
