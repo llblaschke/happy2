@@ -1,15 +1,20 @@
 package com.example.happy2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class HappyListFragment<list> extends Fragment {
+
+    public static final String TAG = "HappyListFragment";
+    
     private static int leftMarginMain = 50;
     private static int leftMarginSmall = 80;
     private static int topMarginMain = 20;
@@ -29,9 +34,18 @@ public class HappyListFragment<list> extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_list);
+
+        if (savedInstanceState == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            RecyclerViewFragment fragment = new RecyclerViewFragment();
+            transaction.replace(R.id.sample_content_fragment, fragment);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -51,5 +65,25 @@ public class HappyListFragment<list> extends Fragment {
             fragmentManager.beginTransaction().add(R.id.layoutHappyList, fragment, "listViewFragment"+i).commit();
         }
         return view;
+    }
+
+    /** Create a chain of targets that will receive log data */
+    @Override
+    public void initializeLogging() {
+        // Wraps Android's native log framework.
+        LogWrapper logWrapper = new LogWrapper();
+        // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
+        Log.setLogNode(logWrapper);
+
+        // Filter strips out everything except the message text.
+        MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
+        logWrapper.setNext(msgFilter);
+
+        // On screen logging via a fragment with a TextView.
+        LogFragment logFragment = (LogFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.log_fragment);
+        msgFilter.setNext(logFragment.getLogView());
+
+        Log.i(TAG, "Ready");
     }
 }
