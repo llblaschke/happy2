@@ -1,6 +1,5 @@
 package com.example.happy2;
 
-import android.content.Intent;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,9 +21,6 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     selectedFragment = new HomeFragment();
                     break;
                 case R.id.navigation_happy_list:
-                    Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                    startActivity(intent);
-                    openFragment = false;
                     selectedFragment = new HappyListFragment();
                     break;
                 case R.id.navigation_ideas:
@@ -45,7 +41,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
                         selectedFragment).commit();
             }
             return true;
-        };
+        }
     };
 
 }
