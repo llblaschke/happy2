@@ -1,36 +1,21 @@
 package com.example.happy2;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import java.util.Calendar;
-import java.util.Objects;
 
 
 public class AddHappyThingFragment extends Fragment {
@@ -79,7 +64,7 @@ public class AddHappyThingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_add_happy_thing, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_happy, container, false);
 
         textViewAddHappyThing = v.findViewById(R.id.txtAddHappyThing);
         editTextWhat = v.findViewById(R.id.edittextWhatDidYouDo);
