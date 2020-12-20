@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,26 +30,15 @@ public class HappyListFragment<list> extends Fragment {
         // Required empty public constructor
     }
 
-    public static HappyListFragment newInstance() {
-        return new HappyListFragment();
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStringLists();
-//        Fragment parent = getParentFragment();
-//        Fragment p = parent;
-//        View v = getView();
-//        recyclerView = getView().findViewById(R.id.recyclerView);
-//        ListAdapter listAdapter = new ListAdapter(getContext(), titleList, descList);
-//        recyclerView.setAdapter(listAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = getLayoutInflater().inflate(R.layout.fragment_happy_list, container, false);
         btnAdd = view.findViewById(R.id.btnAddInList);

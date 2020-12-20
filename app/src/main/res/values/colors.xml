@@ -6,8 +6,8 @@
 
     <color name="colorHappy">#BD0B48</color>
     <color name="colorHappyLight">#E686A7</color>
-    <color name="colorHappyLightTwo">#E6A4BB</color>
-    <color name="colorHappyDark">#420218</color>
+    <color name="colorHappyLightTwo">#E8C5D1</color>
+    <color name="colorHappyDark">#673E4C</color>
     <color name="colorNotHappy">#BD6D0B</color>
     <color name="colorNotHappyLight">#EFC587</color>
     <color name="colorNotHappyDark">#4E2603</color>
