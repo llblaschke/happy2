@@ -52,7 +52,7 @@ public class IdeaListFragment extends Fragment {
         btnAdd = view.findViewById(R.id.btnAddInList);
         btnAdd.setOnClickListener(btnAddIdea);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewInList);
+        recyclerView = view.findViewById(R.id.recyclerViewInList);
         MyListAdapter myListAdapter = new MyListAdapter(getContext(), titleList, descList);
         recyclerView.setAdapter(myListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -63,7 +63,7 @@ public class IdeaListFragment extends Fragment {
     private View.OnClickListener btnAddIdea = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getContext(), AddHappyActivity.class);
+            Intent intent = new Intent(getContext(), AddActivity.class);
             startActivity(intent);
         }
     };

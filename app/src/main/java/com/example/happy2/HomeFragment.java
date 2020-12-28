@@ -2,22 +2,15 @@ package com.example.happy2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 
 
 public class HomeFragment extends Fragment {
@@ -32,8 +25,8 @@ public class HomeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ((Button)v.findViewById(R.id.btnHappy)).setOnClickListener(btnClickHappy);
-        ((Button)v.findViewById(R.id.btnNotHappy)).setOnClickListener(btnClickNotHappy);
+        v.findViewById(R.id.btnHappy).setOnClickListener(btnClickHappy);
+        v.findViewById(R.id.btnNotHappy).setOnClickListener(btnClickNotHappy);
 
         return v;
     }
@@ -59,7 +52,7 @@ public class HomeFragment extends Fragment {
     private View.OnClickListener btnClickHappy = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getContext(), AddHappyActivity.class);
+            Intent intent = new Intent(getContext(), AddActivity.class);
             startActivity(intent);
         }
     };

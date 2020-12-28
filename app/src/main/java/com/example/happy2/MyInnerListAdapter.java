@@ -19,13 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
-public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHolder> {
+public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.MyViewHolder> {
     private final String TAG = "ListAdapter";
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
+    private int selectedItem;
 
-    public MyListAdapter(Context ct, String[] tl, String[] dl){
+    public MyInnerListAdapter(Context ct, String[] tl, String[] dl){
         context = ct;
         titleList = tl;
         descList = dl;
@@ -55,15 +56,18 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
-                boolean singleLine = holder.title.isSingleLine();
-                holder.title.setSingleLine(!singleLine);
-                holder.description.setSingleLine(!singleLine);
-                //Intent intent = new Intent(context, RowClickedActivity.class);
-                //intent.putExtra("data1", titleList[position]);
-                //context.startActivity(intent);
+                int previousItem = selectedItem;
+                selectedItem = position;
+//                boolean singleLine = holder.title.isSingleLine();
+//                holder.title.setSingleLine(!singleLine);
+//                holder.description.setSingleLine(!singleLine);
+                notifyItemChanged(previousItem);
+                notifyItemChanged(selectedItem);
             }
         });
     }
+
+
 
     @Override
     public int getItemCount() {
