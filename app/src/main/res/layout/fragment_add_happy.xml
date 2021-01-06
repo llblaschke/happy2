@@ -71,6 +71,23 @@
         app:layout_constraintTop_toBottomOf="@+id/edittextWithWhom" />
 
     <EditText
+        android:id="@+id/edittextInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/additional_information"
+        android:inputType="textMultiLine"
+        android:textColor="@color/colorHappyDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWhen" />
+
+    <EditText
         android:id="@+id/editTextWhen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -96,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangeDate" />
+        app:layout_constraintTop_toBottomOf="@+id/edittextInfo" />
 
     <Button
         android:id="@+id/btnChangeDate"

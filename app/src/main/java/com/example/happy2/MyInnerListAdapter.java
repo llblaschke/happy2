@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.example.happy2.R.color.colorHappyLight;
@@ -24,7 +25,6 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
-    private int selectedItem;
 
     public MyInnerListAdapter(Context ct, String[] tl, String[] dl){
         context = ct;
@@ -56,17 +56,23 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
-                int previousItem = selectedItem;
-                selectedItem = position;
-//                boolean singleLine = holder.title.isSingleLine();
-//                holder.title.setSingleLine(!singleLine);
-//                holder.description.setSingleLine(!singleLine);
-                notifyItemChanged(previousItem);
-                notifyItemChanged(selectedItem);
+                boolean singleLine = holder.title.isSingleLine();
+                holder.title.setSingleLine(!singleLine);
+                holder.description.setSingleLine(!singleLine);
             }
         });
-    }
+        holder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
 
+                LongClickDiaglog dialog = new LongClickDiaglog();
+                dialog.setTargetFragment(context, 0);
+                dialog.show(getFragmentManager(), "sortByDialog");
+                return false;
+            }
+
+        });
+    }
 
 
     @Override

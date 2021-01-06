@@ -58,9 +58,6 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
                 boolean singleLine = holder.title.isSingleLine();
                 holder.title.setSingleLine(!singleLine);
                 holder.description.setSingleLine(!singleLine);
-                //Intent intent = new Intent(context, RowClickedActivity.class);
-                //intent.putExtra("data1", titleList[position]);
-                //context.startActivity(intent);
             }
         });
     }

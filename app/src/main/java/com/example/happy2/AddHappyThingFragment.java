@@ -29,6 +29,7 @@ public class AddHappyThingFragment extends Fragment {
     private EditText editTextWith;
     private EditText editTextWhere;
     private EditText editTextWhen;
+    private EditText editTextInfo;
     private Button buttonChangeDate;
     private Button buttonSave;
 
@@ -71,6 +72,7 @@ public class AddHappyThingFragment extends Fragment {
         editTextWith = v.findViewById(R.id.edittextWithWhom);
         editTextWhere = v.findViewById(R.id.edittextWhere);
         editTextWhen = v.findViewById(R.id.editTextWhen);
+        editTextInfo = v.findViewById(R.id.edittextInfo);
         buttonChangeDate = v.findViewById(R.id.btnChangeDate);
         buttonSave = v.findViewById(R.id.btnSave);
 
