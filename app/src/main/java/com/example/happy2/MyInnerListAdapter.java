@@ -41,7 +41,6 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_row, parent, false);
         final MyViewHolder holder = new MyViewHolder(view);
-        final LongClickDiaglog dialog = new LongClickDiaglog();
 
         holder.cardView.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.Q)
