@@ -25,6 +25,7 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
+    private FragmentManager fm;
 
     public MyInnerListAdapter(Context ct, String[] tl, String[] dl){
         context = ct;
@@ -39,7 +40,25 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_row, parent, false);
-        return new MyViewHolder(view);
+        final MyViewHolder holder = new MyViewHolder(view);
+        final LongClickDiaglog dialog = new LongClickDiaglog();
+
+        holder.cardView.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.Q)
+            @Override
+            public void onClick(View v) {
+                boolean singleLine = holder.title.isSingleLine();
+                holder.title.setSingleLine(!singleLine);
+                holder.description.setSingleLine(!singleLine);
+            }
+        });
+//        holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                return false;
+//            }
+//        });
+        return holder;
     }
 
     @SuppressLint("ResourceAsColor")
@@ -52,26 +71,22 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
         }else{
             holder.cardView.setBackgroundColor(background2);
         }
-        holder.rowView.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean singleLine = holder.title.isSingleLine();
-                holder.title.setSingleLine(!singleLine);
-                holder.description.setSingleLine(!singleLine);
             }
         });
-        holder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                LongClickDiaglog dialog = new LongClickDiaglog();
-                dialog.setTargetFragment(context, 0);
-                dialog.show(getFragmentManager(), "sortByDialog");
-                return false;
-            }
-
-        });
+//        holder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//
+//                LongClickDiaglog dialog = new LongClickDiaglog();
+//                dialog.setTargetFragment(context, 0);
+//                dialog.show(getFragmentManager(), "sortByDialog");
+//                return false;
+//            }
+//
+//        });
     }
 
 
