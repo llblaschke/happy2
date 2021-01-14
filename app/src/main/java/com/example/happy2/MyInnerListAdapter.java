@@ -21,7 +21,7 @@ import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.MyViewHolder> {
-    private final String TAG = "ListAdapter";
+    private final String TAG = "MyInnerListAdapter";
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
@@ -52,12 +52,6 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
                 holder.description.setSingleLine(!singleLine);
             }
         });
-//        holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                return false;
-//            }
-//        });
         return holder;
     }
 
@@ -68,25 +62,7 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
         holder.description.setText(descList[position]);
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
-        }else{
-            holder.cardView.setBackgroundColor(background2);
-        }
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-//        holder.rowView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//
-//                LongClickDiaglog dialog = new LongClickDiaglog();
-//                dialog.setTargetFragment(context, 0);
-//                dialog.show(getFragmentManager(), "sortByDialog");
-//                return false;
-//            }
-//
-//        });
+        }else holder.cardView.setBackgroundColor(background2);
     }
 
 
