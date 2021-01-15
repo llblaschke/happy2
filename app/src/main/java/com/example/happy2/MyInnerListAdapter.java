@@ -3,6 +3,7 @@ package com.example.happy2;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,6 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.example.happy2.R.color.colorHappyLight;
@@ -25,7 +25,6 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
-    private FragmentManager fm;
 
     public MyInnerListAdapter(Context ct, String[] tl, String[] dl){
         context = ct;
@@ -40,18 +39,7 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_row, parent, false);
-        final MyViewHolder holder = new MyViewHolder(view);
-
-        holder.cardView.setOnClickListener(new View.OnClickListener(){
-            @RequiresApi(api = Build.VERSION_CODES.Q)
-            @Override
-            public void onClick(View v) {
-                boolean singleLine = holder.title.isSingleLine();
-                holder.title.setSingleLine(!singleLine);
-                holder.description.setSingleLine(!singleLine);
-            }
-        });
-        return holder;
+        return new MyViewHolder(view);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -73,17 +61,63 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
         return titleList.length;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+
+    // MyViewHolder
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+
+        private final String TAG = "MyViewHolder_InnerList";
+
+        /**
+         * Define view's elements
+         */
         TextView title, description;
         CardView cardView;
         ConstraintLayout rowView;
 
+        // Constructor (my)
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvRowTitle);
             description = itemView.findViewById(R.id.tvRowDescription);
             cardView = itemView.findViewById(R.id.cvRowWhole);
             rowView = itemView.findViewById(R.id.list_row);
+
+            itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
         }
+
+        /**
+         * Method to handle a click on the item
+         * @param v View to handle click on
+         */
+        @RequiresApi(api = Build.VERSION_CODES.Q)
+        public void onClick(View v) {
+            boolean singleLine = title.isSingleLine();
+            title.setSingleLine(!singleLine);
+            description.setSingleLine(!singleLine);
+            Log.v(TAG, "Short click!");
+        }
+
+        /**
+         * TODO
+         * Method to handle long click on the item
+         * @param v View to handle click on
+         * @return SOMETHING?
+         */
+        @Override
+        public boolean onLongClick(View v) {
+            Log.v(TAG, "Long click fired!");
+            return false;
+        }
+
+        /*
+         TODO see if we need the update data function
+         * Function to update view's elements
+         * @param message Good data to be updated to
+        public void bindData(Item message) {
+            mData = message;
+             * Set values of views here
+
+        }*/
     }
 }
