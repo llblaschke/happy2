@@ -20,7 +20,7 @@ import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHolder> {
-    private final String TAG = "ListAdapter";
+    private final String TAG = "MyListAdapter";
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
@@ -38,6 +38,18 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_row, parent, false);
+        final MyViewHolder holder = new MyViewHolder(view);
+
+        holder.rowView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
+            @Override
+            public void onClick(View v) {
+                boolean singleLine = holder.title.isSingleLine();
+                holder.title.setSingleLine(!singleLine);
+                holder.description.setSingleLine(!singleLine);
+            }
+        });
+
         return new MyViewHolder(view);
     }
 
@@ -51,15 +63,6 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
         }else{
             holder.cardView.setBackgroundColor(background2);
         }
-        holder.rowView.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
-            @Override
-            public void onClick(View v) {
-                boolean singleLine = holder.title.isSingleLine();
-                holder.title.setSingleLine(!singleLine);
-                holder.description.setSingleLine(!singleLine);
-            }
-        });
     }
 
     @Override
