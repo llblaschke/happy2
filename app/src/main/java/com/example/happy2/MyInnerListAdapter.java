@@ -62,19 +62,17 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
     }
 
 
-    // MyViewHolder
+    /**
+     * MyViewHolder
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private final String TAG = "MyViewHolder_InnerList";
 
-        /**
-         * Define view's elements
-         */
         TextView title, description;
         CardView cardView;
         ConstraintLayout rowView;
 
-        // Constructor (my)
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvRowTitle);
@@ -111,7 +109,7 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
         }
 
         /*
-         TODO see if we need the update data function
+         TODO see if we need the update view's elements function
          * Function to update view's elements
          * @param message Good data to be updated to
         public void bindData(Item message) {
