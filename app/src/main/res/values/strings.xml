@@ -29,6 +29,7 @@
     <string name="no">No</string>
     <string name="delete">Delete item</string>
     <string name="change">Change item</string>
+    <string name="Change_or_delete_item_question">Do you want to delete or change this item?</string>
 
     <string name="text_not_happy_sorry">"I'm sorry that you had a bad day!"</string>
     <string name="alert_too_many_unhappy_days">"It's been X days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>

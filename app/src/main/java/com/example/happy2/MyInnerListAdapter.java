@@ -3,6 +3,7 @@ package com.example.happy2;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -106,24 +107,21 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
         @Override
         public boolean onLongClick(View v) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);//,R.style.confirmdialog);
-            alertDialog.setTitle("title");
-            alertDialog.setMessage("no hardcoded Strings here");
-            /*
-            alertDialog.setPositiveButton(actionLabel,
+            alertDialog.setTitle(R.string.Change_or_delete_item_question);
+            alertDialog.setPositiveButton(R.string.delete,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            callback.callbackCall();
+                            Toast.makeText(context, "delete pressed", Toast.LENGTH_SHORT).show();
                         }
                     });
             // on pressing cancel button
-            alertDialog.setNegativeButton("Cancel",
+            alertDialog.setNegativeButton(R.string.change,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
+                            Toast.makeText(context, "change pressed", Toast.LENGTH_SHORT).show();
                         }
                     });
-            */
-            // Showing Alert Message
+
             alertDialog.show();
             Log.v(TAG, "Long click fired!");
             return false;
