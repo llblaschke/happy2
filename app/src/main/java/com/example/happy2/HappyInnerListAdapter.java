@@ -23,7 +23,7 @@ import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAdapter.MyViewHolder> {
-    private final String TAG = "MyInnerListAdapter";
+    private final String TAG = "HappyInnerListAdapter";
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
