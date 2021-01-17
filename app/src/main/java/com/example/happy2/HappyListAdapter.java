@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
-public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHolder> {
+public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyViewHolder> {
     private final String TAG = "MyListAdapter";
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
 
-    public MyListAdapter(Context ct, String[] tl, String[] dl){
+    public HappyListAdapter(Context ct, String[] tl, String[] dl){
         context = ct;
         titleList = tl;
         descList = dl;

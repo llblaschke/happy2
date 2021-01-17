@@ -22,13 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
-public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.MyViewHolder> {
-    private final String TAG = "MyInnerListAdapter";
+public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyViewHolder> {
+    private final String TAG = "IdeaListAdapter";
     private String[] titleList, descList;
     private Context context;
     private int background1, background2;
 
-    public MyInnerListAdapter(Context ct, String[] tl, String[] dl){
+    public IdeaListAdapter(Context ct, String[] tl, String[] dl){
         context = ct;
         titleList = tl;
         descList = dl;
@@ -69,7 +69,7 @@ public class MyInnerListAdapter extends RecyclerView.Adapter<MyInnerListAdapter.
      */
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
-        private final String TAG = "MyViewHolder_InnerList";
+        private final String TAG = "MyViewHolder_IdeaList";
 
         TextView title, description;
         CardView cardView;
