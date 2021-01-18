@@ -25,6 +25,9 @@
     <string name="button_change_date">Change date</string>
     <string name="additional_information">Additional information</string>
 
+    <string name="text_what_might_make_you_happy">What might make you happy?</string>
+    <string name="idea">Idea</string>
+
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete">Delete item</string>
