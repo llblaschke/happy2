@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextWhen" />
+        app:layout_constraintTop_toBottomOf="@+id/edittextWhere" />
 
     <EditText
         android:id="@+id/editTextWhen"
@@ -100,20 +100,20 @@
         android:longClickable="false"
         android:text="@string/text_today"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextWhere" />
+        app:layout_constraintTop_toBottomOf="@+id/edittextInfo" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="@string/Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextWhen" />
 
     <Button
         android:id="@+id/btnChangeDate"
