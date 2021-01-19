@@ -1,10 +1,18 @@
 package com.example.happy2;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddActivity extends AppCompatActivity {
+    private final String TAG = "AddActivity";
+    private final String FRAG_IDEA = "Idea";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,19 +21,27 @@ public class AddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white);
 
-        String intentFragment = getIntent().getExtras().getString("fragmentToLoad");
-
-        switch (intentFragment){
-            case "Idea":
-                getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
-                        new AddIdeaFragment(), "AddIdeaFragment").commit();
-                break;
-            default:
-                getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
-                        new AddHappyThingFragment(), "updatedFragmentAddHappy").commit();
-                break;
+        String fragmentToLoad = "Add";
+        try {
+            fragmentToLoad = getIntent().getExtras().getString("fragmentToLoad");
+        }catch (NullPointerException e) {
+            Log.d(TAG, "fragmentToLoad gives NullPointerException");
         }
 
+        if(fragmentToLoad.equals(FRAG_IDEA)) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
+                    new AddIdeaFragment(), "AddIdeaFragment").commit();
+        }else{
+                getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
+                        new AddHappyThingFragment(), "updatedFragmentAddHappy").commit();
+        }
+
+    }
+
+    public void closeActivity(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        this.finish();
     }
 
 }
