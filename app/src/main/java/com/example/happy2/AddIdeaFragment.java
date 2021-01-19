@@ -49,7 +49,6 @@ public class AddIdeaFragment extends Fragment {
         v.findViewById(R.id.edittextWithWhom).setVisibility(View.GONE);
         v.findViewById(R.id.edittextWhere).setVisibility(View.GONE);
         v.findViewById(R.id.editTextWhen).setVisibility(View.GONE);
-        v.findViewById(R.id.edittextInfo).setVisibility(View.GONE);
         v.findViewById(R.id.btnChangeDate).setVisibility(View.GONE);
         buttonSave = v.findViewById(R.id.btnSave);
 
@@ -69,6 +68,7 @@ public class AddIdeaFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Toast.makeText(getContext(), "Currently not saving anything", Toast.LENGTH_LONG).show();
+
         }
     };
 
