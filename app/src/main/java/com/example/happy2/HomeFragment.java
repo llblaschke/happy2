@@ -27,6 +27,7 @@ public class HomeFragment extends Fragment {
 
         v.findViewById(R.id.btnHappy).setOnClickListener(btnClickHappy);
         v.findViewById(R.id.btnNotHappy).setOnClickListener(btnClickNotHappy);
+        v.findViewById(R.id.btnAddIdea).setOnClickListener(btnAddIdea);
 
         return v;
     }
@@ -53,6 +54,16 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getContext(), AddActivity.class);
+            startActivity(intent);
+        }
+    };
+
+
+    private View.OnClickListener btnAddIdea = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getContext(), AddActivity.class);
+            intent.putExtra("loadIdeaFragment", true);
             startActivity(intent);
         }
     };

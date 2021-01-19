@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddActivity extends AppCompatActivity {
     private final String TAG = "AddActivity";
-    private final String FRAG_IDEA = "Idea";
 
 
     @Override
@@ -21,14 +20,14 @@ public class AddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white);
 
-        String fragmentToLoad = "Add";
+        boolean loadIdeaFragment = false;
         try {
-            fragmentToLoad = getIntent().getExtras().getString("fragmentToLoad");
+            loadIdeaFragment = getIntent().getExtras().getBoolean("loadIdeaFragment");
         }catch (NullPointerException e) {
-            Log.d(TAG, "fragmentToLoad gives NullPointerException");
+            Log.d(TAG, "loadIdeaFragment gives NullPointerException");
         }
 
-        if(fragmentToLoad.equals(FRAG_IDEA)) {
+        if(loadIdeaFragment) {
             getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
                     new AddIdeaFragment(), "AddIdeaFragment").commit();
         }else{

@@ -21,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class IdeaListFragment extends Fragment {
 
     public static final String TAG = "IdeaListFragment";
-    public static final String ADDIDEAFRAGMENT = "Idea";
     private MyList myList = new MyList("Idea");
     private String[] titleList;
     private String[] descList;
@@ -65,7 +64,7 @@ public class IdeaListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getContext(), AddActivity.class);
-            intent.putExtra("fragmentToLoad", ADDIDEAFRAGMENT);
+            intent.putExtra("loadIdeaFragment", true);
             startActivity(intent);
         }
     };
