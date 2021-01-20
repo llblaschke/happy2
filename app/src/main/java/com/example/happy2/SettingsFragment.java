@@ -17,19 +17,23 @@ public class SettingsFragment extends PreferenceFragmentCompat implements TimePi
         final Preference preferenceTimerOn = getPreferenceManager().findPreference("switchPrefSelectedTime");
         preferenceTimerOn.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                ((SwitchPreference) preference).setChecked((boolean) newValue);
+            public boolean onPreferenceChange(Preference preference, Object nv) {
+                boolean newValue = (boolean) nv;
+                ((SwitchPreference) preference).setChecked(newValue);
                 return true;
             }
         });
-
-        final Preference preferenceAbout = getPreferenceManager().findPreference("editTextbout");
-        preferenceAbout.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        preferenceTimerOn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
+            public boolean onPreferenceClick(Preference preference) {
+//                if(((SwitchPreference) preference).isChecked()){
+//                    DialogFragment timePicker = new TimePickerFragment();
+//                    timePicker.show(getChildFragmentManager(), "time picker");
+//                }
                 return false;
             }
         });
+
     }
 
     @Override

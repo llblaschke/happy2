@@ -34,6 +34,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:summary="@string/about_copyright"
-        android:title="@string/about_summary" />
+        android:title="@string/about_summary"
+        app:enabled="false" />
 
 </PreferenceScreen>
