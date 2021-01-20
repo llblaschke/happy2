@@ -1,35 +1,39 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="false"
+    android:contextClickable="false"
+    android:longClickable="false">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/timer_header">
+
+        <SwitchPreference
+            android:id="@+id/switchPrefSelectedTime"
+            android:defaultValue="true"
+            app:key="switchPrefSelectedTime"
+            app:title="@string/timer" />
 
         <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+            android:defaultValue="true"
+            android:key="editTextSelectTime"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="@string/notification_click_to_change"
+            android:title="@string/notification_time"
+            app:dependency="switchPrefSelectedTime" />
 
     </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+    <PreferenceCategory android:title="@string/about_header">
 
     </PreferenceCategory>
+    <EditTextPreference
+        android:clickable="false"
+        android:contextClickable="false"
+        android:defaultValue="Default value"
+        android:key="editTextAbout"
+        android:longClickable="false"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/about_copyright"
+        android:title="@string/about_summary" />
 
 </PreferenceScreen>

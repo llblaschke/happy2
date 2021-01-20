@@ -67,4 +67,18 @@
     <string name="with_whom">With whom</string>
     <string name="date">Date</string>
 
+    <string name="ask_if_happy_at">Ask me if I am happy at </string>
+    <string name="timer_header">Timer</string>
+    <string name="timer">Do you want to be reminded via notification?</string>
+    <string name="notification_time">Notification at </string>
+    <string name="notification_click_to_change">Click to change notification time</string>
+    <string name="notification_off">Notification turned off</string>
+    <string name="notification_off_hint">Turn on the notification to select a time</string>
+
+    <string name="about_header">About</string>
+    <string name="about_copyright">Copyright @ Lana L. Blaschke</string>
+    <string name="about_summary">Hey, I did that! I hope it will help you to find out what makes you happy and thus to lead a content and satisfied life.
+    \nI build this app with the greatest diligence and good intents, but I cannot guarantee for anything. So be warned that it might break your phone, make you less happy, or what so ever.
+    If you have any feedback or want to send me a virtual hug, feel free to do so (lblaschke@posteo.de). Furthermore, you can buy me a coffee or beer on Paypal (paypal.me/LaLBla)! </string>
+
 </resources>
