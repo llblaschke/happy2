@@ -28,6 +28,7 @@ public class AddActivity extends AppCompatActivity {
         }
 
         if(loadIdeaFragment) {
+            getSupportActionBar().setTitle(R.string.title_ideas);
             getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
                     new AddIdeaFragment(), "AddIdeaFragment").commit();
         }else{
