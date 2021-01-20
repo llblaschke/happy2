@@ -37,8 +37,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 default:
-                    selectedFragment = new HomeFragment();
-                    break;
+                    return false;
             }
             if(openFragment) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,

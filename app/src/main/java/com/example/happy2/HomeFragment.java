@@ -39,6 +39,17 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        int selectedItemId = ((MainActivity) getActivity()).bottomNavigationView.getSelectedItemId();
+        if (selectedItemId != R.id.navigation_home) {
+            ((MainActivity) getActivity()).bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        }
+    }
+
+
+
 
 
     private View.OnClickListener btnClickNotHappy = new View.OnClickListener() {

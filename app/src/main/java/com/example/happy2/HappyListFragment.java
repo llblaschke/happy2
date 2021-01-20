@@ -62,6 +62,15 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        int selectedItemId = ((MainActivity) getActivity()).bottomNavigationView.getSelectedItemId();
+        if (selectedItemId != R.id.navigation_happy_list) {
+            ((MainActivity) getActivity()).bottomNavigationView.setSelectedItemId(R.id.navigation_happy_list);
+        }
+    }
+
     private View.OnClickListener btnAddHappyThing = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
