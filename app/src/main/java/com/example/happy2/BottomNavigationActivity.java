@@ -1,5 +1,6 @@
 package com.example.happy2;
 
+import android.content.Intent;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,10 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     selectedFragment = new CalendarFragment();
                     break;
                 case R.id.navigation_settings:
+                    openFragment = false;
                     selectedFragment = new SettingsFragment();
+                    Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+                    startActivity(intent);
                     break;
                 default:
                     selectedFragment = new HomeFragment();
