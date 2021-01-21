@@ -1,10 +1,8 @@
 package com.example.happy2;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +28,6 @@ public class AddIdeaFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static AddIdeaFragment newInstance(boolean updateAddMore) {
-        return new AddIdeaFragment();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,13 +65,7 @@ public class AddIdeaFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Toast.makeText(getContext(), "Currently not saving anything", Toast.LENGTH_LONG).show();
-            Context ct;
-            try {
-                ct = getContext();
-                if(ct != null) {((AddActivity) getActivity()).closeActivity(ct, v);}
-            }catch (NullPointerException e){
-                Log.d(TAG, "NullPointerException catched: getContext()");
-            }
+            getActivity().finish();
         }
     };
 
