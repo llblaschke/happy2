@@ -3,8 +3,10 @@ package com.example.happy2;
 import android.annotation.TargetApi;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -34,8 +36,26 @@ public class NotificationHelper extends ContextWrapper {
     }
     public NotificationCompat.Builder getChannelNotification() {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
-                .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.")
-                .setSmallIcon(R.drawable.ic_happy_white);
+                .setContentTitle(getResources().getString(R.string.question_are_you_happy))
+                .setSmallIcon(R.drawable.ic_app_icon_white)
+                .addAction(
+                        R.drawable.ic_happy_white,
+                        getResources().getString(R.string.happy),
+                        PendingIntent.getActivity(
+                                getBaseContext(),
+                                01,
+                                new Intent(getBaseContext(), AddActivity.class),
+                                0)
+                )
+
+                .addAction(
+                        R.drawable.ic_unhappy_white,
+                        getResources().getString(R.string.happy),
+                        PendingIntent.getActivity(
+                                getBaseContext(),
+                                01,
+                                new Intent(getBaseContext(), MainActivity.class),
+                                0)
+                );
     }
 }

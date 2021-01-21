@@ -62,7 +62,7 @@
             android:contentDescription="clock"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNotificationSwitch"
-            app:srcCompat="@drawable/ic_time_white" />
+            app:srcCompat="@drawable/ic_time" />
 
         <TextView
             android:id="@+id/tvNotificationTime"
