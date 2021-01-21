@@ -69,9 +69,10 @@
 
     <string name="ask_if_happy_at">Ask me if I am happy at </string>
     <string name="timer_header">Notification</string>
-    <string name="timer">Do you want to be reminded via notification?</string>
-    <string name="notification_time">Notification at </string>
-    <string name="notification_click_to_change">Click clock button to change time</string>
+    <string name="daily_notification">Daily Notification</string>
+    <string name="timer">Do you want a daily notification?</string>
+    <string name="notification_time">Notification set at \ </string>
+    <string name="notification_click_to_change">Click button to change time</string>
     <string name="notification_off">Notification turned off</string>
     <string name="notification_on">Notification turned on</string>
     <string name="notification_off_hint">Turn on the notification to select a time</string>
