@@ -50,7 +50,7 @@ public class NotificationHelper extends ContextWrapper {
 
                 .addAction(
                         R.drawable.ic_unhappy_white,
-                        getResources().getString(R.string.happy),
+                        getResources().getString(R.string.unhappy),
                         PendingIntent.getActivity(
                                 getBaseContext(),
                                 01,
