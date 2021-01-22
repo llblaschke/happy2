@@ -38,26 +38,7 @@
     <string name="text_not_happy_sorry">"I'm sorry that you had a bad day!"</string>
     <string name="alert_too_many_unhappy_days">"It's been X days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>
     <string name="title_activity_bottom_navigation_test">MainActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="title_activity_tabbed">TabbedActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="title_activity_list">ListActivity</string>
 
     <string name="sort_by_question">By what do you want to sort your list?</string>
     <string name="sort_by">Show</string>
@@ -66,6 +47,8 @@
     <string name="where">Where</string>
     <string name="with_whom">With whom</string>
     <string name="date">Date</string>
+
+    <string name="empty_list">This list is still empty</string>
 
     <string name="ask_if_happy_at">Ask me if I am happy at </string>
     <string name="timer_header">Notification</string>
