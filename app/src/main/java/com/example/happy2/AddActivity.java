@@ -40,13 +40,12 @@ public class AddActivity extends AppCompatActivity {
 
     public void onPause() {
         super.onPause();
-        //InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        Log.d("ADD ACTIVITY", "in onPause()");
+        // Close SoftKeyBoard from:
+        // https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-using-java#1109108
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
+        // Find the currently focused view, so we can grab the correct window token from it.
         View view = getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        // If no view currently has focus, create a new one, just so we can grab a window token from it
         if (view == null) {
             view = new View(this);
         }
