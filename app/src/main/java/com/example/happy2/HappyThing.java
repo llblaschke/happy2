@@ -1,11 +1,8 @@
 package com.example.happy2;
 
-import android.graphics.Path;
-
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import java.util.Date;
 
 @Entity(tableName = "happy_table")
 public class HappyThing {
@@ -17,10 +14,11 @@ public class HappyThing {
     private String with;
     private String where;
     private String adInfo;
-    private Date when;
-    private Path picPath;
+    private String when;
+    @Ignore
+    private String picPath;
 
-    public HappyThing(String what, String with, String where, String adInfo, Date when) {
+    public HappyThing(String what, String with, String where, String adInfo, String when) {
         this.what = what;
         this.with = with;
         this.where = where;
@@ -52,11 +50,11 @@ public class HappyThing {
         return adInfo;
     }
 
-    public Date getWhen() {
+    public String getWhen() {
         return when;
     }
 
-    public Path getPicPath() {
+    public String getPicPath() {
         return picPath;
     }
 }
