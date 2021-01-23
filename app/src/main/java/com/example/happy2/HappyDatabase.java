@@ -1,7 +1,6 @@
 package com.example.happy2;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
@@ -10,14 +9,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import static com.example.happy2.R.string.empty_list;
-
 @Database(entities = {HappyThing.class}, version = 1)
 public abstract class HappyDatabase extends RoomDatabase {
 
     private static HappyDatabase instance;
     public abstract HappyDao happyDao();
-    private static String emptyList = Resources.getSystem().getString(empty_list);
+    // TODO: get hardcoding out of here!
+    private static String emptyList = "This list is still empty (AND YOU SHOULD NOT HARDCODE STRINGS)";
 
 
     public static synchronized HappyDatabase getInstance(Context context) {
