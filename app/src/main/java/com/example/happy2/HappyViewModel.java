@@ -34,4 +34,8 @@ public class HappyViewModel extends AndroidViewModel {
     public void deleteAllHappyThings(){
         repository.deleteAllHappyThings();
     }
+
+    public LiveData<List<HappyThing>> getAllHappyThings() {
+        return allHappyThings;
+    }
 }
