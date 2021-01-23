@@ -7,11 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,12 +26,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class IdeaListFragment extends Fragment {
 
     public static final String TAG = "IdeaListFragment";
-    private MyList myList = new MyList("Idea");
-    private String[] titleList;
-    private String[] descList;
 
-    FloatingActionButton btnAdd;
-    RecyclerView recyclerView;
+    private IdeaViewModel ideaViewModel;
+
+    private FloatingActionButton btnAdd;
+    private RecyclerView recyclerView;
 
 
 
@@ -35,14 +39,18 @@ public class IdeaListFragment extends Fragment {
     }
 
     public static IdeaListFragment newInstance() {
-        return new IdeaListFragment();
+
+        Bundle args = new Bundle();
+
+        IdeaListFragment fragment = new IdeaListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStringLists();
     }
 
     @Override
@@ -54,12 +62,24 @@ public class IdeaListFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerViewInList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
         IdeaListAdapter myListAdapter = new IdeaListAdapter(getContext());
         recyclerView.setAdapter(myListAdapter);
 
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ideaViewModel = ViewModelProviders.of(getActivity()).get(IdeaViewModel.class);
+        ideaViewModel.getAllIdeas().observe(getViewLifecycleOwner(), new Observer<List<Idea>>() {
+            @Override
+            public void onChanged(List<Idea> ideas) {
+
+            }
+        });
+    }
 
     @Override
     public void onResume() {
@@ -80,9 +100,5 @@ public class IdeaListFragment extends Fragment {
     };
 
 
-    private void setStringLists(){
-        titleList = myList.getList()[0];
-        descList = myList.getList()[1];
-    }
 
 }
