@@ -25,7 +25,7 @@ public class MyList {
 
         }else if(listType.equals("Idea")) {
             dimTwo = 2; // Idea, Description
-            list = new String[][]{{"Telefonieren", "Flügelschlag", "Programmieren", "Lesen"},
+            list = new String[][]{{"Telefonieren", "Flügelschlag Spielen mit guten Vögeln (mit tollen Fähigkeiten)", "Programmieren", "Lesen"},
                     {"zB mit Anna, Manu, Lukas, Mama, Mara, Jürgen oder anderen Leuten",  "mit Dominik übers Internet", "", ""}};
 
         }else {
