@@ -20,19 +20,19 @@ public class IdeaRepository {
 
 
     public void insert(Idea idea){
-
+        new InsertIdeaAsyncTask(ideaDao).execute(idea);
     }
 
     public void update(Idea idea){
-
+        new UpdateIdeaAsyncTask(ideaDao).execute(idea);
     }
 
     public void delete(Idea idea){
-
+        new DeleteIdeaAsyncTask(ideaDao).execute(idea);
     }
 
     public void deleteAllIdeas(){
-
+        new DeleteAllIdeasAsyncTask(ideaDao).execute();
     }
 
     public LiveData<List<Idea>> getAllIdeas(){
