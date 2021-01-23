@@ -53,9 +53,9 @@ public class IdeaListFragment extends Fragment {
         btnAdd.setOnClickListener(btnAddIdea);
 
         recyclerView = view.findViewById(R.id.recyclerViewInList);
-        IdeaListAdapter myListAdapter = new IdeaListAdapter(getContext(), titleList, descList);
-        recyclerView.setAdapter(myListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        IdeaListAdapter myListAdapter = new IdeaListAdapter(getContext());
+        recyclerView.setAdapter(myListAdapter);
 
         return view;
     }

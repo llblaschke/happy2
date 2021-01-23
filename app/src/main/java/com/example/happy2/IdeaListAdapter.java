@@ -19,19 +19,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyViewHolder> {
     private final String TAG = "IdeaListAdapter";
-    private String[] titleList, descList;
+
+    private List<Idea> ideas = new ArrayList<>();
+
     private Context context;
     private int background1, background2;
 
-    public IdeaListAdapter(Context ct, String[] tl, String[] dl){
+    public IdeaListAdapter(Context ct){
         context = ct;
-        titleList = tl;
-        descList = dl;
         background1 = ContextCompat.getColor(context, colorHappyLight);
         background2 = ContextCompat.getColor(context, colorHappyLightTwo);
     }
@@ -39,16 +42,18 @@ public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.list_row, parent, false);
-        return new MyViewHolder(view);
+        View itemView = LayoutInflater.from(context)
+                .inflate(R.layout.list_row, parent, false);
+        return new MyViewHolder(itemView);
     }
 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.title.setText(titleList[position]);
-        holder.description.setText(descList[position]);
+        Idea idea = ideas.get(position);
+
+        holder.title.setText(idea.getWhat());
+        holder.description.setText(idea.getAdInfo());
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
         }else holder.cardView.setBackgroundColor(background2);
@@ -57,10 +62,12 @@ public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyView
 
     @Override
     public int getItemCount() {
-        if(titleList.length != descList.length){
-            Toast.makeText(context, TAG+": List length differ!", Toast.LENGTH_LONG).show();
-        }
-        return titleList.length;
+        return ideas.size();
+    }
+
+    public void setIdeas(List<Idea> ideas){
+        this.ideas = ideas;
+        notifyDataSetChanged();
     }
 
 
