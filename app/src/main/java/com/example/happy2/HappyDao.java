@@ -22,7 +22,7 @@ public interface HappyDao {
     void delete(HappyThing happyThing);
 
     @Query("DELETE FROM happy_table")
-    void deleteAll();
+    void deleteAllHappyThings();
 
     @Query("SELECT * FROM happy_table ORDER BY what DESC")
     LiveData<List<HappyThing>> getAll();
