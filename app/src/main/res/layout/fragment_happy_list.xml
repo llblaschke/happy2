@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/nestedScrollView2"
+                android:paddingStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -107,8 +107,7 @@
         android:clickable="true"
         android:src="@drawable/ic_add_white"
         android:visibility="visible"
-        app:layout_anchor="@+id/recyclerViewInList"
-        app:layout_anchorGravity="end|bottom"
+        android:layout_gravity="right|bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
