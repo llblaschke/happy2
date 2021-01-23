@@ -26,13 +26,6 @@ public class MainActivity extends BottomNavigationActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
 
         ideaViewModel = ViewModelProviders.of(this).get(IdeaViewModel.class);
-        ideaViewModel.getAllIdeas().observe(this, new Observer<List<Idea>>() {
-            @Override
-            public void onChanged(List<Idea> ideas) {
-                // update Recycler View
-                Toast.makeText(MainActivity.this, "onChanged ideaViewModel", Toast.LENGTH_SHORT).show();
-            }
-        });
         happyViewModel = ViewModelProviders.of(this).get(HappyViewModel.class);
         happyViewModel.getAllHappyThings().observe(this, new Observer<List<HappyThing>>() {
             @Override

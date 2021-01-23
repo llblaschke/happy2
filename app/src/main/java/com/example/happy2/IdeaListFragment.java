@@ -28,6 +28,7 @@ public class IdeaListFragment extends Fragment {
     public static final String TAG = "IdeaListFragment";
 
     private IdeaViewModel ideaViewModel;
+    private IdeaListAdapter myListAdapter;
 
     private FloatingActionButton btnAdd;
     private RecyclerView recyclerView;
@@ -63,7 +64,7 @@ public class IdeaListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewInList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        IdeaListAdapter myListAdapter = new IdeaListAdapter(getContext());
+        myListAdapter = new IdeaListAdapter(getContext());
         recyclerView.setAdapter(myListAdapter);
 
         return view;
@@ -76,7 +77,7 @@ public class IdeaListFragment extends Fragment {
         ideaViewModel.getAllIdeas().observe(getViewLifecycleOwner(), new Observer<List<Idea>>() {
             @Override
             public void onChanged(List<Idea> ideas) {
-
+                myListAdapter.setIdeas(ideas);
             }
         });
     }

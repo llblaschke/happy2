@@ -29,7 +29,6 @@ public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyView
     private final String TAG = "IdeaListAdapter";
 
     private List<Idea> ideas = new ArrayList<>();
-
     private Context context;
     private int background1, background2;
 
