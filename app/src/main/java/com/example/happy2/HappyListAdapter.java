@@ -2,33 +2,32 @@ package com.example.happy2;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyViewHolder> {
     private final String TAG = "HappyListAdapter";
-    private String[] titleList, descList;
+
+    private List<HappyThing> happyThings = new ArrayList<>();
     private Context context;
     private int background1, background2;
 
-    public HappyListAdapter(Context ct, String[] tl, String[] dl){
+    public HappyListAdapter(Context ct){
         context = ct;
-        titleList = tl;
-        descList = dl;
         background1 = ContextCompat.getColor(context, colorHappyLight);
         background2 = ContextCompat.getColor(context, colorHappyLightTwo);
     }
@@ -36,28 +35,18 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.list_row, parent, false);
-        final MyViewHolder holder = new MyViewHolder(view);
-
-        holder.rowView.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
-            @Override
-            public void onClick(View v) {
-                boolean singleLine = holder.title.isSingleLine();
-                holder.title.setSingleLine(!singleLine);
-                holder.description.setSingleLine(!singleLine);
-            }
-        });
-
-        return new MyViewHolder(view);
+        View itemView = LayoutInflater.from(context)
+                .inflate(R.layout.list_row, parent, false);
+        return new MyViewHolder(itemView);
     }
 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.title.setText(titleList[position]);
-        holder.description.setText(descList[position]);
+        HappyThing happyThing = happyThings.get(position);
+
+        holder.title.setText(happyThing.getWhat());
+        holder.description.setText(happyThing.getWith());
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
         }else{
@@ -67,12 +56,18 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        if(titleList.length != descList.length){
-            Toast.makeText(context, TAG+": List length differ!", Toast.LENGTH_LONG).show();
-        }
-        return titleList.length;
+        return happyThings.size();
     }
 
+    public void setIdeas(List<HappyThing> happyThings){
+        this.happyThings = happyThings;
+        notifyDataSetChanged();
+    }
+
+
+    /**
+     * MyViewHolder
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView title, description;
         CardView cardView;
