@@ -1,6 +1,7 @@
 package com.example.happy2.Fragments;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,10 +15,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 
+import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.Room.HappyThing;
 import com.example.happy2.Dialogs.AddMoreHappyThingsDiaglog;
-import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.R;
 
 import java.util.Calendar;
@@ -43,7 +45,18 @@ public class AddHappyThingFragment extends Fragment {
     private TextView dateView;
     private int year, month, day;
 
+    private String tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen;
+
+    public static final String TMP_WHAT = "tmpWhat";
+    public static final String TMP_WITH = "tmpWith";
+    public static final String TMP_WHERE = "tmpWhere";
+    public static final String TMP_ADINFO = "tmpAdInfo";
+    public static final String TMP_WHEN = "tmpWhen";
+
+    private SharedPreferences prefs;
+
     private HappyViewModel happyViewModel;
+
 
 
     public AddHappyThingFragment() {
@@ -66,13 +79,14 @@ public class AddHappyThingFragment extends Fragment {
         }else{
             updateAddMore = false;
         }
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         happyViewModel = ViewModelProviders.of(this).get(HappyViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_add_happy, container, false);
 
         textViewAddHappyThing = v.findViewById(R.id.txtAddHappyThing);
@@ -96,48 +110,91 @@ public class AddHappyThingFragment extends Fragment {
         editTextWhat.addTextChangedListener(addHappyTextWatcher);
         editTextWith.addTextChangedListener(addHappyTextWatcher);
         editTextWhere.addTextChangedListener(addHappyTextWatcher);
+        editTextInfo.addTextChangedListener(addHappyTextWatcher);
+        editTextWhen.addTextChangedListener(addHappyTextWatcher);
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        if (prefs.contains(TMP_WHAT)){
+            tmpWhat = prefs.getString(TMP_WHAT, "");
+            editTextWhat.setText(tmpWhat);
+        }
+        if (prefs.contains(TMP_WITH)){
+            tmpWith = prefs.getString(TMP_WITH, "");
+            editTextWith.setText(tmpWith);
+        }
+        if (prefs.contains(TMP_WHERE)){
+            tmpWhere = prefs.getString(TMP_WHERE, "");
+            editTextWhere.setText(tmpWhere);
+        }
+        if (prefs.contains(TMP_ADINFO)){
+            tmpAdInfo = prefs.getString(TMP_ADINFO, "");
+            editTextInfo.setText(tmpAdInfo);
+        }
+        if (prefs.contains(TMP_WHEN)){
+            tmpWhen = prefs.getString(TMP_WHEN, "");
+            editTextWhen.setText(tmpWhen);
+        }
+
         return v;
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(TMP_WHAT, tmpWhat)
+                .putString(TMP_WITH, tmpWith)
+                .putString(TMP_WHERE, tmpWhere)
+                .putString(TMP_ADINFO, tmpAdInfo)
+                .putString(TMP_WHEN, tmpWhen);
+        editor.commit();
+    }
+
 
 
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            happyViewModel.insert(new HappyThing(
-                    editTextWhat.getText().toString(),
-                    editTextWith.getText().toString(),
-                    editTextWhere.getText().toString(),
-                    editTextInfo.getText().toString(),
-                    editTextWhen.getText().toString()
-            ));
+            happyViewModel.insert(new HappyThing(tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen));
             editTextWhat.setText("");
             editTextWith.setText("");
             editTextWhere.setText("");
             editTextInfo.setText("");
             editTextWhen.setText(getString(R.string.text_today));
+
+            tmpWhat = "";
+            tmpWith = "";
+            tmpWhere = "";
+            tmpAdInfo = "";
+            tmpWhen = getString(R.string.text_today);
+
             new AddMoreHappyThingsDiaglog().show(getParentFragmentManager(), "addmorehappythingsdialog");
         }
     };
+
 
     private TextWatcher addHappyTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String textWhat = editTextWhat.getText().toString().trim();
-            String textWith = editTextWith.getText().toString().trim();
-            String textWhere = editTextWhere.getText().toString().trim();
-            buttonSave.setEnabled(!textWhat.isEmpty() && !textWith.isEmpty() && !textWhere.isEmpty());
+            tmpWhat = editTextWhat.getText().toString().trim();
+            tmpWith = editTextWith.getText().toString().trim();
+            tmpWhere = editTextWhere.getText().toString().trim();
+            tmpAdInfo = editTextInfo.getText().toString().trim();
+            tmpWhen = editTextWhen.getText().toString().trim();
+            buttonSave.setEnabled(!tmpWhat.isEmpty() && !tmpWith.isEmpty() && !tmpWhere.isEmpty());
         }
         @Override
         public void afterTextChanged(Editable s) { }
     };
+
+
 
     private View.OnClickListener btnChangeDate = new View.OnClickListener() {
         @Override

@@ -1,5 +1,6 @@
 package com.example.happy2.Fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,9 +13,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 
-import com.example.happy2.DataHandling.Room.Idea;
 import com.example.happy2.DataHandling.IdeaViewModel;
+import com.example.happy2.DataHandling.Room.Idea;
 import com.example.happy2.R;
 
 
@@ -25,6 +27,13 @@ public class AddIdeaFragment extends Fragment {
     private EditText etIdea;
     private EditText etDescription;
     private Button buttonSave;
+
+    private String tmpIdea, tmpDesc;
+
+    public static final String TMP_IDEA = "tmpIdea";
+    public static final String TMP_DESC = "tmpDesc";
+
+    private SharedPreferences prefs;
 
     private IdeaViewModel ideaViewModel;
 
@@ -40,6 +49,7 @@ public class AddIdeaFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         ideaViewModel = ViewModelProviders.of(this).get(IdeaViewModel.class);
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
 
     @Override
@@ -65,8 +75,24 @@ public class AddIdeaFragment extends Fragment {
         buttonSave.setEnabled(false);
         etIdea.addTextChangedListener(addIdeaTextWatcher);
 
+        if (prefs.contains(TMP_IDEA)) etIdea.setText(prefs.getString(TMP_IDEA, ""));
+        if (prefs.contains(TMP_DESC)) etDescription.setText(prefs.getString(TMP_DESC, ""));
+
         return v;
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(TMP_IDEA, etIdea.getText().toString())
+                .putString(TMP_DESC, etDescription.getText().toString());
+        editor.commit();
+    }
+
+
+
 
 
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
