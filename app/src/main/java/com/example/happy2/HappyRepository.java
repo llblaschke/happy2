@@ -54,11 +54,9 @@ public class HappyRepository {
 
     private static class UpdateHappyThingAsyncTask extends AsyncTask<HappyThing, Void, Void> {
         private HappyDao happyDao;
-
         private UpdateHappyThingAsyncTask(HappyDao happyDao) {
             this.happyDao = happyDao;
         }
-
         @Override
         protected Void doInBackground(HappyThing... happyThings) {
             happyDao.update(happyThings[0]);

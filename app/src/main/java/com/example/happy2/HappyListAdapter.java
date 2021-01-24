@@ -59,7 +59,7 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
         return happyThings.size();
     }
 
-    public void setIdeas(List<HappyThing> happyThings){
+    public void setHappyThings(List<HappyThing> happyThings){
         this.happyThings = happyThings;
         notifyDataSetChanged();
     }

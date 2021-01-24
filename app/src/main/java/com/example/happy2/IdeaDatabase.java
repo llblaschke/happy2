@@ -37,11 +37,14 @@ public abstract class IdeaDatabase extends RoomDatabase {
             new PopulateDbAsyncTask(instance).execute();
         }
     };
+
+
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private IdeaDao ideaDao;
         private PopulateDbAsyncTask(IdeaDatabase db) {
             ideaDao = db.ideaDao();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
             ideaDao.insert(new Idea(emptyList, ""));
