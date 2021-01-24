@@ -17,7 +17,6 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/addFragmentContainer"
-            android:name="com.example.happy2.AddHappyThingFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:isScrollContainer="true"
