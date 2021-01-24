@@ -115,9 +115,8 @@ public class AddHappyThingFragment extends Fragment {
             editTextWith.setText("");
             editTextWhere.setText("");
             editTextInfo.setText("");
-            editTextWhen.setText("");
-            AddMoreHappyThingsDiaglog dialog = new AddMoreHappyThingsDiaglog();
-            dialog.show(getParentFragmentManager(), "addmorehappythingsdialog");
+            editTextWhen.setText(getString(R.string.text_today));
+            new AddMoreHappyThingsDiaglog().show(getParentFragmentManager(), "addmorehappythingsdialog");
         }
     };
 
