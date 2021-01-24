@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.util.Calendar;
 
@@ -38,6 +38,8 @@ public class AddHappyThingFragment extends Fragment {
     private TextView dateView;
     private int year, month, day;
 
+    private HappyViewModel happyViewModel;
+
 
     public AddHappyThingFragment() {
         // Required empty public constructor
@@ -59,6 +61,7 @@ public class AddHappyThingFragment extends Fragment {
         }else{
             updateAddMore = false;
         }
+        happyViewModel = ViewModelProviders.of(this).get(HappyViewModel.class);
     }
 
     @Override
@@ -101,7 +104,18 @@ public class AddHappyThingFragment extends Fragment {
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getContext(), "Currently not saving anything", Toast.LENGTH_LONG).show();
+            happyViewModel.insert(new HappyThing(
+                    editTextWhat.getText().toString(),
+                    editTextWith.getText().toString(),
+                    editTextWhere.getText().toString(),
+                    editTextInfo.getText().toString(),
+                    editTextWhen.getText().toString()
+            ));
+            editTextWhat.setText("");
+            editTextWith.setText("");
+            editTextWhere.setText("");
+            editTextInfo.setText("");
+            editTextWhen.setText("");
             AddMoreHappyThingsDiaglog dialog = new AddMoreHappyThingsDiaglog();
             dialog.show(getParentFragmentManager(), "addmorehappythingsdialog");
         }

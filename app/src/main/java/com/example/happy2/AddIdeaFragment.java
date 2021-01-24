@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 
 public class AddIdeaFragment extends Fragment {
@@ -22,6 +22,8 @@ public class AddIdeaFragment extends Fragment {
     private EditText etDescription;
     private Button buttonSave;
 
+    private IdeaViewModel ideaViewModel;
+
 
 
     public AddIdeaFragment() {
@@ -31,7 +33,9 @@ public class AddIdeaFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        ideaViewModel = ViewModelProviders.of(this).get(IdeaViewModel.class);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class AddIdeaFragment extends Fragment {
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getContext(), "Currently not saving anything", Toast.LENGTH_LONG).show();
+            ideaViewModel.insert(new Idea(etIdea.getText().toString(), etDescription.getText().toString()));
             getActivity().finish();
         }
     };
