@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Dialogs;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

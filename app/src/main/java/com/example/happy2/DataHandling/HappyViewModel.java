@@ -1,10 +1,12 @@
-package com.example.happy2;
+package com.example.happy2.DataHandling;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.example.happy2.DataHandling.Room.HappyThing;
 
 import java.util.List;
 

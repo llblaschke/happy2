@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Notifications;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -14,6 +14,9 @@ import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.happy2.Dialogs.TimePickerFragment;
+import com.example.happy2.R;
 
 import java.text.DateFormat;
 import java.util.Calendar;

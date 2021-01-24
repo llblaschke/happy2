@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Fragments;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.TimePicker;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
+
+import com.example.happy2.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements TimePickerDialog.OnTimeSetListener {
 

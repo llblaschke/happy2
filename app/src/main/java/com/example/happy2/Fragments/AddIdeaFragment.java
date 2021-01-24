@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Fragments;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.happy2.DataHandling.Room.Idea;
+import com.example.happy2.DataHandling.IdeaViewModel;
+import com.example.happy2.R;
 
 
 public class AddIdeaFragment extends Fragment {

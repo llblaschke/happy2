@@ -6,6 +6,12 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.happy2.Fragments.CalendarFragment;
+import com.example.happy2.Fragments.HappyListFragment;
+import com.example.happy2.Fragments.HomeFragment;
+import com.example.happy2.Fragments.IdeaListFragment;
+import com.example.happy2.Fragments.SettingsFragment;
+import com.example.happy2.Notifications.NotificationActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationActivity extends AppCompatActivity {

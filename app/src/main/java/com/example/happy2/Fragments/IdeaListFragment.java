@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.happy2.Adapters.IdeaListAdapter;
+import com.example.happy2.AddActivity;
+import com.example.happy2.DataHandling.Room.Idea;
+import com.example.happy2.DataHandling.IdeaViewModel;
+import com.example.happy2.MainActivity;
+import com.example.happy2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;

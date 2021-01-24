@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.happy2.R;
 
 public class SortByDialogFragment extends DialogFragment {
 

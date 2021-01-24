@@ -9,6 +9,9 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.happy2.Fragments.AddHappyThingFragment;
+import com.example.happy2.Fragments.AddIdeaFragment;
+
 public class AddActivity extends AppCompatActivity {
     private final String TAG = "AddActivity";
 

@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.happy2.AddActivity;
+import com.example.happy2.MainActivity;
+import com.example.happy2.R;
 
 
 public class HomeFragment extends Fragment {

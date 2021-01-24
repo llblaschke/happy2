@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:name="HomeFragment"
     android:tag="HomeFragment"
-    tools:context=".HomeFragment">
+    tools:context=".Fragments.HomeFragment">
 
 
     <TextView

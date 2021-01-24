@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Notifications;
 
 import android.annotation.TargetApi;
 import android.app.NotificationChannel;
@@ -11,6 +11,9 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.happy2.AddActivity;
+import com.example.happy2.MainActivity;
+import com.example.happy2.R;
 
 
 public class NotificationHelper extends ContextWrapper {

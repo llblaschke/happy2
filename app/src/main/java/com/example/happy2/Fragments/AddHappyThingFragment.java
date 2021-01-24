@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.happy2.DataHandling.Room.HappyThing;
+import com.example.happy2.Dialogs.AddMoreHappyThingsDiaglog;
+import com.example.happy2.DataHandling.HappyViewModel;
+import com.example.happy2.R;
 
 import java.util.Calendar;
 

@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Notifications;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -1,9 +1,13 @@
-package com.example.happy2;
+package com.example.happy2.DataHandling;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.happy2.DataHandling.Room.Idea;
+import com.example.happy2.DataHandling.Room.IdeaDao;
+import com.example.happy2.DataHandling.Room.IdeaDatabase;
 
 import java.util.List;
 

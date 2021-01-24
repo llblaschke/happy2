@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.happy2.DataHandling.HappyViewModel;
+import com.example.happy2.DataHandling.IdeaViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BottomNavigationActivity {

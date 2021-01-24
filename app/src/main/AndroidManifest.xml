@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".NotificationActivity"
+            android:name=".Notifications.NotificationActivity"
             android:parentActivityName=".MainActivity" />
 
         <activity
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlertReceiver" />
+        <receiver android:name=".Notifications.AlertReceiver" />
 
     </application>
 

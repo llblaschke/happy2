@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +12,9 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.happy2.R;
+import com.example.happy2.DataHandling.Room.HappyThing;
 
 import java.util.ArrayList;
 import java.util.List;

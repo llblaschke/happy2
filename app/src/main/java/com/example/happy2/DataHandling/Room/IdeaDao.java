@@ -1,4 +1,4 @@
-package com.example.happy2;
+package com.example.happy2.DataHandling.Room;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
