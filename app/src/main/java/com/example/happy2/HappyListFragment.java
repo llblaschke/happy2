@@ -9,23 +9,33 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link HappyListFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class HappyListFragment<list> extends Fragment implements SortByDialogFragment.SortByDialogListener{
 
     public static final String TAG = "HappyListFragment";
-    private MyList myList = new MyList("Happy");
-    private String[] titleList;
-    private String[] descList;
 
-    FloatingActionButton btnAdd;
-    RecyclerView recyclerView;
-    Button btnSort, btnSort2;
+
+    private HappyViewModel happyViewModel;
+    private HappyListAdapter happyListAdapter;
+    private RecyclerView recyclerView;
+
+    private FloatingActionButton btnAdd;
+    private Button btnSort, btnSort2;
 
     private String[] sortList = {"what", "with", "where", "date"};
     private String sortItem1, getSortItem2;
@@ -37,10 +47,16 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
     }
 
 
+    public static HappyListFragment newInstance() {
+        Bundle args = new Bundle();
+        HappyListFragment fragment = new HappyListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStringLists();
     }
 
     @Override
@@ -54,12 +70,27 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
         btnSort2 = view.findViewById(R.id.btnSortBy2);
         btnSort2.setOnClickListener(btnSortBy);
 
+
         recyclerView = view.findViewById(R.id.recyclerViewInList);
-        HappyListAdapter happyListAdapter = new HappyListAdapter(getContext(), titleList, descList);
-        recyclerView.setAdapter(happyListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        happyListAdapter = new HappyListAdapter(getContext());
+        recyclerView.setAdapter(happyListAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        happyViewModel = ViewModelProviders.of(getActivity()).get(HappyViewModel.class);
+        happyViewModel.getAllHappyThings().observe(getViewLifecycleOwner(), new Observer<List<HappyThing>>() {
+            @Override
+            public void onChanged(List<HappyThing> happyThings) {
+                happyListAdapter.setHappyThings(happyThings);
+            }
+        });
+
     }
 
     @Override
@@ -99,8 +130,4 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
     }
 
 
-    private void setStringLists(){
-        titleList = myList.getList()[0];
-        descList = myList.getList()[1];
-    }
 }
