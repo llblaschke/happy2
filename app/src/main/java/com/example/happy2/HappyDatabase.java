@@ -25,6 +25,7 @@ public abstract class HappyDatabase extends RoomDatabase {
                     HappyDatabase.class,
                     "happy_database")
                     .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
                     .build();
         }
         return instance;
@@ -41,14 +42,13 @@ public abstract class HappyDatabase extends RoomDatabase {
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private HappyDao happyDao;
-
         private PopulateDbAsyncTask(HappyDatabase db) {
             happyDao = db.happyDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            happyDao.insert(new HappyThing(emptyList, "", "", "", null));
+            happyDao.insert(new HappyThing(emptyList, "", "", "", ""));
             return null;
         }
     }
