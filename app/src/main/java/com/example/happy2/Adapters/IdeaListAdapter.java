@@ -104,7 +104,6 @@ public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyView
             boolean singleLine = title.isSingleLine();
             title.setSingleLine(!singleLine);
             description.setSingleLine(!singleLine);
-            Log.v(TAG, "Short click!");
         }
 
         /**
