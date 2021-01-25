@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <AutoCompleteTextView
-        android:id="@+id/edittextWhatDidYouDo"
+        android:id="@+id/acTextViewWhat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtAddHappyThing" />
 
     <AutoCompleteTextView
-        android:id="@+id/edittextWithWhom"
+        android:id="@+id/acTextViewWith"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,10 +40,10 @@
         android:inputType="textAutoCorrect|textMultiLine|textCapSentences|textAutoComplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextWhatDidYouDo" />
+        app:layout_constraintTop_toBottomOf="@+id/acTextViewWhat" />
 
     <AutoCompleteTextView
-        android:id="@+id/edittextWhere"
+        android:id="@+id/acTextViewWhere"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -51,10 +51,10 @@
         android:inputType="textAutoCorrect|textMultiLine|textCapSentences|textAutoComplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextWithWhom" />
+        app:layout_constraintTop_toBottomOf="@+id/acTextViewWith" />
 
     <AutoCompleteTextView
-        android:id="@+id/edittextInfo"
+        android:id="@+id/acTextViewAdInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -62,7 +62,7 @@
         android:inputType="textAutoCorrect|textMultiLine|textCapSentences|textAutoComplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextWhere" />
+        app:layout_constraintTop_toBottomOf="@+id/acTextViewWhere" />
 
     <EditText
         android:id="@+id/editTextWhen"
@@ -75,7 +75,7 @@
         android:longClickable="false"
         android:text="@string/text_today"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/acTextViewAdInfo" />
 
     <Button
         android:id="@+id/btnChangeDate"

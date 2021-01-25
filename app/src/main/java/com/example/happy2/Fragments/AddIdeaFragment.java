@@ -30,8 +30,8 @@ public class AddIdeaFragment extends Fragment {
 
     private final String TAG = "AddIdeaFragment";
     private TextView tvAddIdea;
-    private AutoCompleteTextView etIdea;
-    private AutoCompleteTextView etDescription;
+    private AutoCompleteTextView acTextViewIdea;
+    private AutoCompleteTextView acTextViewDesc;
     private Button buttonSave;
 
 
@@ -65,28 +65,28 @@ public class AddIdeaFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_happy, container, false);
 
         tvAddIdea = v.findViewById(R.id.txtAddHappyThing);
-        etIdea = v.findViewById(R.id.edittextWhatDidYouDo);
-        etDescription = v.findViewById(R.id.edittextInfo);
-        v.findViewById(R.id.edittextWithWhom).setVisibility(View.GONE);
-        v.findViewById(R.id.edittextWhere).setVisibility(View.GONE);
+        acTextViewIdea = v.findViewById(R.id.acTextViewWhat);
+        acTextViewDesc = v.findViewById(R.id.acTextViewAdInfo);
+        v.findViewById(R.id.acTextViewWith).setVisibility(View.GONE);
+        v.findViewById(R.id.acTextViewWhere).setVisibility(View.GONE);
         v.findViewById(R.id.editTextWhen).setVisibility(View.GONE);
         v.findViewById(R.id.btnChangeDate).setVisibility(View.GONE);
         buttonSave = v.findViewById(R.id.btnSave);
 
         tvAddIdea.setText(R.string.text_what_might_make_you_happy);
-        etIdea.setHint(R.string.idea);
+        acTextViewIdea.setHint(R.string.idea);
 
         // Save button enables only if all EditTexts contain input
         buttonSave.setOnClickListener(btnClickSave);
         buttonSave.setEnabled(false);
-        etIdea.addTextChangedListener(addIdeaTextWatcher);
+        acTextViewIdea.addTextChangedListener(addIdeaTextWatcher);
 
-        if (prefs.contains(TMP_IDEA)) etIdea.setText(prefs.getString(TMP_IDEA, ""));
-        if (prefs.contains(TMP_DESC)) etDescription.setText(prefs.getString(TMP_DESC, ""));
+        if (prefs.contains(TMP_IDEA)) acTextViewIdea.setText(prefs.getString(TMP_IDEA, ""));
+        if (prefs.contains(TMP_DESC)) acTextViewDesc.setText(prefs.getString(TMP_DESC, ""));
 
 
-        etIdea.setThreshold(1);
-        etDescription.setThreshold(1);
+        acTextViewIdea.setThreshold(1);
+        acTextViewDesc.setThreshold(1);
 
         ArrayList<String> emptyList = new ArrayList<>();
         emptyList.add("");
@@ -100,7 +100,7 @@ public class AddIdeaFragment extends Fragment {
                         getContext(),
                         android.R.layout.select_dialog_item,
                         new ArrayList<>(new HashSet<>(strings)));
-                etIdea.setAdapter(ideaWhatAdapter);
+                acTextViewIdea.setAdapter(ideaWhatAdapter);
             }
         });
 
@@ -111,7 +111,7 @@ public class AddIdeaFragment extends Fragment {
                         getContext(),
                         android.R.layout.select_dialog_item,
                         new ArrayList<>(new HashSet<>(strings)));
-                etDescription.setAdapter(ideaDescAdapter);
+                acTextViewDesc.setAdapter(ideaDescAdapter);
             }
         });
 
@@ -123,8 +123,8 @@ public class AddIdeaFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(TMP_IDEA, etIdea.getText().toString())
-                .putString(TMP_DESC, etDescription.getText().toString());
+        editor.putString(TMP_IDEA, acTextViewIdea.getText().toString())
+                .putString(TMP_DESC, acTextViewDesc.getText().toString());
         editor.commit();
     }
 
@@ -135,7 +135,7 @@ public class AddIdeaFragment extends Fragment {
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ideaViewModel.insert(new Idea(etIdea.getText().toString(), etDescription.getText().toString()));
+            ideaViewModel.insert(new Idea(acTextViewIdea.getText().toString(), acTextViewDesc.getText().toString()));
             getActivity().finish();
         }
     };
@@ -145,7 +145,7 @@ public class AddIdeaFragment extends Fragment {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            buttonSave.setEnabled(!etIdea.getText().toString().trim().isEmpty());
+            buttonSave.setEnabled(!acTextViewIdea.getText().toString().trim().isEmpty());
         }
         @Override
         public void afterTextChanged(Editable s) { }

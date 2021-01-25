@@ -38,11 +38,11 @@ public class AddHappyThingFragment extends Fragment {
     private boolean updateAddMore;
 
     private TextView textViewAddHappyThing;
-    private AutoCompleteTextView editTextWhat;
-    private AutoCompleteTextView editTextWith;
-    private AutoCompleteTextView editTextWhere;
+    private AutoCompleteTextView acTextViewWhat;
+    private AutoCompleteTextView acTextViewWith;
+    private AutoCompleteTextView acTextViewWhere;
+    private AutoCompleteTextView acTextViewAdInfo;
     private EditText editTextWhen;
-    private AutoCompleteTextView editTextInfo;
     private Button buttonChangeDate;
     private Button buttonSave;
 
@@ -98,11 +98,11 @@ public class AddHappyThingFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_happy, container, false);
 
         textViewAddHappyThing = v.findViewById(R.id.txtAddHappyThing);
-        editTextWhat = v.findViewById(R.id.edittextWhatDidYouDo);
-        editTextWith = v.findViewById(R.id.edittextWithWhom);
-        editTextWhere = v.findViewById(R.id.edittextWhere);
+        acTextViewWhat = v.findViewById(R.id.acTextViewWhat);
+        acTextViewWith = v.findViewById(R.id.acTextViewWith);
+        acTextViewWhere = v.findViewById(R.id.acTextViewWhere);
         editTextWhen = v.findViewById(R.id.editTextWhen);
-        editTextInfo = v.findViewById(R.id.edittextInfo);
+        acTextViewAdInfo = v.findViewById(R.id.acTextViewAdInfo);
         buttonChangeDate = v.findViewById(R.id.btnChangeDate);
         buttonSave = v.findViewById(R.id.btnSave);
 
@@ -115,10 +115,10 @@ public class AddHappyThingFragment extends Fragment {
         // Save button enables only if all EditTexts contain input
         buttonSave.setOnClickListener(btnClickSave);
         buttonSave.setEnabled(false);
-        editTextWhat.addTextChangedListener(addHappyTextWatcher);
-        editTextWith.addTextChangedListener(addHappyTextWatcher);
-        editTextWhere.addTextChangedListener(addHappyTextWatcher);
-        editTextInfo.addTextChangedListener(addHappyTextWatcher);
+        acTextViewWhat.addTextChangedListener(addHappyTextWatcher);
+        acTextViewWith.addTextChangedListener(addHappyTextWatcher);
+        acTextViewWhere.addTextChangedListener(addHappyTextWatcher);
+        acTextViewAdInfo.addTextChangedListener(addHappyTextWatcher);
         editTextWhen.addTextChangedListener(addHappyTextWatcher);
 
         calendar = Calendar.getInstance();
@@ -128,19 +128,19 @@ public class AddHappyThingFragment extends Fragment {
 
         if (prefs.contains(TMP_WHAT)){
             tmpWhat = prefs.getString(TMP_WHAT, "");
-            editTextWhat.setText(tmpWhat);
+            acTextViewWhat.setText(tmpWhat);
         }
         if (prefs.contains(TMP_WITH)){
             tmpWith = prefs.getString(TMP_WITH, "");
-            editTextWith.setText(tmpWith);
+            acTextViewWith.setText(tmpWith);
         }
         if (prefs.contains(TMP_WHERE)){
             tmpWhere = prefs.getString(TMP_WHERE, "");
-            editTextWhere.setText(tmpWhere);
+            acTextViewWhere.setText(tmpWhere);
         }
         if (prefs.contains(TMP_ADINFO)){
             tmpAdInfo = prefs.getString(TMP_ADINFO, "");
-            editTextInfo.setText(tmpAdInfo);
+            acTextViewAdInfo.setText(tmpAdInfo);
         }
         if (prefs.contains(TMP_WHEN)){
             tmpWhen = prefs.getString(TMP_WHEN, "");
@@ -148,10 +148,10 @@ public class AddHappyThingFragment extends Fragment {
         }
 
 
-        editTextWhat.setThreshold(1);
-        editTextWith.setThreshold(1);
-        editTextWhere.setThreshold(1);
-        editTextInfo.setThreshold(1);
+        acTextViewWhat.setThreshold(1);
+        acTextViewWith.setThreshold(1);
+        acTextViewWhere.setThreshold(1);
+        acTextViewAdInfo.setThreshold(1);
 
         ArrayList<String> emptyList = new ArrayList<>();
         emptyList.add("");
@@ -168,7 +168,7 @@ public class AddHappyThingFragment extends Fragment {
                         getContext(),
                         android.R.layout.select_dialog_item,
                         new ArrayList<>(new HashSet<>(strings)));
-                editTextWhat.setAdapter(happyWhatAdapter);
+                acTextViewWhat.setAdapter(happyWhatAdapter);
             }
         });
 
@@ -179,7 +179,7 @@ public class AddHappyThingFragment extends Fragment {
                         getContext(),
                         android.R.layout.select_dialog_item,
                         new ArrayList<>(new HashSet<>(strings)));
-                editTextWith.setAdapter(happyWithAdapter);
+                acTextViewWith.setAdapter(happyWithAdapter);
             }
         });
 
@@ -190,7 +190,7 @@ public class AddHappyThingFragment extends Fragment {
                         getContext(),
                         android.R.layout.select_dialog_item,
                         new ArrayList<>(new HashSet<>(strings)));
-                editTextWhere.setAdapter(happyWhereAdapter);
+                acTextViewWhere.setAdapter(happyWhereAdapter);
             }
         });
 
@@ -201,7 +201,7 @@ public class AddHappyThingFragment extends Fragment {
                         getContext(),
                         android.R.layout.select_dialog_item,
                         new ArrayList<>(new HashSet<>(strings)));
-                editTextInfo.setAdapter(happyAdInfoAdapter);
+                acTextViewAdInfo.setAdapter(happyAdInfoAdapter);
             }
         });
 
@@ -227,10 +227,10 @@ public class AddHappyThingFragment extends Fragment {
         @Override
         public void onClick(View v) {
             happyViewModel.insert(new HappyThing(tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen));
-            editTextWhat.setText("");
-            editTextWith.setText("");
-            editTextWhere.setText("");
-            editTextInfo.setText("");
+            acTextViewWhat.setText("");
+            acTextViewWith.setText("");
+            acTextViewWhere.setText("");
+            acTextViewAdInfo.setText("");
             editTextWhen.setText(getString(R.string.text_today));
 
             tmpWhat = "";
@@ -249,10 +249,10 @@ public class AddHappyThingFragment extends Fragment {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            tmpWhat = editTextWhat.getText().toString().trim();
-            tmpWith = editTextWith.getText().toString().trim();
-            tmpWhere = editTextWhere.getText().toString().trim();
-            tmpAdInfo = editTextInfo.getText().toString().trim();
+            tmpWhat = acTextViewWhat.getText().toString().trim();
+            tmpWith = acTextViewWith.getText().toString().trim();
+            tmpWhere = acTextViewWhere.getText().toString().trim();
+            tmpAdInfo = acTextViewAdInfo.getText().toString().trim();
             tmpWhen = editTextWhen.getText().toString().trim();
             buttonSave.setEnabled(!tmpWhat.isEmpty() && !tmpWith.isEmpty() && !tmpWhere.isEmpty());
         }
