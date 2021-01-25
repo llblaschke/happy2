@@ -1,5 +1,6 @@
 package com.example.happy2.Fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -24,6 +26,11 @@ import com.example.happy2.R;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import static com.example.happy2.AddActivity.KEY_ADINFO;
+import static com.example.happy2.AddActivity.KEY_EDIT_IDEA_HAPPY;
+import static com.example.happy2.AddActivity.KEY_ID;
+import static com.example.happy2.AddActivity.KEY_WHAT;
 
 
 public class AddIdeaFragment extends Fragment {
@@ -43,6 +50,9 @@ public class AddIdeaFragment extends Fragment {
     private IdeaViewModel ideaViewModel;
     private ArrayAdapter ideaWhatAdapter;
     private ArrayAdapter ideaDescAdapter;
+
+    private boolean update=false;
+    private Intent intent;
 
 
     public AddIdeaFragment() {
@@ -83,6 +93,15 @@ public class AddIdeaFragment extends Fragment {
 
         if (prefs.contains(TMP_IDEA)) acTextViewIdea.setText(prefs.getString(TMP_IDEA, ""));
         if (prefs.contains(TMP_DESC)) acTextViewDesc.setText(prefs.getString(TMP_DESC, ""));
+
+        intent = getActivity().getIntent();
+        if (intent.hasExtra(KEY_EDIT_IDEA_HAPPY)){
+            update = intent.getBooleanExtra(KEY_EDIT_IDEA_HAPPY, false);
+            if (intent.getBooleanExtra(KEY_EDIT_IDEA_HAPPY, false)){
+                acTextViewIdea.setText(intent.getStringExtra(KEY_WHAT));
+                acTextViewDesc.setText(intent.getStringExtra(KEY_ADINFO));
+            }
+        }
 
 
         acTextViewIdea.setThreshold(1);
@@ -135,7 +154,18 @@ public class AddIdeaFragment extends Fragment {
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ideaViewModel.insert(new Idea(acTextViewIdea.getText().toString(), acTextViewDesc.getText().toString()));
+            Idea idea = new Idea(acTextViewIdea.getText().toString(), acTextViewDesc.getText().toString());
+            if(update){
+                int id = intent.getIntExtra(KEY_ID, -1);
+                if(id == -1){
+                    Toast.makeText(getContext(), "Something went really wrong here, this should not happen.", Toast.LENGTH_SHORT).show();
+                } else {
+                    idea.setId(id);
+                    ideaViewModel.update(idea);
+                }
+            } else {
+                ideaViewModel.insert(idea);
+            }
             getActivity().finish();
         }
     };

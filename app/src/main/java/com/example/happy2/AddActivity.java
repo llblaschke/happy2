@@ -13,7 +13,21 @@ import com.example.happy2.Fragments.AddHappyThingFragment;
 import com.example.happy2.Fragments.AddIdeaFragment;
 
 public class AddActivity extends AppCompatActivity {
-    private final String TAG = "AddActivity";
+    private static final String TAG = "AddActivity";
+
+    public static final String KEY_LOAD_IDEA_FRAGMENT = "loadIdeaFragment";
+    public static final String KEY_EDIT_IDEA_HAPPY = "editIdeaHappy";
+
+    public static final String KEY_WHAT = "what";
+    public static final String KEY_WITH = "with";
+    public static final String KEY_WHERE = "where";
+    public static final String KEY_ADINFO = "adInfo";
+    public static final String KEY_WHEN = "when";
+    public static final String KEY_ID = "id";
+
+
+    private boolean loadIdeaFragment;
+    private boolean editIdeaHappy;
 
 
     @Override
@@ -23,15 +37,34 @@ public class AddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white);
 
-        boolean loadIdeaFragment = false;
+        loadIdeaFragment = false;
         try {
-            loadIdeaFragment = getIntent().getExtras().getBoolean("loadIdeaFragment");
+            loadIdeaFragment = getIntent().getExtras().getBoolean(KEY_LOAD_IDEA_FRAGMENT);
         }catch (NullPointerException e) {
-            Log.d(TAG, "loadIdeaFragment gives NullPointerException");
+            Log.d(TAG, KEY_LOAD_IDEA_FRAGMENT+" gives NullPointerException");
         }
 
+        editIdeaHappy = false;
+        try {
+            editIdeaHappy = getIntent().getExtras().getBoolean(KEY_EDIT_IDEA_HAPPY);
+        }catch (NullPointerException e) {
+            Log.d(TAG, KEY_EDIT_IDEA_HAPPY+" gives NullPointerException");
+        }
+
+        String title = "";
+        if (editIdeaHappy) {
+            title += getString(R.string.edit) + " ";
+        } else {
+            title += getString(R.string.add) + " ";
+        }
+        if (loadIdeaFragment) {
+            title += getString(R.string.idea);
+        } else {
+            title += getString(R.string.happy_thing);
+        }
+        getSupportActionBar().setTitle(title);
+
         if(loadIdeaFragment) {
-            getSupportActionBar().setTitle(R.string.title_ideas);
             getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
                     new AddIdeaFragment(), "AddIdeaFragment").commit();
         }else{

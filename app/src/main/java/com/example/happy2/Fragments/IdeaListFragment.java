@@ -5,19 +5,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happy2.Adapters.IdeaListAdapter;
 import com.example.happy2.AddActivity;
-import com.example.happy2.DataHandling.Room.Idea;
 import com.example.happy2.DataHandling.IdeaViewModel;
+import com.example.happy2.DataHandling.Room.Idea;
 import com.example.happy2.MainActivity;
 import com.example.happy2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -71,8 +73,33 @@ public class IdeaListFragment extends Fragment {
         ideaListAdapter = new IdeaListAdapter(getContext());
         recyclerView.setAdapter(ideaListAdapter);
 
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                Idea idea = ideaListAdapter.getIdeaAt(viewHolder.getAdapterPosition());
+                if(direction == ItemTouchHelper.LEFT) {
+                    ideaViewModel.delete(idea);
+                    Toast.makeText(getContext(), getString(R.string.idea_deleted), Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(getContext(), AddActivity.class);
+                    intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
+                    intent.putExtra(AddActivity.KEY_EDIT_IDEA_HAPPY, true);
+                    intent.putExtra(AddActivity.KEY_WHAT, idea.getWhat());
+                    intent.putExtra(AddActivity.KEY_ADINFO, idea.getAdInfo());
+                    intent.putExtra(AddActivity.KEY_ID, idea.getId());
+                    startActivity(intent);
+                }
+            }
+        }).attachToRecyclerView(recyclerView);
+
         return view;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -99,11 +126,9 @@ public class IdeaListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getContext(), AddActivity.class);
-            intent.putExtra("loadIdeaFragment", true);
+            intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
             startActivity(intent);
         }
     };
-
-
 
 }
