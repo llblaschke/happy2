@@ -27,4 +27,9 @@ public interface IdeaDao {
     @Query("SELECT * FROM idea_table")
     LiveData<List<Idea>> getAll();
 
+    @Query("SELECT what FROM idea_table")
+    LiveData<List<String>> getAllWhat();
+
+    @Query("SELECT adInfo FROM idea_table")
+    LiveData<List<String>> getAllDesc();
 }

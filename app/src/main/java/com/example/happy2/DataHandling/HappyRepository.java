@@ -15,11 +15,19 @@ public class HappyRepository {
 
     private HappyDao happyDao;
     private LiveData<List<HappyThing>> allHappyThings;
+    private LiveData<List<String>> allHappyWhat;
+    private LiveData<List<String>> allHappyWith;
+    private LiveData<List<String>> allHappyWhere;
+    private LiveData<List<String>> allHappyAdInfo;
 
     public HappyRepository(Application application){
         HappyDatabase database = HappyDatabase.getInstance(application);
         happyDao = database.happyDao();
         allHappyThings = happyDao.getAll();
+        allHappyWhat = happyDao.getAllWhat();
+        allHappyWith = happyDao.getAllWith();
+        allHappyWhere = happyDao.getAllWhere();
+        allHappyAdInfo = happyDao.getAllAdInfo();
     }
 
 
@@ -43,6 +51,21 @@ public class HappyRepository {
         return allHappyThings;
     }
 
+    public LiveData<List<String>> getAllHappyWhat() {
+        return allHappyWhat;
+    }
+
+    public LiveData<List<String>> getAllHappyWith() {
+        return allHappyWith;
+    }
+
+    public LiveData<List<String>> getAllHappyWhere() {
+        return allHappyWhere;
+    }
+
+    public LiveData<List<String>> getAllHappyAdInfo() {
+        return allHappyAdInfo;
+    }
 
     private static class InsertHappyThingAsyncTask extends AsyncTask<HappyThing, Void, Void> {
         private HappyDao happyDao;

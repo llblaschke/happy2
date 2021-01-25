@@ -15,11 +15,15 @@ public class IdeaRepository {
 
     private IdeaDao ideaDao;
     private LiveData<List<Idea>> allIdeas;
+    private LiveData<List<String>> allIdeasWhat;
+    private LiveData<List<String>> allIdeasDesc;
 
     public IdeaRepository(Application application){
         IdeaDatabase database = IdeaDatabase.getInstance(application);
         ideaDao = database.ideaDao();
         allIdeas = ideaDao.getAll();
+        allIdeasWhat = ideaDao.getAllWhat();
+        allIdeasDesc = ideaDao.getAllDesc();
     }
 
 
@@ -43,6 +47,13 @@ public class IdeaRepository {
         return allIdeas;
     }
 
+    public LiveData<List<String>> getAllIdeasWhat() {
+        return allIdeasWhat;
+    }
+
+    public LiveData<List<String>> getAllIdeasDesc() {
+        return allIdeasDesc;
+    }
 
     private static class InsertIdeaAsyncTask extends AsyncTask<Idea, Void, Void> {
         private IdeaDao ideaDao;

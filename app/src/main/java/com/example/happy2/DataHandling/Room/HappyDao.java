@@ -24,6 +24,18 @@ public interface HappyDao {
     @Query("DELETE FROM happy_table")
     void deleteAllHappyThings();
 
-    @Query("SELECT * FROM happy_table ORDER BY what DESC")
+    @Query("SELECT * FROM happy_table ORDER BY mWhat DESC")
     LiveData<List<HappyThing>> getAll();
+
+    @Query("SELECT mWhat FROM happy_table")
+    LiveData<List<String>> getAllWhat();
+
+    @Query("SELECT mWith FROM happy_table")
+    LiveData<List<String>> getAllWith();
+
+    @Query("SELECT mWhere FROM happy_table")
+    LiveData<List<String>> getAllWhere();
+
+    @Query("SELECT mAdInfo FROM happy_table")
+    LiveData<List<String>> getAllAdInfo();
 }

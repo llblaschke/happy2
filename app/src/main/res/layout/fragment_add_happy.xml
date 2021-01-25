@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
     tools:context=".Fragments.AddHappyThingFragment">
 
 
@@ -11,79 +12,55 @@
         android:id="@+id/txtAddHappyThing"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:text="@string/text_what_made_you_happy"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/colorHappyDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/edittextWhatDidYouDo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:gravity="start|top"
         android:hint="@string/question_what"
-        android:inputType="textMultiLine|textCapSentences"
-        android:textColor="@color/colorHappyDark"
+        android:inputType="textAutoCorrect|textMultiLine|textCapSentences|textAutoComplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAddHappyThing" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/edittextWithWhom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:gravity="start|top"
         android:hint="@string/question_with"
-        android:inputType="textMultiLine|textCapSentences"
-        android:textColor="@color/colorHappyDark"
+        android:inputType="textAutoCorrect|textMultiLine|textCapSentences|textAutoComplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittextWhatDidYouDo" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/edittextWhere"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:gravity="start|top"
         android:hint="@string/question_where"
-        android:inputType="textMultiLine|textCapSentences"
-        android:textColor="@color/colorHappyDark"
+        android:inputType="textAutoCorrect|textMultiLine|textCapSentences|textAutoComplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittextWithWhom" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/edittextInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:gravity="start|top"
         android:hint="@string/additional_information"
-        android:inputType="textMultiLine"
-        android:textColor="@color/colorHappyDark"
+        android:inputType="textAutoCorrect|textMultiLine|textCapSentences|textAutoComplete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittextWhere" />
 
@@ -91,11 +68,9 @@
         android:id="@+id/editTextWhen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:clickable="false"
         android:contextClickable="false"
-        android:ems="10"
         android:inputType="date|text"
         android:longClickable="false"
         android:text="@string/text_today"
@@ -103,26 +78,22 @@
         app:layout_constraintTop_toBottomOf="@+id/edittextInfo" />
 
     <Button
-        android:id="@+id/btnSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/Save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextWhen" />
-
-    <Button
         android:id="@+id/btnChangeDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:text="@string/button_change_date"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextWhen"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWhen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

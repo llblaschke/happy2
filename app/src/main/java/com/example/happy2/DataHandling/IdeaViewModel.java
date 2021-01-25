@@ -14,11 +14,15 @@ public class IdeaViewModel extends AndroidViewModel {
 
     private IdeaRepository repository;
     private LiveData<List<Idea>> allIdeas;
+    private LiveData<List<String>> allIdeasWhat;
+    private LiveData<List<String>> allIdeasDesc;
 
     public IdeaViewModel(@NonNull Application application) {
         super(application);
         repository = new IdeaRepository(application);
         allIdeas = repository.getAllIdeas();
+        allIdeasWhat = repository.getAllIdeasWhat();
+        allIdeasDesc = repository.getAllIdeasDesc();
     }
 
     public void insert(Idea idea){
@@ -39,5 +43,13 @@ public class IdeaViewModel extends AndroidViewModel {
 
     public LiveData<List<Idea>> getAllIdeas() {
         return allIdeas;
+    }
+
+    public LiveData<List<String>> getAllIdeasWhat() {
+        return allIdeasWhat;
+    }
+
+    public LiveData<List<String>> getAllIdeasDesc() {
+        return allIdeasDesc;
     }
 }

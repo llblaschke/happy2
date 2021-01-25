@@ -10,20 +10,20 @@ public class HappyThing {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private String what;
-    private String with;
-    private String where;
-    private String adInfo;
-    private String when;
+    private String mWhat;
+    private String mWith;
+    private String mWhere;
+    private String mAdInfo;
+    private String mWhen;
     @Ignore
     private String picPath;
 
     public HappyThing(String what, String with, String where, String adInfo, String when) {
-        this.what = what;
-        this.with = with;
-        this.where = where;
-        this.adInfo = adInfo;
-        this.when = when;
+        this.mWhat = what;
+        this.mWith = with;
+        this.mWhere = where;
+        this.mAdInfo = adInfo;
+        this.mWhen = when;
     }
 
     public void setId(int id) {
@@ -35,23 +35,23 @@ public class HappyThing {
     }
 
     public String getWhat() {
-        return what;
+        return mWhat;
     }
 
     public String getWith() {
-        return with;
+        return mWith;
     }
 
     public String getWhere() {
-        return where;
+        return mWhere;
     }
 
     public String getAdInfo() {
-        return adInfo;
+        return mAdInfo;
     }
 
     public String getWhen() {
-        return when;
+        return mWhen;
     }
 
     public String getPicPath() {
