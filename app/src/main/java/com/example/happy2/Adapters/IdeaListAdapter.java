@@ -1,11 +1,8 @@
 package com.example.happy2.Adapters;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +16,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.happy2.R;
 import com.example.happy2.DataHandling.Room.Idea;
+import com.example.happy2.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,11 +69,15 @@ public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyView
         notifyDataSetChanged();
     }
 
+    public Idea getIdeaAt(int position){
+        return ideas.get(position);
+    }
+
 
     /**
      * MyViewHolder
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final String TAG = "MyViewHolder_IdeaList";
 
@@ -91,58 +92,24 @@ public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.MyView
             cardView = itemView.findViewById(R.id.cvRowWhole);
             rowView = itemView.findViewById(R.id.list_row);
 
-            itemView.setOnLongClickListener(this);
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.Q)
+                public void onClick(View v) {
+                    boolean singleLine = title.isSingleLine();
+                    title.setSingleLine(!singleLine);
+                    description.setSingleLine(!singleLine);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(context,
+                            context.getString(R.string.swipe_left_to_delete_and_right_to_change_this_entry),
+                            Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            });
         }
-
-        /**
-         * Method to handle a click on the item
-         * @param v View to handle click on
-         */
-        @RequiresApi(api = Build.VERSION_CODES.Q)
-        public void onClick(View v) {
-            boolean singleLine = title.isSingleLine();
-            title.setSingleLine(!singleLine);
-            description.setSingleLine(!singleLine);
-        }
-
-        /**
-         * TODO
-         * Method to handle long click on the item
-         * @param v View to handle click on
-         * @return SOMETHING?
-         */
-        @Override
-        public boolean onLongClick(View v) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);//,R.style.confirmdialog);
-            alertDialog.setTitle(R.string.Change_or_delete_item_question);
-            alertDialog.setPositiveButton(R.string.delete,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(context, "delete pressed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            // on pressing cancel button
-            alertDialog.setNegativeButton(R.string.change,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(context, "change pressed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-            alertDialog.show();
-            Log.v(TAG, "Long click fired!");
-            return false;
-        }
-
-        /*
-         TODO see if we need the update view's elements function
-         * Function to update view's elements
-         * @param message Good data to be updated to
-        public void bindData(Item message) {
-            mData = message;
-             * Set values of views here
-
-        }*/
     }
 }
