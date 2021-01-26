@@ -83,22 +83,43 @@ public class IdeaListFragment extends Fragment {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 Idea idea = ideaListAdapter.getIdeaAt(viewHolder.getAdapterPosition());
                 if(direction == ItemTouchHelper.LEFT) {
-                    ideaViewModel.delete(idea);
-                    Toast.makeText(getContext(), getString(R.string.idea_deleted), Toast.LENGTH_SHORT).show();
+                    deleteItem(idea);
                 }else{
-                    Intent intent = new Intent(getContext(), AddActivity.class);
-                    intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
-                    intent.putExtra(AddActivity.KEY_EDIT_IDEA_HAPPY, true);
-                    intent.putExtra(AddActivity.KEY_WHAT, idea.getWhat());
-                    intent.putExtra(AddActivity.KEY_ADINFO, idea.getAdInfo());
-                    intent.putExtra(AddActivity.KEY_ID, idea.getId());
-                    startActivity(intent);
+                    updateItem(idea);
                 }
             }
         }).attachToRecyclerView(recyclerView);
 
         return view;
     }
+
+    // delete item
+    private void deleteItem(Idea idea) {
+        ideaViewModel.delete(idea);
+        Toast.makeText(getContext(), getString(R.string.idea_deleted), Toast.LENGTH_SHORT).show();
+    }
+
+    // update item in new AddActivity
+    private void updateItem(Idea idea) {
+        Intent intent = new Intent(getContext(), AddActivity.class);
+        intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
+        intent.putExtra(AddActivity.KEY_EDIT_IDEA_HAPPY, true);
+        intent.putExtra(AddActivity.KEY_WHAT, idea.getWhat());
+        intent.putExtra(AddActivity.KEY_ADINFO, idea.getAdInfo());
+        intent.putExtra(AddActivity.KEY_ID, idea.getId());
+        startActivity(intent);
+    }
+
+
+
+    private View.OnClickListener btnAddIdea = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getContext(), AddActivity.class);
+            intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
+            startActivity(intent);
+        }
+    };
 
 
     @Override
@@ -121,14 +142,5 @@ public class IdeaListFragment extends Fragment {
             ((MainActivity) getActivity()).bottomNavigationView.setSelectedItemId(R.id.navigation_ideas);
         }
     }
-
-    private View.OnClickListener btnAddIdea = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getContext(), AddActivity.class);
-            intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
-            startActivity(intent);
-        }
-    };
 
 }
