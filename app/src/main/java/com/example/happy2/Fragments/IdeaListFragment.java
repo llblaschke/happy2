@@ -1,5 +1,6 @@
 package com.example.happy2.Fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -94,10 +96,30 @@ public class IdeaListFragment extends Fragment {
     }
 
     // delete item
-    private void deleteItem(Idea idea) {
-        ideaViewModel.delete(idea);
-        Toast.makeText(getContext(), getString(R.string.idea_deleted), Toast.LENGTH_SHORT).show();
+    private void deleteItem(final Idea idea) {
+        AlertDialog.Builder deleteDialog = new AlertDialog.Builder(getContext());
+        deleteDialog.setTitle(getString(R.string.sure_to_delete_this_idea));
+        deleteDialog.setNegativeButton(
+                getString(R.string.no),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ideaListAdapter.notifyDataSetChanged();
+                    }
+                });
+        deleteDialog.setPositiveButton(
+                getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ideaViewModel.delete(idea);
+                        Toast.makeText(getContext(), getString(R.string.idea_deleted), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        deleteDialog.create().show();
     }
+
+
 
     // update item in new AddActivity
     private void updateItem(Idea idea) {
@@ -108,6 +130,7 @@ public class IdeaListFragment extends Fragment {
         intent.putExtra(AddActivity.KEY_ADINFO, idea.getAdInfo());
         intent.putExtra(AddActivity.KEY_ID, idea.getId());
         startActivity(intent);
+        ideaListAdapter.notifyDataSetChanged();
     }
 
 
