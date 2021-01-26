@@ -37,20 +37,49 @@ public class AddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white);
 
-        loadIdeaFragment = false;
+        loadIdeaFragment = getLoadIdeaFragment();
+        editIdeaHappy = getEditIdeaHappy();
+        getSupportActionBar().setTitle(createTitle());
+
+
+        if (loadIdeaFragment) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.addFragmentContainer,
+                    new AddIdeaFragment(), "AddIdeaFragment")
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.addFragmentContainer,
+                    new AddHappyThingFragment(), "updatedFragmentAddHappy")
+                    .commit();
+        }
+
+    }
+
+    // get boolean if to load AddIdeaFragment, default = false
+    private boolean getLoadIdeaFragment() {
         try {
-            loadIdeaFragment = getIntent().getExtras().getBoolean(KEY_LOAD_IDEA_FRAGMENT);
+            return getIntent().getExtras().getBoolean(KEY_LOAD_IDEA_FRAGMENT);
         }catch (NullPointerException e) {
             Log.d(TAG, KEY_LOAD_IDEA_FRAGMENT+" gives NullPointerException");
         }
+        return false;
+    }
 
-        editIdeaHappy = false;
+    // get boolean if to edit an existing idea/happy thing or add a new one, default = false
+    private boolean getEditIdeaHappy() {
         try {
-            editIdeaHappy = getIntent().getExtras().getBoolean(KEY_EDIT_IDEA_HAPPY);
+            return getIntent().getExtras().getBoolean(KEY_EDIT_IDEA_HAPPY);
         }catch (NullPointerException e) {
             Log.d(TAG, KEY_EDIT_IDEA_HAPPY+" gives NullPointerException");
         }
+        return false;
+    }
 
+    // create title
+    public String createTitle() {
         String title = "";
         if (editIdeaHappy) {
             title += getString(R.string.edit) + " ";
@@ -62,16 +91,7 @@ public class AddActivity extends AppCompatActivity {
         } else {
             title += getString(R.string.happy_thing);
         }
-        getSupportActionBar().setTitle(title);
-
-        if(loadIdeaFragment) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
-                    new AddIdeaFragment(), "AddIdeaFragment").commit();
-        }else{
-                getSupportFragmentManager().beginTransaction().replace(R.id.addFragmentContainer,
-                        new AddHappyThingFragment(), "updatedFragmentAddHappy").commit();
-        }
-
+        return title;
     }
 
     public void onPause() {
