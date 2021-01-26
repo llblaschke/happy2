@@ -15,4 +15,7 @@ public interface UnhappyDayDao {
 
     @Query("SELECT * FROM unhappy_days_table")
     LiveData<List<UnhappyDay>> getAll();
+
+    @Query("SELECT unhappyDay FROM unhappy_days_table")
+    LiveData<List<String>> getAllDates();
 }

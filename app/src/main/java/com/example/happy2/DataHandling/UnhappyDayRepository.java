@@ -15,11 +15,13 @@ public class UnhappyDayRepository {
 
     private UnhappyDayDao unhappyDayDao;
     private LiveData<List<UnhappyDay>> allUnhappyDays;
+    private LiveData<List<String>> allUnhappyDaysDates;
 
     public UnhappyDayRepository(Application application){
         UnhappyDayDatabase database = UnhappyDayDatabase.getInstance(application);
         unhappyDayDao = database.unhappyDayDao();
         allUnhappyDays = unhappyDayDao.getAll();
+        allUnhappyDaysDates = unhappyDayDao.getAllDates();
     }
 
     public void insert(UnhappyDay unhappyDay){
@@ -28,6 +30,10 @@ public class UnhappyDayRepository {
 
     public LiveData<List<UnhappyDay>> getAllUnhappyDays(){
         return allUnhappyDays;
+    }
+
+    public LiveData<List<String>> getAllUnhappyDaysDates() {
+        return allUnhappyDaysDates;
     }
 
     private static class InsertUnhappyDayAsyncTask extends AsyncTask<UnhappyDay, Void, Void> {
