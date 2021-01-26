@@ -51,7 +51,7 @@ public class AddIdeaFragment extends Fragment {
     private ArrayAdapter ideaWhatAdapter;
     private ArrayAdapter ideaDescAdapter;
 
-    private boolean update=false;
+    private boolean update;
     private Intent intent;
 
 
@@ -74,44 +74,73 @@ public class AddIdeaFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_add_happy, container, false);
 
+        intent = getActivity().getIntent();
+
         tvAddIdea = v.findViewById(R.id.txtAddHappyThing);
         acTextViewIdea = v.findViewById(R.id.acTextViewWhat);
         acTextViewDesc = v.findViewById(R.id.acTextViewAdInfo);
+        buttonSave = v.findViewById(R.id.btnSave);
+
+        v = adaptViewsToIdeaFragment(v);
+        prepareButtonSave();
+        getUpdateMode();
+        fillTextViews();
+        autoCompleteACTextViewIdea();
+        autoCompleteACTextViewDesc();
+
+        return v;
+    }
+
+
+
+    // make views from happy invisible and change text to idea-text
+    private View adaptViewsToIdeaFragment(View v){
         v.findViewById(R.id.acTextViewWith).setVisibility(View.GONE);
         v.findViewById(R.id.acTextViewWhere).setVisibility(View.GONE);
         v.findViewById(R.id.editTextWhen).setVisibility(View.GONE);
         v.findViewById(R.id.btnChangeDate).setVisibility(View.GONE);
-        buttonSave = v.findViewById(R.id.btnSave);
-
         tvAddIdea.setText(R.string.text_what_might_make_you_happy);
         acTextViewIdea.setHint(R.string.idea);
+        return v;
+    }
 
-        // Save button enables only if all EditTexts contain input
+    // set buttonSave onClicklistener, enable it and set TextWatcher
+    private void prepareButtonSave() {
         buttonSave.setOnClickListener(btnClickSave);
         buttonSave.setEnabled(false);
         acTextViewIdea.addTextChangedListener(addIdeaTextWatcher);
+    }
 
-        if (prefs.contains(TMP_IDEA)) acTextViewIdea.setText(prefs.getString(TMP_IDEA, ""));
-        if (prefs.contains(TMP_DESC)) acTextViewDesc.setText(prefs.getString(TMP_DESC, ""));
-
-        intent = getActivity().getIntent();
-        if (intent.hasExtra(KEY_EDIT_IDEA_HAPPY)){
+    // check if we are in update mode
+    private void getUpdateMode() {
+        if (intent.hasExtra(KEY_EDIT_IDEA_HAPPY)) {
+            // if we are in edit mode
             update = intent.getBooleanExtra(KEY_EDIT_IDEA_HAPPY, false);
-            if (intent.getBooleanExtra(KEY_EDIT_IDEA_HAPPY, false)){
-                acTextViewIdea.setText(intent.getStringExtra(KEY_WHAT));
-                acTextViewDesc.setText(intent.getStringExtra(KEY_ADINFO));
-            }
+        } else {
+            update = false;
         }
+    }
 
+    // fill textViews with either text to update or unsaved text
+    private void fillTextViews() {
+        String what = null;
+        String adInfo = null;
+        if (update){
+            // if we are in edit mode
+            what = intent.getStringExtra(KEY_WHAT);
+            adInfo = intent.getStringExtra(KEY_ADINFO);
+        } else {
+            // if there was unsaved data
+            if (prefs.contains(TMP_IDEA)) what = prefs.getString(TMP_IDEA, "");
+            if (prefs.contains(TMP_DESC)) adInfo = prefs.getString(TMP_DESC, "");
+        }
+        acTextViewIdea.setText(what);
+        acTextViewDesc.setText(adInfo);
+    }
 
+    // set adapter for acTextViewIdea to get autocompletion
+    private void autoCompleteACTextViewIdea() {
         acTextViewIdea.setThreshold(1);
-        acTextViewDesc.setThreshold(1);
-
-        ArrayList<String> emptyList = new ArrayList<>();
-        emptyList.add("");
-
-        ideaWhatAdapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, new ArrayList<>());
-
         ideaViewModel.getAllIdeasWhat().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
@@ -122,7 +151,12 @@ public class AddIdeaFragment extends Fragment {
                 acTextViewIdea.setAdapter(ideaWhatAdapter);
             }
         });
+    }
 
+
+    // set adapter for acTextViewIdea to get autocompletion
+    private void autoCompleteACTextViewDesc() {
+        acTextViewDesc.setThreshold(1);
         ideaViewModel.getAllIdeasDesc().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
@@ -133,24 +167,9 @@ public class AddIdeaFragment extends Fragment {
                 acTextViewDesc.setAdapter(ideaDescAdapter);
             }
         });
-
-        return v;
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(TMP_IDEA, acTextViewIdea.getText().toString())
-                .putString(TMP_DESC, acTextViewDesc.getText().toString());
-        editor.commit();
-    }
-
-
-
-
-
+    // on Save button
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -170,6 +189,7 @@ public class AddIdeaFragment extends Fragment {
         }
     };
 
+    // textwatcher to enable save button when textviews are not empty
     private TextWatcher addIdeaTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -180,5 +200,19 @@ public class AddIdeaFragment extends Fragment {
         @Override
         public void afterTextChanged(Editable s) { }
     };
+
+
+
+    // on destroy save data in fields if not in update mode
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(!update) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(TMP_IDEA, acTextViewIdea.getText().toString())
+                    .putString(TMP_DESC, acTextViewDesc.getText().toString());
+            editor.commit();
+        }
+    }
 
 }
