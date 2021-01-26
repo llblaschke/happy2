@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.IdeaViewModel;
+import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BottomNavigationActivity {
@@ -13,6 +14,7 @@ public class MainActivity extends BottomNavigationActivity {
     public BottomNavigationView bottomNavigationView;
     private IdeaViewModel ideaViewModel;
     private HappyViewModel happyViewModel;
+    private UnhappyDayViewModel unhappyDayViewModel;
 
 
     @Override
@@ -25,5 +27,6 @@ public class MainActivity extends BottomNavigationActivity {
 
         ideaViewModel = ViewModelProviders.of(this).get(IdeaViewModel.class);
         happyViewModel = ViewModelProviders.of(this).get(HappyViewModel.class);
+        unhappyDayViewModel = ViewModelProviders.of(this).get(UnhappyDayViewModel.class);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +12,31 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.happy2.AddActivity;
+import com.example.happy2.DataHandling.Room.UnhappyDay;
+import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.example.happy2.MainActivity;
 import com.example.happy2.R;
+
+import java.util.Calendar;
+import java.util.List;
 
 
 public class HomeFragment extends Fragment {
 
+    private UnhappyDayViewModel unhappyDayViewModel;
+
     public HomeFragment(){
         // empty constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        unhappyDayViewModel = ViewModelProviders.of(this).get(UnhappyDayViewModel.class);
     }
 
     @Override
@@ -33,6 +49,14 @@ public class HomeFragment extends Fragment {
         v.findViewById(R.id.btnNotHappy).setOnClickListener(btnClickNotHappy);
         v.findViewById(R.id.btnAddIdea).setOnClickListener(btnAddIdea);
 
+        unhappyDayViewModel.getAllUnhappyDaysDates().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> unhappyDays) {
+                for(int i =0; i<unhappyDays.size(); i++) {
+                    Log.d("HOME FRAGMENT", "Unhappy day: "+ unhappyDays.get(i));
+                }
+            }
+        });
         return v;
     }
 
@@ -59,6 +83,13 @@ public class HomeFragment extends Fragment {
     private View.OnClickListener btnClickNotHappy = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Calendar calendar = Calendar.getInstance();
+            String today = new StringBuilder().
+                    append(calendar.get(Calendar.DAY_OF_MONTH)).append(".")
+                    .append(calendar.get(Calendar.MONTH)+1).append(".")
+                    .append(calendar.get(Calendar.YEAR))
+                    .toString();
+            unhappyDayViewModel.insert(new UnhappyDay(today));
             getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
                     new NotHappyFragment()).commit();
         }
