@@ -18,16 +18,19 @@ import com.example.happy2.AddActivity;
 import com.example.happy2.DataHandling.Room.UnhappyDay;
 import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.example.happy2.MainActivity;
+import com.example.happy2.MyHelperMethods.DayCount;
 import com.example.happy2.MyHelperMethods.StringDate;
 import com.example.happy2.R;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
 
     private UnhappyDayViewModel unhappyDayViewModel;
     private List<String> allUnhappyDays;
+    public boolean lastXDaysUnhappy;
 
     public HomeFragment(){
         // empty constructor
@@ -36,7 +39,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        unhappyDayViewModel = ViewModelProviders.of(this).get(UnhappyDayViewModel.class);
+        unhappyDayViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(UnhappyDayViewModel.class);
+        lastXDaysUnhappy = false;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class HomeFragment extends Fragment {
         v.findViewById(R.id.btnAddIdea).setOnClickListener(btnAddIdea);
 
 
-        unhappyDayViewModel.getAllUnhappyDaysDates().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+        unhappyDayViewModel.getAllUnhappyDaysDates().observe(Objects.requireNonNull(getActivity()), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> dates) {
                 allUnhappyDays = dates;
@@ -110,5 +114,10 @@ public class HomeFragment extends Fragment {
             intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
             startActivity(intent);
         }
+    };
+
+    private boolean getLastXDaysUnhappy(List<String> unhappyDates) {
+        List<String> lastXDays = new DayCount().getLastXDays();
+        return unhappyDates.containsAll(lastXDays);
     };
 }

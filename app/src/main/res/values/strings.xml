@@ -45,7 +45,10 @@
     <string name="happy_thing">Happy Thing</string>
 
     <string name="text_not_happy_sorry">"I'm sorry that you had a bad day!"</string>
-    <string name="alert_too_many_unhappy_days">"It's been X days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>
+    <string name="alert_too_many_unhappy_days_part1">"It's been</string>
+    <string name="alert_too_many_unhappy_days_part2">"days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>
+    <string name="alert_too_many_unhappy_days_part1_singular">"It's been</string>
+    <string name="alert_too_many_unhappy_days_part2_singular">"day in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>
     <string name="title_activity_bottom_navigation_test">MainActivity</string>
 
 
