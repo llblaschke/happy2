@@ -177,7 +177,7 @@ public class AddIdeaFragment extends Fragment {
             if(update){
                 int id = intent.getIntExtra(KEY_ID, -1);
                 if(id == -1){
-                    Toast.makeText(getContext(), "Something went really wrong here, this should not happen.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "This should not happen", Toast.LENGTH_SHORT).show();
                 } else {
                     idea.setId(id);
                     ideaViewModel.update(idea);
@@ -185,6 +185,7 @@ public class AddIdeaFragment extends Fragment {
             } else {
                 ideaViewModel.insert(idea);
             }
+            // this also closes the keyboard!
             getActivity().finish();
         }
     };
