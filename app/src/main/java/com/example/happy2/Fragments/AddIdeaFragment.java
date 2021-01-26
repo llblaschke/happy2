@@ -182,6 +182,7 @@ public class AddIdeaFragment extends Fragment {
                     idea.setId(id);
                     ideaViewModel.update(idea);
                 }
+                Toast.makeText(getContext(), getString(R.string.idea_updated), Toast.LENGTH_SHORT).show();
             } else {
                 ideaViewModel.insert(idea);
             }
