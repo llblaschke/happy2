@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getContext(), AddActivity.class);
-            intent.putExtra("loadIdeaFragment", true);
+            intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
             startActivity(intent);
         }
     };
