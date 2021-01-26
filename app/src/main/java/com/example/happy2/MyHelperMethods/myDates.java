@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DayCount {
-    private int nrOfUnhappyDaysOK;
+public class myDates {
+
+    private int nrOfHoursOfDayStillSavedAsYesterdayUnhappy = 0;
+    private int nrOfUnhappyDaysOK = 2;
     private List<String> lastXDays;
     private Calendar calendar = Calendar.getInstance();
     int today_as_int;
 
-    public DayCount() {
-        nrOfUnhappyDaysOK = 1;
+
+    public myDates() {
         today_as_int = calendar.get(Calendar.DATE);
     }
 
@@ -35,10 +37,29 @@ public class DayCount {
 
     private String dateToString(int date) {
         calendar.set(Calendar.DATE, date);
-        return new StringDate().dateToString(calendar.get(Calendar.DAY_OF_MONTH),
+        return new myDates().dateToString(calendar.get(Calendar.DAY_OF_MONTH),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.YEAR));
 
+    }
+
+
+    public String dateToString(int day, int month, int year) {
+        return new StringBuilder().
+                append(day).append(".")
+                .append(month+1).append(".")
+                .append(year)
+                .toString();
+    }
+
+    public String todayAsString() {
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.HOUR_OF_DAY)<nrOfHoursOfDayStillSavedAsYesterdayUnhappy){
+            calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-1 );
+        }
+        return dateToString(calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.YEAR));
     }
 
 

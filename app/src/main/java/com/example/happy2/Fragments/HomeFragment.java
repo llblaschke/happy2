@@ -18,8 +18,7 @@ import com.example.happy2.AddActivity;
 import com.example.happy2.DataHandling.Room.UnhappyDay;
 import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.example.happy2.MainActivity;
-import com.example.happy2.MyHelperMethods.DayCount;
-import com.example.happy2.MyHelperMethods.StringDate;
+import com.example.happy2.MyHelperMethods.myDates;
 import com.example.happy2.R;
 
 import java.util.List;
@@ -88,7 +87,8 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
             // add today to unhappy days if not already there
-            String today = new StringDate().todayAsString();
+            String today;
+            today = new myDates().todayAsString();
             if (!allUnhappyDays.contains(today)) {
                 unhappyDayViewModel.insert(new UnhappyDay(today));
             }
@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment {
     };
 
     private boolean getLastXDaysUnhappy(List<String> unhappyDates) {
-        List<String> lastXDays = new DayCount().getLastXDays();
+        List<String> lastXDays = new myDates().getLastXDays();
         return unhappyDates.containsAll(lastXDays);
     };
 }
