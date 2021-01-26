@@ -147,64 +147,7 @@ public class AddHappyThingFragment extends Fragment {
             editTextWhen.setText(tmpWhen);
         }
 
-
-        acTextViewWhat.setThreshold(1);
-        acTextViewWith.setThreshold(1);
-        acTextViewWhere.setThreshold(1);
-        acTextViewAdInfo.setThreshold(1);
-
-        ArrayList<String> emptyList = new ArrayList<>();
-        emptyList.add("");
-
-        happyWhatAdapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, new ArrayList<>());
-        happyWithAdapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, new ArrayList<>());
-        happyWhereAdapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, new ArrayList<>());
-        happyAdInfoAdapter= new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, new ArrayList<>());
-
-        happyViewModel.getAllHappyWhat().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                happyWhatAdapter = new ArrayAdapter<String>(
-                        getContext(),
-                        android.R.layout.select_dialog_item,
-                        new ArrayList<>(new HashSet<>(strings)));
-                acTextViewWhat.setAdapter(happyWhatAdapter);
-            }
-        });
-
-        happyViewModel.getAllHappyWith().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                happyWithAdapter = new ArrayAdapter<String>(
-                        getContext(),
-                        android.R.layout.select_dialog_item,
-                        new ArrayList<>(new HashSet<>(strings)));
-                acTextViewWith.setAdapter(happyWithAdapter);
-            }
-        });
-
-        happyViewModel.getAllHappyWhere().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                happyWhereAdapter = new ArrayAdapter<String>(
-                        getContext(),
-                        android.R.layout.select_dialog_item,
-                        new ArrayList<>(new HashSet<>(strings)));
-                acTextViewWhere.setAdapter(happyWhereAdapter);
-            }
-        });
-
-        happyViewModel.getAllHappyAdInfo().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                happyAdInfoAdapter = new ArrayAdapter<String>(
-                        getContext(),
-                        android.R.layout.select_dialog_item,
-                        new ArrayList<>(new HashSet<>(strings)));
-                acTextViewAdInfo.setAdapter(happyAdInfoAdapter);
-            }
-        });
-
+        autoCompleteACTextViews();
         return v;
     }
 
@@ -293,5 +236,59 @@ public class AddHappyThingFragment extends Fragment {
 
     public void updateTxtAddHappyThing() {
         textViewAddHappyThing.setText(R.string.text_what_made_you_happy_what_else);
+    }
+
+    // set all adapters and thresholds for the autocomplete textviews
+    private void autoCompleteACTextViews() {
+
+        acTextViewWhat.setThreshold(1);
+        acTextViewWith.setThreshold(1);
+        acTextViewWhere.setThreshold(1);
+        acTextViewAdInfo.setThreshold(1);
+
+        happyViewModel.getAllHappyWhat().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                happyWhatAdapter = new ArrayAdapter<String>(
+                        getContext(),
+                        android.R.layout.select_dialog_item,
+                        new ArrayList<>(new HashSet<>(strings)));
+                acTextViewWhat.setAdapter(happyWhatAdapter);
+            }
+        });
+
+        happyViewModel.getAllHappyWith().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                happyWithAdapter = new ArrayAdapter<String>(
+                        getContext(),
+                        android.R.layout.select_dialog_item,
+                        new ArrayList<>(new HashSet<>(strings)));
+                acTextViewWith.setAdapter(happyWithAdapter);
+            }
+        });
+
+        happyViewModel.getAllHappyWhere().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                happyWhereAdapter = new ArrayAdapter<String>(
+                        getContext(),
+                        android.R.layout.select_dialog_item,
+                        new ArrayList<>(new HashSet<>(strings)));
+                acTextViewWhere.setAdapter(happyWhereAdapter);
+            }
+        });
+
+        happyViewModel.getAllHappyAdInfo().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                happyAdInfoAdapter = new ArrayAdapter<String>(
+                        getContext(),
+                        android.R.layout.select_dialog_item,
+                        new ArrayList<>(new HashSet<>(strings)));
+                acTextViewAdInfo.setAdapter(happyAdInfoAdapter);
+            }
+        });
+
     }
 }
