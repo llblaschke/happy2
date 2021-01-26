@@ -185,6 +185,9 @@ public class AddIdeaFragment extends Fragment {
             } else {
                 ideaViewModel.insert(idea);
             }
+            // clean the fields (otherwise this would be saved for next time)
+            acTextViewIdea.setText("");
+            acTextViewDesc.setText("");
             // this also closes the keyboard!
             getActivity().finish();
         }
