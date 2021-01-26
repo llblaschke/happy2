@@ -130,7 +130,6 @@ public class IdeaListFragment extends Fragment {
         intent.putExtra(AddActivity.KEY_ADINFO, idea.getAdInfo());
         intent.putExtra(AddActivity.KEY_ID, idea.getId());
         startActivity(intent);
-        ideaListAdapter.notifyDataSetChanged();
     }
 
 
@@ -160,6 +159,7 @@ public class IdeaListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ideaListAdapter.notifyDataSetChanged();
         int selectedItemId = ((MainActivity) getActivity()).bottomNavigationView.getSelectedItemId();
         if (selectedItemId != R.id.navigation_ideas) {
             ((MainActivity) getActivity()).bottomNavigationView.setSelectedItemId(R.id.navigation_ideas);
