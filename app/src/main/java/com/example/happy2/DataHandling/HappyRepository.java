@@ -4,15 +4,19 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import com.example.happy2.DataHandling.Room.HappyDao;
 import com.example.happy2.DataHandling.Room.HappyDatabase;
 import com.example.happy2.DataHandling.Room.HappyThing;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HappyRepository {
 
+    private List<String> column_names = Arrays.asList("mWhat", "mWith", "mWhere", "mAdInfo", "mWhen", "mPicPath");
     private HappyDao happyDao;
     private LiveData<List<HappyThing>> allHappyThings;
     private LiveData<List<String>> allHappyWhat;
@@ -65,6 +69,25 @@ public class HappyRepository {
 
     public LiveData<List<String>> getAllHappyAdInfo() {
         return allHappyAdInfo;
+    }
+
+    public LiveData<List<String>> getXwhereYis(int x, int y, String yIs){
+        SimpleSQLiteQuery query = getXwhereYisQuery(x, y, yIs);
+        return happyDao.getXwhereYis(query);
+    }
+
+    private SimpleSQLiteQuery getXwhereYisQuery(int x, int y, String yIs) {
+        // List of bind parameters
+        List<Object> args = new ArrayList();
+        // Beginning of query string
+        String queryString =
+                "SELECT "
+                + column_names.get(x)
+                + " FROM happy_table WHERE "
+                + column_names.get(y)
+                + " LIKE ?;";
+        args.add(yIs);
+        return new SimpleSQLiteQuery(queryString, args.toArray());
     }
 
     private static class InsertHappyThingAsyncTask extends AsyncTask<HappyThing, Void, Void> {
