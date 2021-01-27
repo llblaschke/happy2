@@ -101,7 +101,7 @@ public class HappyRepository {
         String queryString =
                 "SELECT DISTINCT "
                         + column_names.get(x)
-                        + " FROM happy_table WHERE ";
+                        + " FROM happy_table;";
         return new SimpleSQLiteQuery(queryString);
     }
 
