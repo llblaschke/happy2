@@ -14,11 +14,10 @@ import com.example.happy2.R;
 public class SortByDialogFragment extends DialogFragment {
 
     private final String TAG = "SortByDialog";
-    private final String[] sortByList = {"what", "with", "where", "date"};
 
 
     public interface SortByDialogListener {
-        public void onDialogItemSelected(String sortBy);
+        public void onDialogItemSelected(int sortBy);
     }
 
     SortByDialogListener listener;
@@ -43,21 +42,17 @@ public class SortByDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.sort_by_question);        // add a list
-        String[] items = {
-                getString(R.string.what),
-                getString(R.string.with_whom),
-                getString(R.string.where),
-                getString(R.string.date)};
+        String[] items = getResources().getStringArray(R.array.selectable_items_sort);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0: // what
-                    case 1: // where
-                    case 2: // with
+                    case 1: // with
+                    case 2: // where
                     case 3: // date
                 }
-                listener.onDialogItemSelected(sortByList[which]);//SortByDialogFragment.this);
+                listener.onDialogItemSelected(which);//SortByDialogFragment.this);
             }
         });        // create and show the alert dialog
         return builder.create();

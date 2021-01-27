@@ -28,11 +28,14 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
     private List<HappyThing> happyThings = new ArrayList<>();
     private Context context;
     private int background1, background2;
+    private int showAsTitle, showAsDesc;
 
-    public HappyListAdapter(Context ct){
+    public HappyListAdapter(Context ct, int showAsTitle, int showAsDesc){
         context = ct;
         background1 = ContextCompat.getColor(context, colorHappyLight);
         background2 = ContextCompat.getColor(context, colorHappyLightTwo);
+        this.showAsTitle = showAsTitle;
+        this.showAsDesc = showAsDesc;
     }
 
     @NonNull
@@ -48,8 +51,8 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         HappyThing happyThing = happyThings.get(position);
 
-        holder.title.setText(happyThing.getWhat());
-        holder.description.setText(happyThing.getWith());
+        holder.title.setText(getCorrectStringFromHappyThing(happyThing, showAsTitle));
+        holder.description.setText(getCorrectStringFromHappyThing(happyThing, showAsDesc));
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
         }else{
@@ -65,6 +68,18 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
     public void setHappyThings(List<HappyThing> happyThings){
         this.happyThings = happyThings;
         notifyDataSetChanged();
+    }
+
+
+    private String getCorrectStringFromHappyThing(HappyThing happyThing, int show) {
+        switch (show) {
+            case 0: return happyThing.getWhat();
+            case 1: return happyThing.getWith();
+            case 2: return happyThing.getWhere();
+            case 3: return happyThing.getWhen();
+            default: return "";
+        }
+
     }
 
 

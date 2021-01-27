@@ -1,12 +1,8 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
-    </string-array>
-
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="selectable_items_sort">
+        <item>Activity</item>
+        <item>Company</item>
+        <item>Location</item>
+        <item>Date</item>
     </string-array>
 </resources>
