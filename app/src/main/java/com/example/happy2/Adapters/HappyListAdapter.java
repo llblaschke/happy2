@@ -2,19 +2,24 @@ package com.example.happy2.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.happy2.R;
+import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.Room.HappyThing;
+import com.example.happy2.Fragments.HappyListFragment;
+import com.example.happy2.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +30,23 @@ import static com.example.happy2.R.color.colorHappyLightTwo;
 public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyViewHolder> {
     private final String TAG = "HappyListAdapter";
 
+    private HappyViewModel happyViewModel;
+    private HappyListFragment happyListFragment;
     private List<HappyThing> happyThings = new ArrayList<>();
     private Context context;
     private int background1, background2;
     private int showAsTitle, showAsDesc;
+    private List<String> allTitles = new ArrayList<>();
 
-    public HappyListAdapter(Context ct, int showAsTitle, int showAsDesc){
-        context = ct;
-        background1 = ContextCompat.getColor(context, colorHappyLight);
-        background2 = ContextCompat.getColor(context, colorHappyLightTwo);
+    public HappyListAdapter(Context context, HappyListFragment happyListFragment, int showAsTitle, int showAsDesc){
+        this.context = context;
+        this.happyListFragment = happyListFragment;
         this.showAsTitle = showAsTitle;
         this.showAsDesc = showAsDesc;
+        background1 = ContextCompat.getColor(context, colorHappyLight);
+        background2 = ContextCompat.getColor(context, colorHappyLightTwo);
+        happyViewModel = ViewModelProviders.of(happyListFragment).get(HappyViewModel.class);
+        getAllTitles();
     }
 
     @NonNull
@@ -49,10 +60,27 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        HappyThing happyThing = happyThings.get(position);
+        String title = allTitles.get(position);
+        holder.title.setText(title);
 
-        holder.title.setText(getCorrectStringFromHappyThing(happyThing, showAsTitle));
-        holder.description.setText(getCorrectStringFromHappyThing(happyThing, showAsDesc));
+        happyViewModel
+                .getXwhereYis(showAsDesc, showAsTitle, title)
+                .observe(happyListFragment, new Observer<List<String>>() {
+                    @Override
+                    public void onChanged(List<String> strings) {
+                        String tmpDescription = "";
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            tmpDescription = String.join(", ", strings);
+                        } else {
+                            for(int i = 0; i<strings.size(); i++) {
+                                tmpDescription += strings.get(i);
+                                if(i < strings.size()-1) tmpDescription += ", ";
+                            }
+                        }
+                        holder.description.setText(tmpDescription);
+                    };
+        });
+
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
         }else{
@@ -60,26 +88,26 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
         }
     }
 
+    public void getAllTitles() {
+        happyViewModel.getDistinctX(showAsTitle).observe(happyListFragment, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                allTitles = strings;
+                notifyDataSetChanged();
+            }
+        });
+
+    }
+
     @Override
     public int getItemCount() {
-        return happyThings.size();
+        return allTitles.size();
     }
 
     public void setHappyThings(List<HappyThing> happyThings){
         this.happyThings = happyThings;
+        // prepare dataset
         notifyDataSetChanged();
-    }
-
-
-    private String getCorrectStringFromHappyThing(HappyThing happyThing, int show) {
-        switch (show) {
-            case 0: return happyThing.getWhat();
-            case 1: return happyThing.getWith();
-            case 2: return happyThing.getWhere();
-            case 3: return happyThing.getWhen();
-            default: return "";
-        }
-
     }
 
 
@@ -89,14 +117,19 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView title, description;
         CardView cardView;
-        ConstraintLayout rowView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvRowTitle);
             description = itemView.findViewById(R.id.tvRowDescription);
             cardView = itemView.findViewById(R.id.cvRowWhole);
-            rowView = itemView.findViewById(R.id.list_row);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.Q)
+                public void onClick(View v) {
+                    // TODO implement loading of inner list happy fragment
+                }
+            });
         }
     }
 }

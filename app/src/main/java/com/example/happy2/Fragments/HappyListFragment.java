@@ -182,7 +182,7 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
         recyclerView = view.findViewById(R.id.recyclerViewInList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        happyListAdapter = new HappyListAdapter(getContext(), showItem1, showItem2);
+        happyListAdapter = new HappyListAdapter(getContext(), this, showItem1, showItem2);
         recyclerView.setAdapter(happyListAdapter);
     }
 
