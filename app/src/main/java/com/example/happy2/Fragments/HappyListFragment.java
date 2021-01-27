@@ -8,23 +8,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happy2.Adapters.HappyListAdapter;
 import com.example.happy2.AddActivity;
 import com.example.happy2.DataHandling.HappyViewModel;
-import com.example.happy2.DataHandling.Room.HappyThing;
 import com.example.happy2.Dialogs.SortByDialogFragment;
 import com.example.happy2.MainActivity;
 import com.example.happy2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +32,6 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
     public static final String SHOW_AS_DESCRIPTION = "com.example.happy2.SHOW_AS_DESCRIPTION";
 
     private HappyViewModel happyViewModel;
-    private HappyListAdapter happyListAdapter;
     private RecyclerView recyclerView;
 
     private FloatingActionButton btnAdd;
@@ -89,18 +82,6 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
         prepareButtons(view);
         makeRecyclerView(view);
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        happyViewModel = ViewModelProviders.of(getActivity()).get(HappyViewModel.class);
-        happyViewModel.getAllHappyThings().observe(getViewLifecycleOwner(), new Observer<List<HappyThing>>() {
-            @Override
-            public void onChanged(List<HappyThing> happyThings) {
-                happyListAdapter.setHappyThings(happyThings);
-            }
-        });
     }
 
     @Override
@@ -182,8 +163,7 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
         recyclerView = view.findViewById(R.id.recyclerViewInList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        happyListAdapter = new HappyListAdapter(getContext(), this, showItem1, showItem2);
-        recyclerView.setAdapter(happyListAdapter);
+        recyclerView.setAdapter(new HappyListAdapter(getContext(), this, showItem1, showItem2));
     }
 
     public void updateRecyclerView() {
