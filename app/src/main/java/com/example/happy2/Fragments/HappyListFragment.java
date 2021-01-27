@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happy2.Adapters.HappyListAdapter;
 import com.example.happy2.AddActivity;
-import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.Dialogs.SortByDialogFragment;
 import com.example.happy2.MainActivity;
 import com.example.happy2.R;
@@ -31,7 +30,6 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
     public static final String SHOW_AS_TITLE = "com.example.happy2.SHOW_AS_TITLE";
     public static final String SHOW_AS_DESCRIPTION = "com.example.happy2.SHOW_AS_DESCRIPTION";
 
-    private HappyViewModel happyViewModel;
     private RecyclerView recyclerView;
 
     private FloatingActionButton btnAdd;
@@ -93,6 +91,8 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
         }
     }
 
+
+
     /* ************************************************
     Buttons
     ************************************************ */
@@ -144,6 +144,8 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
             if (showItem2 == itemSelected) showItem2 = showItem1;
             showItem1 = itemSelected;
         } else {
+            // TODO: actually, we do not need to build everything new here, probably that would
+            // increase performance?
             recyclerViewMustBeUpdated = showItem2 != itemSelected;
             if (showItem1 == itemSelected) showItem1 = showItem2;
             showItem2 = itemSelected;
