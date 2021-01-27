@@ -72,12 +72,12 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
         super.onCreate(savedInstanceState);
         sort_by_list = getResources().getStringArray(R.array.selectable_items_sort);
 
-        if (savedInstanceState == null) {
+        if (getArguments() == null) {
             showItem1 = 0;
             showItem2 = 1;
         } else {
-            showItem1 = savedInstanceState.getInt(SHOW_AS_TITLE, 0);
-            showItem2 = savedInstanceState.getInt(SHOW_AS_DESCRIPTION, 1);
+            showItem1 = getArguments().getInt(SHOW_AS_TITLE, 0);
+            showItem2 = getArguments().getInt(SHOW_AS_DESCRIPTION, 1);
         }
     }
 
@@ -101,7 +101,6 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
                 happyListAdapter.setHappyThings(happyThings);
             }
         });
-
     }
 
     @Override
@@ -188,10 +187,8 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
     }
 
     public void updateRecyclerView() {
-//        happyListAdapter = new HappyListAdapter(getContext(), showItem1, showItem2, sortList);
-//        recyclerView.setAdapter(happyListAdapter);
-//        happyListAdapter.notifyDataSetChanged();
-        //TODO: implement this
+        getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
+                HappyListFragment.newInstance(showItem1, showItem2)).commit();
     }
 
 
