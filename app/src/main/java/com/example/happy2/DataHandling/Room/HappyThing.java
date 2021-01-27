@@ -16,7 +16,7 @@ public class HappyThing {
     private String mAdInfo;
     private String mWhen;
     @Ignore
-    private String picPath;
+    private String mPicPath;
 
     public HappyThing(String what, String with, String where, String adInfo, String when) {
         this.mWhat = what;
@@ -55,6 +55,6 @@ public class HappyThing {
     }
 
     public String getPicPath() {
-        return picPath;
+        return mPicPath;
     }
 }
