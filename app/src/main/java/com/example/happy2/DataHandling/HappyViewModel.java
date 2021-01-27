@@ -65,6 +65,10 @@ public class HappyViewModel extends AndroidViewModel {
         return allHappyAdInfo;
     }
 
+    public LiveData<List<String>> getDistinctX(int x){
+        return repository.getDistinctX(x);
+    }
+
     public LiveData<List<String>> getXwhereYis(int x, int y, String yIs) {
         return repository.getXwhereYis(x, y, yIs);
     }

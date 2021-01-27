@@ -71,6 +71,11 @@ public class HappyRepository {
         return allHappyAdInfo;
     }
 
+    public LiveData<List<String>> getDistinctX(int x) {
+        SimpleSQLiteQuery query = getDistinctXQuery(x);
+        return happyDao.getXwhereYis(query);
+    }
+
     public LiveData<List<String>> getXwhereYis(int x, int y, String yIs){
         SimpleSQLiteQuery query = getXwhereYisQuery(x, y, yIs);
         return happyDao.getXwhereYis(query);
@@ -82,12 +87,22 @@ public class HappyRepository {
         // Beginning of query string
         String queryString =
                 "SELECT "
-                + column_names.get(x)
-                + " FROM happy_table WHERE "
-                + column_names.get(y)
-                + " LIKE ?;";
+                        + column_names.get(x)
+                        + " FROM happy_table WHERE "
+                        + column_names.get(y)
+                        + " LIKE ?;";
         args.add(yIs);
         return new SimpleSQLiteQuery(queryString, args.toArray());
+    }
+
+
+    private SimpleSQLiteQuery getDistinctXQuery(int x) {
+        // Beginning of query string
+        String queryString =
+                "SELECT DISTINCT "
+                        + column_names.get(x)
+                        + " FROM happy_table WHERE ";
+        return new SimpleSQLiteQuery(queryString);
     }
 
     private static class InsertHappyThingAsyncTask extends AsyncTask<HappyThing, Void, Void> {

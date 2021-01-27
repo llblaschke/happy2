@@ -43,4 +43,7 @@ public interface HappyDao {
 
     @RawQuery(observedEntities = HappyThing.class)
     LiveData<List<String>> getXwhereYis(SupportSQLiteQuery query);
+
+    @RawQuery(observedEntities = HappyThing.class)
+    LiveData<List<String>> getDistinctX(SupportSQLiteQuery query);
 }
