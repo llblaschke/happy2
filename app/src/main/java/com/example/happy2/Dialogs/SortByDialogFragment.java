@@ -45,8 +45,8 @@ public class SortByDialogFragment extends DialogFragment {
         builder.setTitle(R.string.sort_by_question);        // add a list
         String[] items = {
                 getString(R.string.what),
-                getString(R.string.where),
                 getString(R.string.with_whom),
+                getString(R.string.where),
                 getString(R.string.date)};
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
