@@ -76,9 +76,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvOnClick1" />
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:id="@+id/tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:typeface="normal"
                 app:layout_constraintBottom_toBottomOf="@+id/ivRowAmount"
                 app:layout_constraintEnd_toEndOf="@+id/ivRowAmount"
                 app:layout_constraintStart_toStartOf="@+id/ivRowAmount"
