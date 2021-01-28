@@ -26,7 +26,7 @@ public interface HappyDao {
     @Query("DELETE FROM happy_table")
     void deleteAllHappyThings();
 
-    @Query("SELECT * FROM happy_table ORDER BY mWhat DESC")
+    @Query("SELECT * FROM happy_table ORDER BY mWhen DESC")
     LiveData<List<HappyThing>> getAll();
 
     @Query("SELECT mWhat FROM happy_table")
@@ -40,6 +40,9 @@ public interface HappyDao {
 
     @Query("SELECT mAdInfo FROM happy_table")
     LiveData<List<String>> getAllAdInfo();
+
+    @RawQuery(observedEntities = HappyThing.class)
+    LiveData<List<HappyThing>> getAllWhereXis(SupportSQLiteQuery query);
 
     @RawQuery(observedEntities = HappyThing.class)
     LiveData<List<String>> getXwhereYis(SupportSQLiteQuery query);

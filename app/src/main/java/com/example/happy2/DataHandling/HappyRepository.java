@@ -71,9 +71,14 @@ public class HappyRepository {
         return allHappyAdInfo;
     }
 
+    public LiveData<List<HappyThing>> getAllHappyThingsWhereXis(int x, String xIs) {
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery("SELECT * WHERE " + column_names.get(x) + " = " + xIs);
+        return happyDao.getAllWhereXis(query);
+    }
+
     public LiveData<List<String>> getDistinctX(int x) {
         SimpleSQLiteQuery query = getDistinctXQuery(x);
-        return happyDao.getXwhereYis(query);
+        return happyDao.getDistinctX(query);
     }
 
     public LiveData<List<String>> getXwhereYis(int x, int y, String yIs){
