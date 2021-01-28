@@ -16,7 +16,7 @@ import java.util.List;
 
 public class HappyRepository {
 
-    private List<String> column_names = Arrays.asList("mWhat", "mWith", "mWhere", "mAdInfo", "mWhen", "mPicPath");
+    private List<String> column_names = Arrays.asList("mWhat", "mWith", "mWhere", "mWhen", "mPicPath");
     private HappyDao happyDao;
     private LiveData<List<HappyThing>> allHappyThings;
     private LiveData<List<String>> allHappyWhat;
