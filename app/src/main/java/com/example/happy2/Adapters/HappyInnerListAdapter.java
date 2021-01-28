@@ -1,142 +1,132 @@
 package com.example.happy2.Adapters;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.happy2.DataHandling.HappyViewModel;
+import com.example.happy2.DataHandling.Room.HappyThing;
+import com.example.happy2.DataHandling.Room.Idea;
+import com.example.happy2.Fragments.HappyInnerListFragment;
 import com.example.happy2.R;
+
+import java.util.List;
 
 import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAdapter.MyViewHolder> {
-    private final String TAG = "HappyInnerListAdapter";
-    private String[] titleList, descList;
+
+    private HappyViewModel happyViewModel;
+    private List<HappyThing> happyThings;
+
+    private HappyInnerListFragment happyInnerListFragment;
     private Context context;
     private int background1, background2;
+    private int showIndex, showAsTitle, showAsDesc;
+    private String showValue;
 
-    public HappyInnerListAdapter(Context ct, String[] tl, String[] dl){
-        context = ct;
-        titleList = tl;
-        descList = dl;
+    public HappyInnerListAdapter(Context context, HappyInnerListFragment happyInnerListFragment, int showIndex, String showValue, int showAsTitle, int showAsDesc){
+        this.context = context;
+        this.happyInnerListFragment = happyInnerListFragment;
+        this.showIndex = showIndex;
+        this.showValue = showValue;
+        this.showAsTitle = showAsTitle;
+        this.showAsDesc = showAsDesc;
         background1 = ContextCompat.getColor(context, colorHappyLight);
         background2 = ContextCompat.getColor(context, colorHappyLightTwo);
+        happyViewModel = ViewModelProviders.of(happyInnerListFragment).get(HappyViewModel.class);
+        happyViewModel.getAllHappyThingsWhereXis(showIndex, showValue).observe(happyInnerListFragment, new Observer<List<HappyThing>>() {
+            @Override
+            public void onChanged(List<HappyThing> happyThings) {
+
+            }
+        });
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.list_row, parent, false);
-        return new MyViewHolder(view);
+        View itemView = LayoutInflater.from(context)
+                .inflate(R.layout.list_row, parent, false);
+        return new MyViewHolder(itemView);
     }
 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.title.setText(titleList[position]);
-        holder.description.setText(descList[position]);
+
+        // put observer on the description
+        happyViewModel
+                .getAllwhereXis(showIndex, showValue)
+                .observe(happyInnerListFragment, new Observer<List<String>>() {
+                    @Override
+                    public void onChanged(List<String> strings) {
+                        // TODO set values on textviews
+                    };
+                });
+        // set background color
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
-        }else holder.cardView.setBackgroundColor(background2);
+        }else{
+            holder.cardView.setBackgroundColor(background2);
+        }
     }
 
 
+    /* ***********************************************
+    STUFF WE NEED FOR SWIPE, DELETE, ...
+     */
     @Override
     public int getItemCount() {
-        if(titleList.length != descList.length){
-            Toast.makeText(context, TAG+": List length differ!", Toast.LENGTH_LONG).show();
-        }
-        return titleList.length;
+        // TODO
+        return 0;
+    }
+
+    public void setHappyThings(List<HappyThing> happyThings){
+        this.happyThings = happyThings;
+        notifyDataSetChanged();
+    }
+
+    public HappyThing getHappyThingAt(int position){
+        return happyThings.get(position);
     }
 
 
     /**
      * MyViewHolder
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
-
-        private final String TAG = "MyViewHolder_InnerList";
-
-        TextView title, description;
+    public class MyViewHolder extends RecyclerView.ViewHolder{
+        TextView title, description, tvOnClick1, tvOnClick2;
         CardView cardView;
-        ConstraintLayout rowView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvRowTitle);
             description = itemView.findViewById(R.id.tvRowDescription);
+            tvOnClick1 = itemView.findViewById(R.id.tvOnClick1);
+            tvOnClick2 = itemView.findViewById(R.id.tvOnClick2);
+
             cardView = itemView.findViewById(R.id.cvRowWhole);
-            rowView = itemView.findViewById(R.id.list_row);
 
-            itemView.setOnLongClickListener(this);
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.Q)
+                public void onClick(View v) {
+                    // TODO implement loading of inner list happy fragment
+                }
+            });
         }
-
-        /**
-         * Method to handle a click on the item
-         * @param v View to handle click on
-         */
-        @RequiresApi(api = Build.VERSION_CODES.Q)
-        public void onClick(View v) {
-            boolean singleLine = title.isSingleLine();
-            title.setSingleLine(!singleLine);
-            description.setSingleLine(!singleLine);
-            Log.v(TAG, "Short click!");
-        }
-
-        /**
-         * TODO
-         * Method to handle long click on the item
-         * @param v View to handle click on
-         * @return SOMETHING?
-         */
-        @Override
-        public boolean onLongClick(View v) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);//,R.style.confirmdialog);
-            alertDialog.setTitle(R.string.Change_or_delete_item_question);
-            alertDialog.setPositiveButton(R.string.delete,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(context, "delete pressed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            // on pressing cancel button
-            alertDialog.setNegativeButton(R.string.change,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(context, "change pressed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-            alertDialog.show();
-            Log.v(TAG, "Long click fired!");
-            return false;
-        }
-
-        /*
-         TODO see if we need the update view's elements function
-         * Function to update view's elements
-         * @param message Good data to be updated to
-        public void bindData(Item message) {
-            mData = message;
-             * Set values of views here
-
-        }*/
     }
 }
