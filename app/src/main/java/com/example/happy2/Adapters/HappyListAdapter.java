@@ -66,6 +66,7 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
                     @Override
                     public void onChanged(List<String> strings) {
                         holder.description.setText(buildTitleStringHelper(strings));
+                        holder.amount.setText(strings.size() + "x");
                     };
         });
         // set background color
@@ -110,14 +111,16 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
      * MyViewHolder
      */
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView title, description;
+        TextView title, description, amount;
         CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvRowTitle);
             description = itemView.findViewById(R.id.tvRowDescription);
+            amount = itemView.findViewById(R.id.tvAmount);
             cardView = itemView.findViewById(R.id.cvRowWhole);
+            itemView.findViewById(R.id.ivRowAmount).setVisibility(View.INVISIBLE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.Q)
