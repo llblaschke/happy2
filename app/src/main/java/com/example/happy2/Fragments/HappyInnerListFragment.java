@@ -88,6 +88,8 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
             showIndex = getArguments().getInt(SHOW_INDEX, 0);
             showAsTitle = getArguments().getInt(SHOW_AS_TITLE, 1);
         }
+        makeHappyInnerListAdapter();
+        getShowAsDescription();
     }
 
 
@@ -95,11 +97,9 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_happy_list, container, false);
-        makeHappyInnerListAdapter();
-        getShowAsDescription();
+        makeHappyViewModel();
         prepareButtons(view);
         prepareToolbarTopShow(view);
-        makeHappyViewModel();
         makeRecyclerView(view);
         return view;
     }
@@ -112,6 +112,20 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
             ((MainActivity) getActivity()).bottomNavigationView.setSelectedItemId(R.id.navigation_happy_list);
         }
     }
+
+
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        happyViewModel = ViewModelProviders.of(getActivity()).get(HappyViewModel.class);
+//        happyViewModel.getAllHappyThingsWhereXis(showIndex, showValue).observe(getViewLifecycleOwner(), new Observer<List<HappyThing>>() {
+//            @Override
+//            public void onChanged(List<HappyThing> happyThings) {
+//                happyInnerListAdapter.setHappyThings(happyThings);
+//            }
+//        });
+//    }
 
 
 

@@ -73,6 +73,7 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     *********************************************** */
     @Override
     public int getItemCount() {
+        if (happyThings == null) return 0;
         return happyThings.size();
     }
 

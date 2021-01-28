@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happy2.DataHandling.HappyViewModel;
+import com.example.happy2.Fragments.HappyInnerListFragment;
 import com.example.happy2.Fragments.HappyListFragment;
 import com.example.happy2.R;
 
@@ -126,6 +127,9 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
                 @RequiresApi(api = Build.VERSION_CODES.Q)
                 public void onClick(View v) {
                     // TODO implement loading of inner list happy fragment
+                    // public static HappyInnerListFragment newInstance(int showIndex, String showValue, int showAsTitle, int showAsDescription)
+                    HappyInnerListFragment fragment = HappyInnerListFragment.newInstance(showAsTitle, title.getText().toString(), showAsDesc);
+                    happyListFragment.getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer, fragment).commit();
                 }
             });
         }
