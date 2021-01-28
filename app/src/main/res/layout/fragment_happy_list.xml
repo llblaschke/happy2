@@ -59,26 +59,26 @@
                     app:layout_constraintEnd_toStartOf="@+id/tvAnd"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/tvSortBy"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tvTopShow" />
 
                 <TextView
                     android:id="@+id/tvAnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/and"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnSortBy"
                     app:layout_constraintEnd_toStartOf="@+id/btnSortBy2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/btnSortBy"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/btnSortBy" />
 
                 <Button
                     android:id="@+id/btnSortBy2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnSortBy"
                     app:layout_constraintStart_toEndOf="@+id/tvAnd"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/btnSortBy" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
