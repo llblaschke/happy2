@@ -39,9 +39,9 @@
                 android:id="@+id/ivRowAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/tvRowTitle"
+                android:layout_marginTop="13dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRowTitle"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_happy" />
 
             <TextView
@@ -51,13 +51,34 @@
                 android:singleLine="true"
                 android:text="Description"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvRowTitle"
                 app:layout_constraintStart_toStartOf="@+id/tvRowTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tvRowTitle" />
 
             <TextView
-                android:id="@+id/tvXtimes"
+                android:id="@+id/tvOnClick1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false"
+                android:text="TextView"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tvRowDescription"
+                app:layout_constraintStart_toStartOf="@+id/tvRowDescription"
+                app:layout_constraintTop_toBottomOf="@+id/tvRowDescription" />
+
+            <TextView
+                android:id="@+id/tvOnClick2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false"
+                android:text="TextView"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tvOnClick1"
+                app:layout_constraintStart_toStartOf="@+id/tvOnClick1"
+                app:layout_constraintTop_toBottomOf="@+id/tvOnClick1" />
+
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivRowAmount"
