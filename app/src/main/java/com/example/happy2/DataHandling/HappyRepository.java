@@ -10,7 +10,6 @@ import com.example.happy2.DataHandling.Room.HappyDao;
 import com.example.happy2.DataHandling.Room.HappyDatabase;
 import com.example.happy2.DataHandling.Room.HappyThing;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,7 +71,7 @@ public class HappyRepository {
     }
 
     public LiveData<List<HappyThing>> getAllHappyThingsWhereXis(int x, String xIs) {
-        SimpleSQLiteQuery query = new SimpleSQLiteQuery("SELECT * WHERE " + column_names.get(x) + " = " + xIs);
+        SimpleSQLiteQuery query = getAllHappyTHingsWhereXisQuery(x, xIs);
         return happyDao.getAllWhereXis(query);
     }
 
@@ -86,18 +85,26 @@ public class HappyRepository {
         return happyDao.getXwhereYis(query);
     }
 
+    private SimpleSQLiteQuery getAllHappyTHingsWhereXisQuery(int x, String xIs) {
+        String queryString =
+                "SELECT * FROM happy_table WHERE "
+                        + column_names.get(x)
+                        + " LIKE '"
+                        + xIs
+                        + "';";
+        return new SimpleSQLiteQuery(queryString);
+    }
+
     private SimpleSQLiteQuery getXwhereYisQuery(int x, int y, String yIs) {
-        // List of bind parameters
-        List<Object> args = new ArrayList();
-        // Beginning of query string
         String queryString =
                 "SELECT "
                         + column_names.get(x)
                         + " FROM happy_table WHERE "
                         + column_names.get(y)
-                        + " LIKE ?;";
-        args.add(yIs);
-        return new SimpleSQLiteQuery(queryString, args.toArray());
+                        + " LIKE '"
+                        + yIs
+                        + "';";
+        return new SimpleSQLiteQuery(queryString);
     }
 
 
