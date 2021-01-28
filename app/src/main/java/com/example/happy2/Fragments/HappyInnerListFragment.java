@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -21,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.happy2.Adapters.HappyInnerListAdapter;
 import com.example.happy2.AddActivity;
 import com.example.happy2.DataHandling.HappyViewModel;
-import com.example.happy2.DataHandling.IdeaViewModel;
 import com.example.happy2.DataHandling.Room.HappyThing;
-import com.example.happy2.DataHandling.Room.Idea;
 import com.example.happy2.Dialogs.SortByDialogFragment;
 import com.example.happy2.MainActivity;
 import com.example.happy2.R;
@@ -42,7 +39,6 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
     public static final String SHOW_INDEX = "com.example.happy2.SHOW_INDEX";
     public static final String SHOW_VALUE = "com.example.happy2.SHOW_VALUE";
     public static final String SHOW_AS_TITLE = "com.example.happy2.SHOW_AS_TITLE";
-    public static final String SHOW_AS_DESCRIPTION = "com.example.happy2.SHOW_AS_DESCRIPTION";
 
     private RecyclerView recyclerView;
     private HappyViewModel happyViewModel;
@@ -52,7 +48,7 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
     private FloatingActionButton btnAdd;
     private Button btnSort, btnSort2;
 
-    private int showIndex, showItem1, showItem2;
+    private int showIndex, showAsTitle, showAsDescription;
     private String showValue;
     private boolean titleButtonPressed, recyclerViewMustBeUpdated;
     private String[] sort_by_list;
@@ -61,16 +57,16 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
 
     public HappyInnerListFragment() {
         // Required empty public constructor
-        showItem1 = 0;
-        showItem2 = 1;
+        showValue = "";
+        showIndex = 0;
+        showAsTitle = 1;
     }
 
-    public static HappyInnerListFragment newInstance(int showIndex, String showValue, int showAsTitle, int showAsDescription) {
+    public static HappyInnerListFragment newInstance(int showIndex, String showValue, int showAsTitle) {
         Bundle args = new Bundle();
         args.putInt(SHOW_INDEX, showIndex);
         args.putString(SHOW_VALUE, showValue);
         args.putInt(SHOW_AS_TITLE, showAsTitle);
-        args.putInt(SHOW_AS_DESCRIPTION, showAsDescription);
 
         HappyInnerListFragment fragment = new HappyInnerListFragment();
         fragment.setArguments(args);
@@ -85,14 +81,12 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
         if (getArguments() == null) {
             showValue = "";
             showIndex = 0;
-            showItem1 = 1;
-            showItem2 = 2;
+            showAsTitle = 1;
             Toast.makeText(getContext(),TAG + " something went wrong!", Toast.LENGTH_SHORT).show();
         } else {
             showValue = getArguments().getString(SHOW_VALUE, "");
             showIndex = getArguments().getInt(SHOW_INDEX, 0);
-            showItem1 = getArguments().getInt(SHOW_AS_TITLE, 1);
-            showItem2 = getArguments().getInt(SHOW_AS_DESCRIPTION, 2);
+            showAsTitle = getArguments().getInt(SHOW_AS_TITLE, 1);
         }
     }
 
@@ -101,6 +95,8 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_happy_list, container, false);
+        makeHappyInnerListAdapter();
+        getShowAsDescription();
         prepareButtons(view);
         prepareToolbarTopShow(view);
         makeHappyViewModel();
@@ -133,6 +129,7 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
 
     /* ************************************************
     Buttons
+    showAsDescription needed before setSortButtonTexts()
     ************************************************ */
     // TODO everything about the buttons
     private void prepareButtons(View view) {
@@ -149,8 +146,8 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
     }
 
     private void setSortButtonTexts() {
-        btnSort.setText(sort_by_list[showItem1]);
-        btnSort2.setText(sort_by_list[showItem2]);
+        btnSort.setText(sort_by_list[showAsTitle]);
+        btnSort2.setText(sort_by_list[showAsDescription]);
     }
 
     private View.OnClickListener btnAddHappyThing = new View.OnClickListener() {
@@ -181,13 +178,13 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
     public void onDialogItemSelected(int itemSelected) {
         // TODO this is not what should happen in here
         if (titleButtonPressed) {
-            recyclerViewMustBeUpdated = showItem1 != itemSelected;
-            if (showItem2 == itemSelected) showItem2 = showItem1;
-            showItem1 = itemSelected;
+            recyclerViewMustBeUpdated = showAsTitle != itemSelected;
+            if (showAsDescription == itemSelected) showAsDescription = showAsTitle;
+            showAsTitle = itemSelected;
         } else {
-            recyclerViewMustBeUpdated = showItem2 != itemSelected;
-            if (showItem1 == itemSelected) showItem1 = showItem2;
-            showItem2 = itemSelected;
+            recyclerViewMustBeUpdated = showAsDescription != itemSelected;
+            if (showAsTitle == itemSelected) showAsTitle = showAsDescription;
+            showAsDescription = itemSelected;
         }
         if (recyclerViewMustBeUpdated) {
             setSortButtonTexts();
@@ -195,6 +192,19 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
         }
     }
 
+
+
+    /* ************************************************
+    HappyInnerListAdapter needed before retrieving showAsDescription from it
+    ************************************************ */
+
+    private void makeHappyInnerListAdapter() {
+        happyInnerListAdapter = new HappyInnerListAdapter(getContext(), showIndex, showValue, showAsTitle);
+    }
+
+    private void getShowAsDescription() {
+        showAsDescription = happyInnerListAdapter.getShowAsDescription();
+    }
 
 
     /* ************************************************
@@ -219,8 +229,15 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
         recyclerView = view.findViewById(R.id.recyclerViewInList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        happyInnerListAdapter = new HappyInnerListAdapter(getContext(), this, showIndex, showValue, showItem1, showItem2);
         recyclerView.setAdapter(happyInnerListAdapter);
+
+        happyViewModel = ViewModelProviders.of(this).get(HappyViewModel.class);
+        happyViewModel.getAllHappyThingsWhereXis(showIndex, showValue).observe(getViewLifecycleOwner(), new Observer<List<HappyThing>>() {
+            @Override
+            public void onChanged(List<HappyThing> happyThings) {
+                happyInnerListAdapter.setHappyThings(happyThings);
+            }
+        });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -232,9 +249,11 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 HappyThing happyThing = happyInnerListAdapter.getHappyThingAt(viewHolder.getAdapterPosition());
                 if(direction == ItemTouchHelper.LEFT) {
-                    deleteItem(happyThing);
+                    //deleteItem(happyThing);
+                    Toast.makeText(getContext(), "Swiped left!", Toast.LENGTH_SHORT).show();
                 }else{
-                    updateItem(happyThing);
+                    //updateItem(happyThing);
+                    Toast.makeText(getContext(), "Swiped right!", Toast.LENGTH_SHORT).show();
                 }
             }
         }).attachToRecyclerView(recyclerView);
@@ -243,6 +262,7 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
 
     public void updateRecyclerView() {
         // TODO????
+        happyInnerListAdapter.notifyDataSetChanged();
     }
 
 

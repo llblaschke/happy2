@@ -15,10 +15,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happy2.DataHandling.Room.HappyThing;
-import com.example.happy2.Fragments.HappyInnerListFragment;
 import com.example.happy2.R;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.happy2.R.color.colorHappyLight;
@@ -32,12 +31,12 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     private int showIndex, showAsTitle, showAsDesc, showOnClick1, showOnClick2;
     private String showValue;
 
-    public HappyInnerListAdapter(Context context, HappyInnerListFragment happyInnerListFragment, int showIndex, String showValue, int showAsTitle, int showAsDesc){
+    public HappyInnerListAdapter(Context context, int showIndex, String showValue, int showAsTitle){
         this.context = context;
         this.showIndex = showIndex;
         this.showValue = showValue;
         this.showAsTitle = showAsTitle;
-        this.showAsDesc = showAsDesc;
+        getShows();
         background1 = ContextCompat.getColor(context, colorHappyLight);
         background2 = ContextCompat.getColor(context, colorHappyLightTwo);
     }
@@ -55,8 +54,6 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         HappyThing happyThing = happyThings.get(position);
-
-        getShowOnClick12();
         holder.title.setText(happyThing.getX(showAsTitle));
         holder.description.setText(happyThing.getX(showAsDesc));
         holder.tvOnClick1.setText(happyThing.getX(showOnClick1));
@@ -92,13 +89,18 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     /* ***********************************************
     HELPERS
     *********************************************** */
-    private void getShowOnClick12() {
-        List<Integer> indices = Arrays.asList(0, 1, 2, 3, 4);
-        indices.remove(showIndex);
-        indices.remove(showAsTitle);
-        indices.remove(showAsDesc);
-        showOnClick1 = indices.get(0);
-        showOnClick2 = indices.get(1);
+    private void getShows() {
+        List<Integer> indices = new ArrayList<Integer>();
+        for (int i = 0; i<5; i++) {
+            if (i != showIndex && i != showAsTitle) indices.add(i);
+        }
+        showAsDesc = indices.get(0);
+        showOnClick1 = indices.get(1);
+        showOnClick2 = indices.get(2);
+    }
+
+    public Integer getShowAsDescription() {
+        return showAsDesc;
     }
 
 
