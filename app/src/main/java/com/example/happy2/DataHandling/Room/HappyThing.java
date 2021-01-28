@@ -54,6 +54,17 @@ public class HappyThing {
         return mWhen;
     }
 
+    public String getX(int x) {
+        switch (x) {
+            case 0: return mWhat;
+            case 1: return mWith;
+            case 2: return mWhere;
+            case 3: return mWhen;
+            case 4: return mAdInfo;
+            default: return mPicPath;
+        }
+    }
+
     public String getPicPath() {
         return mPicPath;
     }

@@ -12,16 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.Room.HappyThing;
-import com.example.happy2.DataHandling.Room.Idea;
 import com.example.happy2.Fragments.HappyInnerListFragment;
 import com.example.happy2.R;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.example.happy2.R.color.colorHappyLight;
@@ -29,31 +26,20 @@ import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAdapter.MyViewHolder> {
 
-    private HappyViewModel happyViewModel;
     private List<HappyThing> happyThings;
-
-    private HappyInnerListFragment happyInnerListFragment;
     private Context context;
     private int background1, background2;
-    private int showIndex, showAsTitle, showAsDesc;
+    private int showIndex, showAsTitle, showAsDesc, showOnClick1, showOnClick2;
     private String showValue;
 
     public HappyInnerListAdapter(Context context, HappyInnerListFragment happyInnerListFragment, int showIndex, String showValue, int showAsTitle, int showAsDesc){
         this.context = context;
-        this.happyInnerListFragment = happyInnerListFragment;
         this.showIndex = showIndex;
         this.showValue = showValue;
         this.showAsTitle = showAsTitle;
         this.showAsDesc = showAsDesc;
         background1 = ContextCompat.getColor(context, colorHappyLight);
         background2 = ContextCompat.getColor(context, colorHappyLightTwo);
-        happyViewModel = ViewModelProviders.of(happyInnerListFragment).get(HappyViewModel.class);
-        happyViewModel.getAllHappyThingsWhereXis(showIndex, showValue).observe(happyInnerListFragment, new Observer<List<HappyThing>>() {
-            @Override
-            public void onChanged(List<HappyThing> happyThings) {
-
-            }
-        });
     }
 
     @NonNull
@@ -68,15 +54,14 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        // put observer on the description
-        happyViewModel
-                .getAllwhereXis(showIndex, showValue)
-                .observe(happyInnerListFragment, new Observer<List<String>>() {
-                    @Override
-                    public void onChanged(List<String> strings) {
-                        // TODO set values on textviews
-                    };
-                });
+        HappyThing happyThing = happyThings.get(position);
+
+        getShowOnClick12();
+        holder.title.setText(happyThing.getX(showAsTitle));
+        holder.description.setText(happyThing.getX(showAsDesc));
+        holder.tvOnClick1.setText(happyThing.getX(showOnClick1));
+        holder.tvOnClick2.setText(happyThing.getX(showOnClick2));
+
         // set background color
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
@@ -88,11 +73,10 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
 
     /* ***********************************************
     STUFF WE NEED FOR SWIPE, DELETE, ...
-     */
+    *********************************************** */
     @Override
     public int getItemCount() {
-        // TODO
-        return 0;
+        return happyThings.size();
     }
 
     public void setHappyThings(List<HappyThing> happyThings){
@@ -103,6 +87,20 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     public HappyThing getHappyThingAt(int position){
         return happyThings.get(position);
     }
+
+
+    /* ***********************************************
+    HELPERS
+    *********************************************** */
+    private void getShowOnClick12() {
+        List<Integer> indices = Arrays.asList(0, 1, 2, 3, 4);
+        indices.remove(showIndex);
+        indices.remove(showAsTitle);
+        indices.remove(showAsDesc);
+        showOnClick1 = indices.get(0);
+        showOnClick2 = indices.get(1);
+    }
+
 
 
     /**
