@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happy2.DataHandling.HappyViewModel;
-import com.example.happy2.DataHandling.Room.HappyThing;
 import com.example.happy2.Fragments.HappyListFragment;
 import com.example.happy2.R;
 
@@ -28,11 +27,9 @@ import static com.example.happy2.R.color.colorHappyLight;
 import static com.example.happy2.R.color.colorHappyLightTwo;
 
 public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyViewHolder> {
-    private final String TAG = "HappyListAdapter";
 
     private HappyViewModel happyViewModel;
     private HappyListFragment happyListFragment;
-    private List<HappyThing> happyThings = new ArrayList<>();
     private Context context;
     private int background1, background2;
     private int showAsTitle, showAsDesc;
@@ -62,30 +59,34 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         String title = allTitles.get(position);
         holder.title.setText(title);
-
+        // put observer on the description
         happyViewModel
                 .getXwhereYis(showAsDesc, showAsTitle, title)
                 .observe(happyListFragment, new Observer<List<String>>() {
                     @Override
                     public void onChanged(List<String> strings) {
-                        String tmpDescription = "";
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            tmpDescription = String.join(", ", strings);
-                        } else {
-                            for(int i = 0; i<strings.size(); i++) {
-                                tmpDescription += strings.get(i);
-                                if(i < strings.size()-1) tmpDescription += ", ";
-                            }
-                        }
-                        holder.description.setText(tmpDescription);
+                        holder.description.setText(buildTitleStringHelper(strings));
                     };
         });
-
+        // set background color
         if(position%2==1){
             holder.cardView.setBackgroundColor(background1);
         }else{
             holder.cardView.setBackgroundColor(background2);
         }
+    }
+
+    private String buildTitleStringHelper(List<String> strings) {
+        String tmpDescription = "";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            tmpDescription = String.join(", ", strings);
+        } else {
+            for(int i = 0; i<strings.size(); i++) {
+                tmpDescription += strings.get(i);
+                if(i < strings.size()-1) tmpDescription += ", ";
+            }
+        }
+        return tmpDescription;
     }
 
     public void getAllTitles() {
@@ -96,7 +97,6 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
                 notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
@@ -104,11 +104,6 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
         return allTitles.size();
     }
 
-    public void setHappyThings(List<HappyThing> happyThings){
-        this.happyThings = happyThings;
-        // prepare dataset
-        notifyDataSetChanged();
-    }
 
 
     /**
