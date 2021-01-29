@@ -10,7 +10,6 @@ import androidx.room.RoomDatabase;
 public abstract class UnhappyDayDatabase extends RoomDatabase {
 
     private static UnhappyDayDatabase instance;
-
     public abstract UnhappyDayDao unhappyDayDao();
 
     public static synchronized UnhappyDayDatabase getInstance(Context context) {
