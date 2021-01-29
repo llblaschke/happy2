@@ -23,6 +23,7 @@ import androidx.preference.PreferenceManager;
 import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.Room.HappyThing;
 import com.example.happy2.Dialogs.AddMoreHappyThingsDiaglog;
+import com.example.happy2.MyHelperMethods.myDates;
 import com.example.happy2.R;
 
 import java.util.ArrayList;
@@ -49,13 +50,12 @@ public class AddHappyThingFragment extends Fragment {
     private Calendar calendar;
     private int year, month, day;
 
-    private String tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen;
+    private String tmpWhat, tmpWith, tmpWhere, tmpAdInfo;
 
     public static final String TMP_WHAT = "tmpWhat";
     public static final String TMP_WITH = "tmpWith";
     public static final String TMP_WHERE = "tmpWhere";
     public static final String TMP_ADINFO = "tmpAdInfo";
-    public static final String TMP_WHEN = "tmpWhen";
 
     private SharedPreferences prefs;
 
@@ -142,10 +142,6 @@ public class AddHappyThingFragment extends Fragment {
             tmpAdInfo = prefs.getString(TMP_ADINFO, "");
             acTextViewAdInfo.setText(tmpAdInfo);
         }
-        if (prefs.contains(TMP_WHEN)){
-            tmpWhen = prefs.getString(TMP_WHEN, "");
-            editTextWhen.setText(tmpWhen);
-        }
 
         autoCompleteACTextViews();
         return v;
@@ -159,8 +155,7 @@ public class AddHappyThingFragment extends Fragment {
         editor.putString(TMP_WHAT, tmpWhat)
                 .putString(TMP_WITH, tmpWith)
                 .putString(TMP_WHERE, tmpWhere)
-                .putString(TMP_ADINFO, tmpAdInfo)
-                .putString(TMP_WHEN, tmpWhen);
+                .putString(TMP_ADINFO, tmpAdInfo);
         editor.commit();
     }
 
@@ -169,6 +164,8 @@ public class AddHappyThingFragment extends Fragment {
     private View.OnClickListener btnClickSave = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String tmpWhen = editTextWhen.getText().toString();
+            if (tmpWhen.equals(getString(R.string.text_today))) tmpWhen = new myDates().todayAsString();
             happyViewModel.insert(new HappyThing(tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen));
             acTextViewWhat.setText("");
             acTextViewWith.setText("");
@@ -180,7 +177,6 @@ public class AddHappyThingFragment extends Fragment {
             tmpWith = "";
             tmpWhere = "";
             tmpAdInfo = "";
-            tmpWhen = getString(R.string.text_today);
 
             new AddMoreHappyThingsDiaglog().show(getParentFragmentManager(), "addmorehappythingsdialog");
         }
@@ -196,7 +192,6 @@ public class AddHappyThingFragment extends Fragment {
             tmpWith = acTextViewWith.getText().toString().trim();
             tmpWhere = acTextViewWhere.getText().toString().trim();
             tmpAdInfo = acTextViewAdInfo.getText().toString().trim();
-            tmpWhen = editTextWhen.getText().toString().trim();
             buttonSave.setEnabled(!tmpWhat.isEmpty() && !tmpWith.isEmpty() && !tmpWhere.isEmpty());
         }
         @Override
@@ -220,16 +215,16 @@ public class AddHappyThingFragment extends Fragment {
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
                     // arg1 = year, arg2 = month, arg3 = day
-                    showDate(arg1, arg2+1, arg3);
+                    showDate(arg1, arg2, arg3);
                 }
             };
 
     private void showDate(int yearnew, int monthnew, int daynew) {
         String string;
-        if(yearnew == year && monthnew == month+1 && daynew == day){
+        if (yearnew == year && monthnew == month && daynew == day){
             string = getString(R.string.text_today);
-        }else{
-            string = new StringBuilder().append(daynew).append(".").append(monthnew).append(".").append(yearnew).toString();
+        } else {
+            string = new myDates().dateToString(daynew, monthnew-1, yearnew);
         }
         editTextWhen.setText(string);
     }
