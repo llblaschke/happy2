@@ -115,7 +115,9 @@ public class HappyRepository {
                         + column_names.get(x)
                         + " FROM happy_table GROUP BY "
                         + column_names.get(x)
-                        + " ORDER BY COUNT(*) DESC;";
+                        + " ORDER BY COUNT("
+                        + column_names.get(x)
+                        + ") DESC;";
         return new SimpleSQLiteQuery(queryString);
     }
 
