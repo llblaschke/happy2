@@ -32,7 +32,10 @@
                     android:id="@+id/tvTopShow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
                     android:singleLine="false"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textStyle="bold"
                     android:visibility="gone"
@@ -59,8 +62,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvAnd"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/tvSortBy"
-                    app:layout_constraintTop_toBottomOf="@id/tvTopShow" />
+                    app:layout_constraintStart_toEndOf="@+id/tvSortBy" />
 
                 <TextView
                     android:id="@+id/tvAnd"
