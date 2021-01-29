@@ -111,9 +111,11 @@ public class HappyRepository {
     private SimpleSQLiteQuery getDistinctXQuery(int x) {
         // Beginning of query string
         String queryString =
-                "SELECT DISTINCT "
+                "SELECT "
                         + column_names.get(x)
-                        + " FROM happy_table;";
+                        + " FROM happy_table GROUP BY "
+                        + column_names.get(x)
+                        + " ORDER BY COUNT(*) DESC;";
         return new SimpleSQLiteQuery(queryString);
     }
 
