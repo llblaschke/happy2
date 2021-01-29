@@ -224,7 +224,7 @@ public class AddHappyThingFragment extends Fragment {
         if (yearnew == year && monthnew == month && daynew == day){
             string = getString(R.string.text_today);
         } else {
-            string = new myDates().dateToString(daynew, monthnew-1, yearnew);
+            string = new myDates().dayMonthYearToString(daynew, monthnew, yearnew);
         }
         editTextWhen.setText(string);
     }

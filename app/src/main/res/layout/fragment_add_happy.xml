@@ -75,11 +75,12 @@
         android:longClickable="false"
         android:text="@string/text_today"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnChangeDate"
         app:layout_constraintTop_toBottomOf="@+id/acTextViewAdInfo" />
 
     <Button
         android:id="@+id/btnChangeDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/button_change_date"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextWhen"

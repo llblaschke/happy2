@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static java.lang.String.valueOf;
+
 public class myDates {
 
     private int nrOfHoursOfDayStillSavedAsYesterdayUnhappy = 0;
@@ -37,18 +39,18 @@ public class myDates {
 
     private String dateToString(int date) {
         calendar.set(Calendar.DATE, date);
-        return new myDates().dateToString(calendar.get(Calendar.DAY_OF_MONTH),
+        return new myDates().dayMonthYearToString(calendar.get(Calendar.DAY_OF_MONTH),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.YEAR));
 
     }
 
 
-    public String dateToString(int day, int month, int year) {
+    public String dayMonthYearToString(int day, int month, int year) {
         return new StringBuilder().
-                append(day).append(".")
-                .append(month+1).append(".")
-                .append(year)
+                append(valueOf(day)).append(".")
+                .append(valueOf(month+1)).append(".")
+                .append(valueOf(year))
                 .toString();
     }
 
@@ -57,7 +59,7 @@ public class myDates {
         if (calendar.get(Calendar.HOUR_OF_DAY)<nrOfHoursOfDayStillSavedAsYesterdayUnhappy){
             calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-1 );
         }
-        return dateToString(calendar.get(Calendar.DAY_OF_MONTH),
+        return dayMonthYearToString(calendar.get(Calendar.DAY_OF_MONTH),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.YEAR));
     }
