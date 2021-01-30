@@ -21,11 +21,12 @@ import com.example.happy2.Adapters.HappyInnerListAdapter;
 import com.example.happy2.AddActivity;
 import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.Room.HappyThing;
-import com.example.happy2.Dialogs.SortByDialogFragment;
+import com.example.happy2.Dialogs.ShowCategoriesDialog;
 import com.example.happy2.MainActivity;
 import com.example.happy2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ import java.util.List;
  * Use the {@link HappyInnerListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HappyInnerListFragment<list> extends Fragment implements SortByDialogFragment.SortByDialogListener{
+public class HappyInnerListFragment<list> extends Fragment implements ShowCategoriesDialog.ShowCategoriesDialogListener {
 
     public static final String TAG = "HappyInnerListFragment";
     public static final String SHOW_INDEX = "com.example.happy2.SHOW_INDEX";
@@ -182,10 +183,17 @@ public class HappyInnerListFragment<list> extends Fragment implements SortByDial
     };
 
     private void showSortByDialog(){
-        // TODO only show selectable entries (not showIndex!)
-        SortByDialogFragment dialog = new SortByDialogFragment();
-        dialog.setTargetFragment(this, 0);
-        dialog.show(getParentFragmentManager(), "sortByDialog");
+
+
+        ArrayList disableIndices = new ArrayList<Integer>();
+        disableIndices.add(showIndex);
+        ShowCategoriesDialog showCategoriesDialog = ShowCategoriesDialog.newInstance(disableIndices);
+        showCategoriesDialog.setTargetFragment(this, 0);
+        showCategoriesDialog.show(getParentFragmentManager(), TAG);
+//        // TODO only show selectable entries (not showIndex!)
+//        SortByDialogFragment dialog = new SortByDialogFragment();
+//        dialog.setTargetFragment(this, 0);
+//        dialog.show(getParentFragmentManager(), "sortByDialog");
     }
 
     @Override

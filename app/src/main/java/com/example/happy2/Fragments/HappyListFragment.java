@@ -14,17 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happy2.Adapters.HappyListAdapter;
 import com.example.happy2.AddActivity;
-import com.example.happy2.Dialogs.SortByDialogFragment;
+import com.example.happy2.Dialogs.ShowCategoriesDialog;
 import com.example.happy2.MainActivity;
 import com.example.happy2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HappyListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HappyListFragment<list> extends Fragment implements SortByDialogFragment.SortByDialogListener{
+public class HappyListFragment<list> extends Fragment implements ShowCategoriesDialog.ShowCategoriesDialogListener {
 
     public static final String TAG = "HappyListFragment";
     public static final String SHOW_AS_TITLE = "com.example.happy2.SHOW_AS_TITLE";
@@ -132,9 +134,11 @@ public class HappyListFragment<list> extends Fragment implements SortByDialogFra
     };
 
     private void showSortByDialog(){
-        SortByDialogFragment dialog = new SortByDialogFragment();
+        ArrayList<Integer> disableList = new ArrayList<>();
+        if (!titleButtonPressed) disableList.add(showItem1);
+        ShowCategoriesDialog dialog = ShowCategoriesDialog.newInstance(disableList);
         dialog.setTargetFragment(this, 0);
-        dialog.show(getParentFragmentManager(), "sortByDialog");
+        dialog.show(getParentFragmentManager(), TAG);
     }
 
     @Override

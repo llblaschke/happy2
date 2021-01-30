@@ -20,7 +20,7 @@ public class ShowCategoriesDialog extends DialogFragment {
     public static String SHOW_CATEGORIES_DIALOG_DISABLE = "com.example.happy2.ShowCategoriesDialog.SHOW_CATEGORIES_DIALOG_DISABLE";
     CharSequence[] CATEGORY_ITEMS;
 
-    SortByDialogFragment.SortByDialogListener listener;
+    ShowCategoriesDialog.ShowCategoriesDialogListener listener;
     private ArrayList<Integer> disableIndices;
 
     AlertDialog.Builder builder;
@@ -47,11 +47,11 @@ public class ShowCategoriesDialog extends DialogFragment {
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (SortByDialogFragment.SortByDialogListener) getTargetFragment();
+            listener = (ShowCategoriesDialogListener) getTargetFragment();
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(getTargetFragment().toString()
-                    + " must implement onDialogItemSelected");
+                    + " must implement ShowCategoriesDialogListener");
         }
         builder = new AlertDialog.Builder(context);
     }
@@ -81,9 +81,12 @@ public class ShowCategoriesDialog extends DialogFragment {
                     case 2: // where
                     case 3: // date
                 }
-                listener.onDialogItemSelected(which);//SortByDialogFragment.this);
+                if (!disableIndices.contains(which)) {
+                    listener.onDialogItemSelected(which);//SortByDialogFragment.this);
+                }
             }
         });        // create and show the alert dialog
+
         return builder.create();
     }
 
