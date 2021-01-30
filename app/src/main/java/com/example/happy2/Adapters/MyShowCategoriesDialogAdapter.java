@@ -61,18 +61,19 @@ public class MyShowCategoriesDialogAdapter extends BaseAdapter {
 
         int type = getItemViewType(position);
         if (convertView == null) {
-            switch(type) {
-                case 1:
-                    convertView = mInflater.inflate(android.R.layout.simple_list_item_1, null);
-                    ((TextView) convertView.findViewById(android.R.id.text1)).setText(mData.get(position));
-                    convertView.setEnabled(false);
-                    convertView.setClickable(false);
-                    break;
-                case 0:
-                    convertView = mInflater.inflate(android.R.layout.simple_list_item_1, null);
-                    ((TextView) convertView.findViewById(android.R.id.text1)).setText(mData.get(position));
-                    break;
-            }
+            convertView = mInflater.inflate(android.R.layout.simple_list_item_1, null);
+        }
+        switch(type) {
+            case 1:
+                ((TextView) convertView.findViewById(android.R.id.text1)).setText(mData.get(position));
+                convertView.setEnabled(false);
+                convertView.setFocusable(false);
+                //convertView.setClickable(false);
+                break;
+            case 0:
+                ((TextView) convertView.findViewById(android.R.id.text1)).setText(mData.get(position));
+                break;
+
         }
         return convertView;
     }
