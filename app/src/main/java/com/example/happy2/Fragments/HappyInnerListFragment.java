@@ -249,13 +249,6 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(happyInnerListAdapter);
 
-        happyViewModel = ViewModelProviders.of(this).get(HappyViewModel.class);
-        happyViewModel.getAllHappyThingsWhereXis(showIndex, showValue).observe(getViewLifecycleOwner(), new Observer<List<HappyThing>>() {
-            @Override
-            public void onChanged(List<HappyThing> happyThings) {
-                happyInnerListAdapter.setHappyThings(happyThings);
-            }
-        });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
