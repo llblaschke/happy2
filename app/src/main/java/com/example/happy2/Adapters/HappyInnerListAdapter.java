@@ -104,7 +104,7 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     /**
      * MyViewHolder
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title, description, tvOnClick1, tvOnClick2;
         CardView cardView;
 
@@ -120,7 +120,14 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.Q)
                 public void onClick(View v) {
-                    // TODO implement loading of inner list happy fragment
+                    boolean changeTo = !title.isSingleLine();
+                    int newVisibility;
+                    if (changeTo) newVisibility = View.VISIBLE;
+                    else newVisibility = View.GONE;
+                    title.setSingleLine(changeTo);
+                    description.setSingleLine(changeTo);
+                    tvOnClick1.setVisibility(newVisibility);
+                    tvOnClick2.setVisibility(newVisibility);
                 }
             });
         }
