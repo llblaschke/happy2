@@ -31,11 +31,12 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     private int showIndex, showAsTitle, showAsDesc, showOnClick1, showOnClick2;
     private String showValue;
 
-    public HappyInnerListAdapter(Context context, int showIndex, String showValue, int showAsTitle){
+    public HappyInnerListAdapter(Context context, int showIndex, String showValue, int showAsTitle, int showAsDesc){
         this.context = context;
         this.showIndex = showIndex;
         this.showValue = showValue;
         this.showAsTitle = showAsTitle;
+        this.showAsDesc = showAsDesc;
         getShows();
         background1 = ContextCompat.getColor(context, colorHappyLight);
         background2 = ContextCompat.getColor(context, colorHappyLightTwo);
@@ -93,17 +94,11 @@ public class HappyInnerListAdapter extends RecyclerView.Adapter<HappyInnerListAd
     private void getShows() {
         List<Integer> indices = new ArrayList<Integer>();
         for (int i = 0; i<5; i++) {
-            if (i != showIndex && i != showAsTitle) indices.add(i);
+            if (i != showIndex && i != showAsTitle && i != showAsDesc) indices.add(i);
         }
-        showAsDesc = indices.get(0);
-        showOnClick1 = indices.get(1);
-        showOnClick2 = indices.get(2);
+        showOnClick1 = indices.get(0);
+        showOnClick2 = indices.get(1);
     }
-
-    public Integer getShowAsDescription() {
-        return showAsDesc;
-    }
-
 
 
     /**

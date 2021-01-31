@@ -42,6 +42,7 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
     public static final String SHOW_INDEX = "com.example.happy2.SHOW_INDEX";
     public static final String SHOW_VALUE = "com.example.happy2.SHOW_VALUE";
     public static final String SHOW_AS_TITLE = "com.example.happy2.SHOW_AS_TITLE";
+    public static final String SHOW_AS_DESCRIPTION = "com.example.happy2.SHOW_AS_DESCRIPTION";
 
     private RecyclerView recyclerView;
     private HappyViewModel happyViewModel;
@@ -76,6 +77,14 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
         return fragment;
     }
 
+    public static HappyInnerListFragment newInstance(int showIndex, String showValue, int showAsTitle, int showAsDescription) {
+        HappyInnerListFragment fragment = HappyInnerListFragment.newInstance(showIndex, showValue, showAsTitle);
+        Bundle args = fragment.getArguments();
+        args.putInt(SHOW_AS_DESCRIPTION, showAsDescription);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,14 +94,19 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
             showValue = "";
             showIndex = 0;
             showAsTitle = 1;
+            showAsDescription = 2;
             Toast.makeText(getContext(),TAG + " something went wrong!", Toast.LENGTH_SHORT).show();
         } else {
             showValue = getArguments().getString(SHOW_VALUE, "");
             showIndex = getArguments().getInt(SHOW_INDEX, 0);
             showAsTitle = getArguments().getInt(SHOW_AS_TITLE, 1);
+            if (getArguments().containsKey(SHOW_AS_DESCRIPTION)) {
+                showAsDescription = getArguments().getInt(SHOW_AS_DESCRIPTION);
+            } else {
+                getShowAsDescription();
+            }
         }
         makeHappyInnerListAdapter();
-        getShowAsDescription();
     }
 
 
@@ -173,8 +187,9 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
     };
 
     private void showSortByDialog(){
-        ArrayList disableIndices = new ArrayList<Integer>();
+        ArrayList<Integer> disableIndices = new ArrayList<>();
         disableIndices.add(showIndex);
+        if (!titleButtonPressed) disableIndices.add(showAsTitle);
         ShowCategoriesDialog showCategoriesDialog = ShowCategoriesDialog.newInstance(disableIndices);
         showCategoriesDialog.setTargetFragment(this, 0);
         showCategoriesDialog.show(getParentFragmentManager(), TAG);
@@ -182,14 +197,12 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
 
     @Override
     public void onDialogItemSelected(int itemSelected) {
-        // TODO this is not what should happen in here
         if (titleButtonPressed) {
             recyclerViewMustBeUpdated = showAsTitle != itemSelected;
             if (showAsDescription == itemSelected) showAsDescription = showAsTitle;
             showAsTitle = itemSelected;
         } else {
             recyclerViewMustBeUpdated = showAsDescription != itemSelected;
-            if (showAsTitle == itemSelected) showAsTitle = showAsDescription;
             showAsDescription = itemSelected;
         }
         if (recyclerViewMustBeUpdated) {
@@ -205,11 +218,13 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
     ************************************************ */
 
     private void makeHappyInnerListAdapter() {
-        happyInnerListAdapter = new HappyInnerListAdapter(getContext(), showIndex, showValue, showAsTitle);
+        happyInnerListAdapter = new HappyInnerListAdapter(getContext(), showIndex, showValue, showAsTitle, showAsDescription);
     }
 
     private void getShowAsDescription() {
-        showAsDescription = happyInnerListAdapter.getShowAsDescription();
+        for (int i = 0; i<3; i++) {
+            if (i != showIndex && i != showAsTitle) showAsDescription = i;
+        }
     }
 
 
@@ -265,8 +280,8 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
     }
 
     public void updateRecyclerView() {
-        // TODO????
-        happyInnerListAdapter.notifyDataSetChanged();
+        getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
+                HappyInnerListFragment.newInstance(showIndex, showValue, showAsTitle, showAsDescription)).commit();
     }
 
 
