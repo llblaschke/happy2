@@ -148,10 +148,7 @@ public class HappyListFragment<list> extends Fragment implements ShowCategoriesD
             if (showItem2 == itemSelected) showItem2 = showItem1;
             showItem1 = itemSelected;
         } else {
-            // TODO: actually, we do not need to build everything new here, probably that would
-            // increase performance?
             recyclerViewMustBeUpdated = showItem2 != itemSelected;
-            if (showItem1 == itemSelected) showItem1 = showItem2;
             showItem2 = itemSelected;
         }
         if (recyclerViewMustBeUpdated) {
