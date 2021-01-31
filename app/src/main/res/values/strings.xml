@@ -52,7 +52,7 @@
     <string name="title_activity_bottom_navigation_test">MainActivity</string>
 
 
-    <string name="sort_by_question">By what do you want to sort your list?</string>
+    <string name="sort_by_question">What do you want to show in the list?</string>
     <string name="sort_by">Show</string>
     <string name="and">and</string>
     <string name="what">What</string>
