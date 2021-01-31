@@ -61,9 +61,6 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
 
     public HappyInnerListFragment() {
         // Required empty public constructor
-        showValue = "";
-        showIndex = 0;
-        showAsTitle = 1;
     }
 
     public static HappyInnerListFragment newInstance(int showIndex, String showValue, int showAsTitle) {
