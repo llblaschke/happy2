@@ -71,22 +71,14 @@ public class ShowCategoriesDialog extends DialogFragment {
         builder.setTitle(R.string.sort_by_question);
 
         final MyShowCategoriesDialogAdapter adapter = new MyShowCategoriesDialogAdapter(CATEGORY_ITEMS, disableIndices, getContext());
-        builder.setAdapter(adapter, null );
-        builder.setItems(CATEGORY_ITEMS, new DialogInterface.OnClickListener() {
+        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0: // what
-                    case 1: // with
-                    case 2: // where
-                    case 3: // date
-                }
-                if (!disableIndices.contains(which)) {
-                    listener.onDialogItemSelected(which);//SortByDialogFragment.this);
-                }
+                if (!disableIndices.contains(which))
+                    listener.onDialogItemSelected(which);
             }
-        });        // create and show the alert dialog
-
+        });
+        // create and show the alert dialog
         return builder.create();
     }
 
