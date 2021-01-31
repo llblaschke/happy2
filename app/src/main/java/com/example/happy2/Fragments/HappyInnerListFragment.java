@@ -1,5 +1,6 @@
 package com.example.happy2.Fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -102,32 +104,20 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
         prepareButtons(view);
         prepareToolbarTopShow(view);
         makeRecyclerView(view);
+
         return view;
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
+        happyInnerListAdapter.notifyDataSetChanged();
         int selectedItemId = ((MainActivity) getActivity()).bottomNavigationView.getSelectedItemId();
         if (selectedItemId != R.id.navigation_happy_list) {
             ((MainActivity) getActivity()).bottomNavigationView.setSelectedItemId(R.id.navigation_happy_list);
         }
     }
-
-
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        happyViewModel = ViewModelProviders.of(getActivity()).get(HappyViewModel.class);
-//        happyViewModel.getAllHappyThingsWhereXis(showIndex, showValue).observe(getViewLifecycleOwner(), new Observer<List<HappyThing>>() {
-//            @Override
-//            public void onChanged(List<HappyThing> happyThings) {
-//                happyInnerListAdapter.setHappyThings(happyThings);
-//            }
-//        });
-//    }
-
 
 
 
@@ -183,17 +173,11 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
     };
 
     private void showSortByDialog(){
-
-
         ArrayList disableIndices = new ArrayList<Integer>();
         disableIndices.add(showIndex);
         ShowCategoriesDialog showCategoriesDialog = ShowCategoriesDialog.newInstance(disableIndices);
         showCategoriesDialog.setTargetFragment(this, 0);
         showCategoriesDialog.show(getParentFragmentManager(), TAG);
-//        // TODO only show selectable entries (not showIndex!)
-//        SortByDialogFragment dialog = new SortByDialogFragment();
-//        dialog.setTargetFragment(this, 0);
-//        dialog.show(getParentFragmentManager(), "sortByDialog");
     }
 
     @Override
@@ -271,11 +255,9 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 HappyThing happyThing = happyInnerListAdapter.getHappyThingAt(viewHolder.getAdapterPosition());
                 if(direction == ItemTouchHelper.LEFT) {
-                    //deleteItem(happyThing);
-                    Toast.makeText(getContext(), "Swiped left!", Toast.LENGTH_SHORT).show();
+                    deleteItem(happyThing);
                 }else{
-                    //updateItem(happyThing);
-                    Toast.makeText(getContext(), "Swiped right!", Toast.LENGTH_SHORT).show();
+                    updateItem(happyThing);
                 }
             }
         }).attachToRecyclerView(recyclerView);
@@ -286,6 +268,51 @@ public class HappyInnerListFragment<list> extends Fragment implements ShowCatego
         // TODO????
         happyInnerListAdapter.notifyDataSetChanged();
     }
+
+
+    /* ************************************************
+    Update and delete happyThing
+    ************************************************ */
+
+    // delete item
+    private void deleteItem(final HappyThing happyThing) {
+        AlertDialog.Builder deleteDialog = new AlertDialog.Builder(getContext());
+        deleteDialog.setTitle(getString(R.string.sure_to_delete_this_happy_thing));
+        deleteDialog.setNegativeButton(
+                getString(R.string.no),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        happyInnerListAdapter.notifyDataSetChanged();
+                    }
+                });
+        deleteDialog.setPositiveButton(
+                getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        happyViewModel.delete(happyThing);
+                        Toast.makeText(getContext(), getString(R.string.happy_deleted), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        deleteDialog.create().show();
+    }
+
+    // update item in new AddActivity
+    private void updateItem(HappyThing happyThing) {
+        Intent intent = new Intent(getContext(), AddActivity.class);
+        intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, false);
+        intent.putExtra(AddActivity.KEY_EDIT_IDEA_HAPPY, true);
+        intent.putExtra(AddActivity.KEY_WHAT, happyThing.getWhat());
+        intent.putExtra(AddActivity.KEY_WITH, happyThing.getWith());
+        intent.putExtra(AddActivity.KEY_WHERE, happyThing.getWhere());
+        intent.putExtra(AddActivity.KEY_ADINFO, happyThing.getAdInfo());
+        intent.putExtra(AddActivity.KEY_WHEN, happyThing.getWhen());
+        intent.putExtra(AddActivity.KEY_ID, happyThing.getId());
+        startActivity(intent);
+    }
+
+
 
 
 }
