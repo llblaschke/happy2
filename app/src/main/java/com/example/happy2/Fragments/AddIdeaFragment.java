@@ -75,12 +75,7 @@ public class AddIdeaFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_happy, container, false);
 
         intent = getActivity().getIntent();
-
-        tvAddIdea = v.findViewById(R.id.txtAddHappyThing);
-        acTextViewIdea = v.findViewById(R.id.acTextViewWhat);
-        acTextViewDesc = v.findViewById(R.id.acTextViewAdInfo);
-        buttonSave = v.findViewById(R.id.btnSave);
-
+        getAllViews(v);
         v = adaptViewsToIdeaFragment(v);
         prepareButtonSave();
         getUpdateMode();
@@ -92,6 +87,15 @@ public class AddIdeaFragment extends Fragment {
     }
 
 
+
+
+    // get all needed TextViews and Buttons
+    private void getAllViews(View v) {
+        tvAddIdea = v.findViewById(R.id.txtAddHappyThing);
+        acTextViewIdea = v.findViewById(R.id.acTextViewWhat);
+        acTextViewDesc = v.findViewById(R.id.acTextViewAdInfo);
+        buttonSave = v.findViewById(R.id.btnSave);
+    }
 
     // make views from happy invisible and change text to idea-text
     private View adaptViewsToIdeaFragment(View v){
