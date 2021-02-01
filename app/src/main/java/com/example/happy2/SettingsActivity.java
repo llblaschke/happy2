@@ -1,4 +1,4 @@
-package com.example.happy2.Notifications;
+package com.example.happy2;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,12 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.happy2.Dialogs.TimePickerFragment;
+import com.example.happy2.Notifications.AlertReceiver;
 import com.example.happy2.R;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class NotificationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
+public class SettingsActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     //TODO: check if that would be possible with preference manager:
     // https://stackoverflow.com/questions/51343550/how-to-give-notifications-on-android-on-specific-time-in-android-oreo

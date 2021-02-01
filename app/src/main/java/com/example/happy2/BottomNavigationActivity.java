@@ -11,7 +11,6 @@ import com.example.happy2.Fragments.HappyListFragment;
 import com.example.happy2.Fragments.HomeFragment;
 import com.example.happy2.Fragments.IdeaListFragment;
 import com.example.happy2.Fragments.SettingsFragment;
-import com.example.happy2.Notifications.NotificationActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationActivity extends AppCompatActivity {
@@ -39,7 +38,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
                 case R.id.navigation_settings:
                     openFragment = false;
                     selectedFragment = new SettingsFragment();
-                    Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                     startActivity(intent);
                     break;
                 default:
