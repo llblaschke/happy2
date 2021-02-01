@@ -45,6 +45,7 @@
     <string name="happy_thing">Happy Thing</string>
 
     <string name="text_not_happy_sorry">"I'm sorry that you had a bad day!"</string>
+    <string name="alert_too_many_unhappy_days_part_just_too_many">"It's been too many days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>
     <string name="alert_too_many_unhappy_days_part1">"It's been</string>
     <string name="alert_too_many_unhappy_days_part2">"days in a row that you are not happy.\nPlease check out the list of things and ideas on what you can do to change this!</string>
     <string name="alert_too_many_unhappy_days_part1_singular">"It's been</string>
@@ -71,6 +72,11 @@
     <string name="notification_off">Notification turned off</string>
     <string name="notification_on">Notification turned on</string>
     <string name="notification_off_hint">Turn on the notification to select a time</string>
+
+    <string name="channel_name_daily_notification">Daily notification</string>
+    <string name="channel_name_alert_unhappy">Unhappy notification</string>
+    <string name="channel_description_daily_notification">Ask once a day if you are happy</string>
+    <string name="channel_description_alert_unhappy">Alert if you were unhappy too many days in a row</string>
 
     <string name="about_header">About</string>
     <string name="about_copyright">Copyright @ Lana L. Blaschke</string>
