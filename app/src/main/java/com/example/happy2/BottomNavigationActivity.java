@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.happy2.Fragments.CalendarFragment;
 import com.example.happy2.Fragments.HappyListFragment;
 import com.example.happy2.Fragments.HomeFragment;
 import com.example.happy2.Fragments.IdeaListFragment;
-import com.example.happy2.Fragments.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationActivity extends AppCompatActivity {
@@ -20,33 +18,36 @@ public class BottomNavigationActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem menuItem){
-            boolean openFragment = true;
-            Fragment selectedFragment;
             switch (menuItem.getItemId()) {
                 case R.id.navigation_home:
-                    selectedFragment = new HomeFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainFragmentContainer, new HomeFragment())
+                            .commit();
                     break;
                 case R.id.navigation_happy_list:
-                    selectedFragment = new HappyListFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainFragmentContainer, new HappyListFragment())
+                            .commit();
                     break;
                 case R.id.navigation_ideas:
-                    selectedFragment = new IdeaListFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainFragmentContainer, new IdeaListFragment())
+                            .commit();
                     break;
                 case R.id.navigation_calendar:
-                    selectedFragment = new CalendarFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainFragmentContainer, new CalendarFragment())
+                            .commit();
                     break;
                 case R.id.navigation_settings:
-                    openFragment = false;
-                    selectedFragment = new SettingsFragment();
-                    Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                     break;
                 default:
                     return false;
-            }
-            if(openFragment) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
-                        selectedFragment).commit();
             }
             return true;
         }
