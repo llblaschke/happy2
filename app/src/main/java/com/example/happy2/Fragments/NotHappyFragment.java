@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.happy2.DataHandling.Room.UnhappyDay;
 import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.example.happy2.MyHelperMethods.myDates;
 import com.example.happy2.R;
 
 import java.util.List;
-import java.util.Objects;
 
 public class NotHappyFragment extends Fragment {
 
@@ -32,8 +32,16 @@ public class NotHappyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        unhappyDayViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(UnhappyDayViewModel.class);
-
+        unhappyDayViewModel = ViewModelProviders.of(this).get(UnhappyDayViewModel.class);
+        unhappyDayViewModel.getAllUnhappyDaysDates().observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> dates) {
+                getLastXDaysUnhappy(dates);
+                getNrOfUnhappyDays(dates);
+            }
+        });
+        String today = new myDates().todayAsString();
+        unhappyDayViewModel.insert(new UnhappyDay(today));
     }
 
     @Override
@@ -42,13 +50,6 @@ public class NotHappyFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_not_happy, container, false);
         txtAlertTooManyUnhappyDays = v.findViewById(R.id.txtAlertTooManyUnhappyDays);
-        unhappyDayViewModel.getAllUnhappyDaysDates().observe(getActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> dates) {
-                getLastXDaysUnhappy(dates);
-                getNrOfUnhappyDays(dates);
-            }
-        });
         getVisibilityOfAlert();
         return v;
     }
@@ -56,7 +57,6 @@ public class NotHappyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getVisibilityOfAlert();
     }
 
 

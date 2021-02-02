@@ -11,25 +11,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.happy2.AddActivity;
-import com.example.happy2.DataHandling.Room.UnhappyDay;
-import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.example.happy2.MainActivity;
-import com.example.happy2.MyHelperMethods.myDates;
 import com.example.happy2.R;
-
-import java.util.List;
-import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
-
-    private UnhappyDayViewModel unhappyDayViewModel;
-    private List<String> allUnhappyDays;
-    public boolean lastXDaysUnhappy;
 
     public HomeFragment(){
         // empty constructor
@@ -38,8 +26,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        unhappyDayViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(UnhappyDayViewModel.class);
-        lastXDaysUnhappy = false;
     }
 
     @Override
@@ -51,14 +37,6 @@ public class HomeFragment extends Fragment {
         v.findViewById(R.id.btnHappy).setOnClickListener(btnClickHappy);
         v.findViewById(R.id.btnNotHappy).setOnClickListener(btnClickNotHappy);
         v.findViewById(R.id.btnAddIdea).setOnClickListener(btnAddIdea);
-
-
-        unhappyDayViewModel.getAllUnhappyDaysDates().observe(Objects.requireNonNull(getActivity()), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> dates) {
-                allUnhappyDays = dates;
-            }
-        });
 
         return v;
     }
@@ -86,12 +64,6 @@ public class HomeFragment extends Fragment {
     private View.OnClickListener btnClickNotHappy = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // add today to unhappy days if not already there
-            String today;
-            today = new myDates().todayAsString();
-            if (!allUnhappyDays.contains(today)) {
-                unhappyDayViewModel.insert(new UnhappyDay(today));
-            }
             getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
                     new NotHappyFragment()).commit();
         }
@@ -116,8 +88,4 @@ public class HomeFragment extends Fragment {
         }
     };
 
-    private boolean getLastXDaysUnhappy(List<String> unhappyDates) {
-        List<String> lastXDays = new myDates().getLastXDays();
-        return unhappyDates.containsAll(lastXDays);
-    };
 }
