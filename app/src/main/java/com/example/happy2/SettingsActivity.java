@@ -148,7 +148,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
         updateTimeText();
-        saveAlarmTimeInMillis();
+        saveTimeToSharedPrefs();
         startAlarm();
         saveNotificationTime();
     }
@@ -160,7 +160,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
     private String getTimeString() {
         return DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
     }
-    private void saveAlarmTimeInMillis() {
+    private void saveTimeToSharedPrefs() {
         sharedPreferences
                 .edit()
                 .putLong(KEY_NOTIFICATION_TIME_MILLIS, calendar.getTimeInMillis())

@@ -38,7 +38,7 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public void sendOnChannelDaily() {
-        Intent unhappyIntent = new Intent(getBaseContext(), MainActivity.class);
+        Intent unhappyIntent = new Intent(getBaseContext(), UnhappyFromNotificationActivity.class);
         unhappyIntent.putExtra(KEY_OPEN_NOT_HAPPY, true);
         Notification notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID_DAILY_NOTIFICATION)
                 .setContentTitle(getResources().getString(R.string.question_are_you_happy))

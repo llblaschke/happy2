@@ -35,10 +35,8 @@ public class BootCompletedIntentReceiver extends BroadcastReceiver {
             Long timeInMillis = sharedPreferences.getLong(KEY_NOTIFICATION_TIME_MILLIS, calendar.getTimeInMillis());
             calendar.setTimeInMillis(timeInMillis);
             while (calendar.before(Calendar.getInstance())) {
-                //calendar.add(Calendar.DATE, 1);
-                calendar.add(Calendar.MINUTE, 2);
+                calendar.add(Calendar.DATE, 1);
             }
-            calendar.add(Calendar.MINUTE, 1);
 
             // create pendingIntent for alarm
             Intent intent = new Intent(context, AlertReceiver.class);

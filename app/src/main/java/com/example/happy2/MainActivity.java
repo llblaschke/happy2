@@ -16,6 +16,7 @@ public class MainActivity extends BottomNavigationActivity {
     public static final String KEY_OPEN_HAPPY_LIST = "com.example.happy2.KEY_OPEN_HAPPY_LIST";
     public static final String KEY_OPEN_IDEA_LIST = "com.example.happy2.KEY_OPEN_IDEA_LIST";
     public static final String KEY_OPEN_NOT_HAPPY = "com.example.happy2.KEY_OPEN_NOT_HAPPY";
+    public static final String KEY_CLOSE_FRAGMENT_AFTER_CREATE = "com.example.happy2.KEY_CLOSE_FRAGMENT_AFTER_CREATE";
 
     public BottomNavigationView bottomNavigationView;
     private IdeaViewModel ideaViewModel;

@@ -1,12 +1,15 @@
 package com.example.happy2.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -17,7 +20,7 @@ import com.example.happy2.R;
 
 import java.util.List;
 
-import static com.example.happy2.MainActivity.KEY_OPEN_NOT_HAPPY;
+import static com.example.happy2.MainActivity.KEY_CLOSE_FRAGMENT_AFTER_CREATE;
 
 public class NotHappyFragment extends Fragment {
 
@@ -40,17 +43,12 @@ public class NotHappyFragment extends Fragment {
             public void onChanged(List<String> dates) {
                 getLastXDaysUnhappy(dates);
                 getNrOfUnhappyDays(dates);
+                closeIfFromNotification();
+                getVisibilityOfAlert();
             }
         });
         String today = new MyDates().todayAsString();
         unhappyDayViewModel.insert(new UnhappyDay(today));
-
-        if (getActivity().getIntent().hasExtra(KEY_OPEN_NOT_HAPPY)) {
-            boolean openedFromAlert = getActivity().getIntent().getBooleanExtra(KEY_OPEN_NOT_HAPPY, false);
-            if (openedFromAlert && !lastXDaysUnhappy) {
-                getActivity().finish();
-            }
-        }
     }
 
     @Override
@@ -60,6 +58,8 @@ public class NotHappyFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_not_happy, container, false);
         txtAlertTooManyUnhappyDays = v.findViewById(R.id.txtAlertTooManyUnhappyDays);
         getVisibilityOfAlert();
+        Toast.makeText(getContext(), getString(R.string.toast_today_saved_as_unhappy), Toast.LENGTH_SHORT).show();
+
         return v;
     }
 
@@ -100,6 +100,22 @@ public class NotHappyFragment extends Fragment {
         }
         String alertText = part1 + " " + nrOfUnhappyDays + " " + part2;
         return alertText;
+    }
+
+    private void closeIfFromNotification() {
+        if (getActivity().getIntent().hasExtra(KEY_CLOSE_FRAGMENT_AFTER_CREATE)) {
+            boolean openedFromAlert = getActivity().getIntent().getBooleanExtra(KEY_CLOSE_FRAGMENT_AFTER_CREATE, false);
+            if (openedFromAlert && !lastXDaysUnhappy) {
+                FragmentManager fm = getFragmentManager();
+                if (fm.getBackStackEntryCount() > 0) {
+                    Log.i("MainActivity", "popping backstack");
+                    fm.popBackStack();
+                } else {
+                    Log.i("MainActivity", "nothing on backstack, calling super");
+                    getActivity().finish();
+                }
+            }
+        }
     }
 
 }

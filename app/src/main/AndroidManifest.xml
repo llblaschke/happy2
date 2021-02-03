@@ -24,6 +24,8 @@
             android:name=".AddActivity"
             android:label="@string/title_activity_add_happy"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Notifications.UnhappyFromNotificationActivity" />
 
         <activity
             android:name=".MainActivity"
