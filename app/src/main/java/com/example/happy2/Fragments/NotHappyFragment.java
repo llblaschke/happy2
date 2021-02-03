@@ -44,6 +44,13 @@ public class NotHappyFragment extends Fragment {
         });
         String today = new MyDates().todayAsString();
         unhappyDayViewModel.insert(new UnhappyDay(today));
+
+        if (getActivity().getIntent().hasExtra(KEY_OPEN_NOT_HAPPY)) {
+            boolean openedFromAlert = getActivity().getIntent().getBooleanExtra(KEY_OPEN_NOT_HAPPY, false);
+            if (openedFromAlert && !lastXDaysUnhappy) {
+                getActivity().finish();
+            }
+        }
     }
 
     @Override
