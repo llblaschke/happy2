@@ -24,7 +24,7 @@ import androidx.preference.PreferenceManager;
 import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.Room.HappyThing;
 import com.example.happy2.Dialogs.AddMoreHappyThingsDiaglog;
-import com.example.happy2.MyHelperMethods.myDates;
+import com.example.happy2.MyHelperMethods.MyDates;
 import com.example.happy2.R;
 
 import java.util.ArrayList;
@@ -222,7 +222,7 @@ public class AddHappyThingFragment extends Fragment {
         @Override
         public void onClick(View v) {
             String tmpWhen = editTextWhen.getText().toString();
-            if (tmpWhen.equals(getString(R.string.text_today))) tmpWhen = new myDates().todayAsString();
+            if (tmpWhen.equals(getString(R.string.text_today))) tmpWhen = new MyDates().todayAsString();
             happyViewModel.insert(new HappyThing(tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen));
             acTextViewWhat.setText("");
             acTextViewWith.setText("");
@@ -295,7 +295,7 @@ public class AddHappyThingFragment extends Fragment {
         if (yearnew == year && monthnew == month && daynew == day){
             string = getString(R.string.text_today);
         } else {
-            string = new myDates().dayMonthYearToString(daynew, monthnew, yearnew);
+            string = new MyDates().dayMonthYearToString(daynew, monthnew, yearnew);
         }
         editTextWhen.setText(string);
     }

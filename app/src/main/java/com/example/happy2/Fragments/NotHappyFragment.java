@@ -12,10 +12,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.happy2.DataHandling.Room.UnhappyDay;
 import com.example.happy2.DataHandling.UnhappyDayViewModel;
-import com.example.happy2.MyHelperMethods.myDates;
+import com.example.happy2.MyHelperMethods.MyDates;
 import com.example.happy2.R;
 
 import java.util.List;
+
+import static com.example.happy2.MainActivity.KEY_OPEN_NOT_HAPPY;
 
 public class NotHappyFragment extends Fragment {
 
@@ -40,7 +42,7 @@ public class NotHappyFragment extends Fragment {
                 getNrOfUnhappyDays(dates);
             }
         });
-        String today = new myDates().todayAsString();
+        String today = new MyDates().todayAsString();
         unhappyDayViewModel.insert(new UnhappyDay(today));
     }
 
@@ -62,12 +64,12 @@ public class NotHappyFragment extends Fragment {
 
 
     private void getLastXDaysUnhappy(List<String> unhappyDates) {
-        List<String> lastXDays = new myDates().getLastXDays();
+        List<String> lastXDays = new MyDates().getLastXDays();
         lastXDaysUnhappy = unhappyDates.containsAll(lastXDays);
     };
 
     private void getNrOfUnhappyDays(List<String> dates) {
-        nrOfUnhappyDays = new myDates().getNrOfUnhappyDaysInARow(dates);
+        nrOfUnhappyDays = new MyDates().getNrOfUnhappyDaysInARow(dates);
     }
 
     private void getVisibilityOfAlert(){

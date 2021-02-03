@@ -6,7 +6,7 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public class myDates {
+public class MyDates {
 
     private int nrOfHoursOfDayStillSavedAsYesterdayUnhappy = 0;
     private int nrOfUnhappyDaysOK = 2;
@@ -15,7 +15,7 @@ public class myDates {
     int today_as_int;
 
 
-    public myDates() {
+    public MyDates() {
         today_as_int = calendar.get(Calendar.DATE);
     }
 
@@ -39,7 +39,7 @@ public class myDates {
 
     private String dateToString(int date) {
         calendar.set(Calendar.DATE, date);
-        return new myDates().dayMonthYearToString(calendar.get(Calendar.DAY_OF_MONTH),
+        return new MyDates().dayMonthYearToString(calendar.get(Calendar.DAY_OF_MONTH),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.YEAR));
 
