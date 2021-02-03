@@ -1,7 +1,6 @@
 package com.example.happy2;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -100,6 +99,7 @@ public class AddActivity extends AppCompatActivity {
 
     public void onPause() {
         super.onPause();
+
         // Close SoftKeyBoard from:
         // https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-using-java#1109108
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -110,12 +110,6 @@ public class AddActivity extends AppCompatActivity {
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-    public void closeActivity(Context context, View view) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        this.finish();
     }
 
 }

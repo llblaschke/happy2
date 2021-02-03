@@ -170,8 +170,11 @@ public class HappyListFragment<list> extends Fragment implements ShowCategoriesD
     }
 
     public void updateRecyclerView() {
-        getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
-                HappyListFragment.newInstance(showItem1, showItem2)).commit();
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.mainFragmentContainer,
+                        HappyListFragment.newInstance(showItem1, showItem2))
+                .commit();
     }
 
 
