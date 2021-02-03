@@ -68,11 +68,10 @@
             android:id="@+id/tvNotificationTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="@string/notification_time"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tvNotificationSwitch"
-            app:layout_constraintTop_toBottomOf="@+id/tvNotificationSwitch" />
+            app:layout_constraintTop_toTopOf="@+id/btnChangeTime" />
 
         <TextView
             android:id="@+id/tvNotificationTimeChangeHint"
@@ -80,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/notification_click_to_change"
+            app:layout_constraintBottom_toBottomOf="@+id/btnChangeTime"
             app:layout_constraintStart_toStartOf="@+id/tvNotificationTime"
             app:layout_constraintTop_toBottomOf="@+id/tvNotificationTime" />
 
