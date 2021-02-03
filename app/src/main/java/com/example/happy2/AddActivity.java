@@ -20,6 +20,8 @@ public class AddActivity extends AppCompatActivity {
 
     public static final String KEY_IDEA = "com.example.happy2.IDEA";
     public static final String KEY_IDEA_DESCRIPTION = "com.example.happy2.IDEA_DESCRIPTION";
+    public static final String KEY_IDEA_ID = "com.example.happy2.IDEA_ID";
+
     public static final String KEY_WHAT = "com.example.happy2.WHAT";
     public static final String KEY_WITH = "com.example.happy2.WITH";
     public static final String KEY_WHERE = "com.example.happy2.WHERE";

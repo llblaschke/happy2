@@ -126,9 +126,9 @@ public class IdeaListFragment extends Fragment {
         Intent intent = new Intent(getContext(), AddActivity.class);
         intent.putExtra(AddActivity.KEY_LOAD_IDEA_FRAGMENT, true);
         intent.putExtra(AddActivity.KEY_EDIT_IDEA_HAPPY, true);
-        intent.putExtra(AddActivity.KEY_WHAT, idea.getWhat());
-        intent.putExtra(AddActivity.KEY_ADINFO, idea.getAdInfo());
-        intent.putExtra(AddActivity.KEY_ID, idea.getId());
+        intent.putExtra(AddActivity.KEY_IDEA, idea.getWhat());
+        intent.putExtra(AddActivity.KEY_IDEA_DESCRIPTION, idea.getAdInfo());
+        intent.putExtra(AddActivity.KEY_IDEA_ID, idea.getId());
         startActivity(intent);
     }
 

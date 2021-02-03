@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.example.happy2.AddActivity.KEY_ADINFO;
 import static com.example.happy2.AddActivity.KEY_EDIT_IDEA_HAPPY;
 import static com.example.happy2.AddActivity.KEY_ID;
-import static com.example.happy2.AddActivity.KEY_WHAT;
+import static com.example.happy2.AddActivity.KEY_IDEA;
+import static com.example.happy2.AddActivity.KEY_IDEA_DESCRIPTION;
 
 
 public class AddIdeaFragment extends Fragment {
@@ -42,8 +42,8 @@ public class AddIdeaFragment extends Fragment {
     private Button buttonSave;
 
 
-    public static final String TMP_IDEA = "tmpIdea";
-    public static final String TMP_DESC = "tmpDesc";
+    public static final String TMP_IDEA = "com.example.happy2.tmpIdea";
+    public static final String TMP_DESC = "com.example.happy2.tmpDesc";
 
     private SharedPreferences prefs;
 
@@ -131,8 +131,8 @@ public class AddIdeaFragment extends Fragment {
         String adInfo = null;
         if (update){
             // if we are in edit mode
-            what = intent.getStringExtra(KEY_WHAT);
-            adInfo = intent.getStringExtra(KEY_ADINFO);
+            what = intent.getStringExtra(KEY_IDEA);
+            adInfo = intent.getStringExtra(KEY_IDEA_DESCRIPTION);
         } else {
             // if there was unsaved data
             if (prefs.contains(TMP_IDEA)) what = prefs.getString(TMP_IDEA, "");
@@ -189,6 +189,7 @@ public class AddIdeaFragment extends Fragment {
                 Toast.makeText(getContext(), getString(R.string.idea_updated), Toast.LENGTH_SHORT).show();
             } else {
                 ideaViewModel.insert(idea);
+                Toast.makeText(getContext(), getString(R.string.toast_saved), Toast.LENGTH_SHORT).show();
             }
             // clean the fields (otherwise this would be saved for next time)
             acTextViewIdea.setText("");

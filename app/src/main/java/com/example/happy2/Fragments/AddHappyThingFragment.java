@@ -62,10 +62,10 @@ public class AddHappyThingFragment extends Fragment {
 
     private String tmpWhat, tmpWith, tmpWhere, tmpAdInfo;
 
-    public static final String TMP_WHAT = "tmpWhat";
-    public static final String TMP_WITH = "tmpWith";
-    public static final String TMP_WHERE = "tmpWhere";
-    public static final String TMP_ADINFO = "tmpAdInfo";
+    public static final String TMP_WHAT = "com.example.happy2.tmpWhat";
+    public static final String TMP_WITH = "com.example.happy2.tmpWith";
+    public static final String TMP_WHERE = "com.example.happy2.tmpWhere";
+    public static final String TMP_ADINFO = "com.example.happy2.tmpAdInfo";
 
     private SharedPreferences prefs;
     private Intent intent;
@@ -234,11 +234,14 @@ public class AddHappyThingFragment extends Fragment {
                 } else {
                     happyThing.setId(id);
                     happyViewModel.update(happyThing);
+                    Toast.makeText(getContext(), getString(R.string.happy_updated), Toast.LENGTH_SHORT).show();
+                    // this also closes the keyboard!
+                    getActivity().finish();
                 }
-                Toast.makeText(getContext(), getString(R.string.happy_updated), Toast.LENGTH_SHORT).show();
             } else {
                 happyViewModel.insert(happyThing);
                 Toast.makeText(getContext(), getString(R.string.toast_saved), Toast.LENGTH_SHORT).show();
+                new AddMoreHappyThingsDiaglog().show(getParentFragmentManager(), "addmorehappythingsdialog");
             }
 
             acTextViewWhat.setText("");
@@ -251,8 +254,6 @@ public class AddHappyThingFragment extends Fragment {
             tmpWith = "";
             tmpWhere = "";
             tmpAdInfo = "";
-
-            new AddMoreHappyThingsDiaglog().show(getParentFragmentManager(), "addmorehappythingsdialog");
         }
     };
 
