@@ -18,6 +18,8 @@ public class AddActivity extends AppCompatActivity {
     public static final String KEY_LOAD_IDEA_FRAGMENT = "com.example.happy2.LOAD_IDEA_FRAGMENT";
     public static final String KEY_EDIT_IDEA_HAPPY = "com.example.happy2.EDIT_IDEA_HAPPY";
 
+    public static final String KEY_IDEA = "com.example.happy2.IDEA";
+    public static final String KEY_IDEA_DESCRIPTION = "com.example.happy2.IDEA_DESCRIPTION";
     public static final String KEY_WHAT = "com.example.happy2.WHAT";
     public static final String KEY_WITH = "com.example.happy2.WITH";
     public static final String KEY_WHERE = "com.example.happy2.WHERE";

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import static com.example.happy2.AddActivity.KEY_ADINFO;
 import static com.example.happy2.AddActivity.KEY_EDIT_IDEA_HAPPY;
+import static com.example.happy2.AddActivity.KEY_ID;
 import static com.example.happy2.AddActivity.KEY_WHAT;
 import static com.example.happy2.AddActivity.KEY_WHEN;
 import static com.example.happy2.AddActivity.KEY_WHERE;
@@ -223,7 +225,22 @@ public class AddHappyThingFragment extends Fragment {
         public void onClick(View v) {
             String tmpWhen = editTextWhen.getText().toString();
             if (tmpWhen.equals(getString(R.string.text_today))) tmpWhen = new MyDates().todayAsString();
-            happyViewModel.insert(new HappyThing(tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen));
+            HappyThing happyThing = new HappyThing(tmpWhat, tmpWith, tmpWhere, tmpAdInfo, tmpWhen);
+
+            if(update){
+                int id = intent.getIntExtra(KEY_ID, -1);
+                if(id == -1){
+                    Toast.makeText(getContext(), "This should not happen", Toast.LENGTH_SHORT).show();
+                } else {
+                    happyThing.setId(id);
+                    happyViewModel.update(happyThing);
+                }
+                Toast.makeText(getContext(), getString(R.string.happy_updated), Toast.LENGTH_SHORT).show();
+            } else {
+                happyViewModel.insert(happyThing);
+                Toast.makeText(getContext(), getString(R.string.toast_saved), Toast.LENGTH_SHORT).show();
+            }
+
             acTextViewWhat.setText("");
             acTextViewWith.setText("");
             acTextViewWhere.setText("");

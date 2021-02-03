@@ -39,6 +39,7 @@
     <string name="idea_deleted">Idea deleted</string>
     <string name="happy_deleted">Happy thing deleted</string>
     <string name="idea_updated">Idea updated</string>
+    <string name="happy_updated">Happy thing updated</string>
     <string name="swipe_left_to_delete_and_right_to_change_this_entry">Swipe left to delete and right to change this entry</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
@@ -77,6 +78,9 @@
     <string name="channel_name_alert_unhappy">Unhappy notification</string>
     <string name="channel_description_daily_notification">Ask once a day if you are happy</string>
     <string name="channel_description_alert_unhappy">Alert if you were unhappy too many days in a row</string>
+
+    <string name="toast_today_saved_as_unhappy">Today was saved as an unhappy day</string>
+    <string name="toast_saved">Saved</string>
 
     <string name="about_header">About</string>
     <string name="about_copyright">Copyright @ Lana L. Blaschke</string>
