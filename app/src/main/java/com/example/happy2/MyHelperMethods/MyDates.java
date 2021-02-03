@@ -9,7 +9,7 @@ import static java.lang.String.valueOf;
 public class MyDates {
 
     private int nrOfHoursOfDayStillSavedAsYesterdayUnhappy = 0;
-    private int nrOfUnhappyDaysOK = 2;
+    private int nrOfUnhappyDaysOK = 3;
     private List<String> lastXDays;
     private Calendar calendar = Calendar.getInstance();
     int today_as_int;
@@ -21,7 +21,7 @@ public class MyDates {
 
     public List<String> getLastXDays() {
         lastXDays = new ArrayList<>();
-        for(int i = 0; i< nrOfUnhappyDaysOK; i++) {
+        for(int i = 0; i< nrOfUnhappyDaysOK-1; i++) {
             lastXDays.add(dateToString(today_as_int - i));
         }
         return lastXDays;
