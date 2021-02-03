@@ -9,11 +9,13 @@ import com.example.happy2.DataHandling.IdeaViewModel;
 import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.example.happy2.Fragments.HappyListFragment;
 import com.example.happy2.Fragments.IdeaListFragment;
+import com.example.happy2.Fragments.NotHappyFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BottomNavigationActivity {
     public static final String KEY_OPEN_HAPPY_LIST = "com.example.happy2.KEY_OPEN_HAPPY_LIST";
     public static final String KEY_OPEN_IDEA_LIST = "com.example.happy2.KEY_OPEN_IDEA_LIST";
+    public static final String KEY_OPEN_NOT_HAPPY = "com.example.happy2.KEY_OPEN_NOT_HAPPY";
 
     public BottomNavigationView bottomNavigationView;
     private IdeaViewModel ideaViewModel;
@@ -22,6 +24,7 @@ public class MainActivity extends BottomNavigationActivity {
 
     private boolean openHappyList;
     private boolean openIdeaList;
+    private boolean openNotHappy;
 
 
     @Override
@@ -38,6 +41,7 @@ public class MainActivity extends BottomNavigationActivity {
 
         getOpenHappyFragment();
         getOpenIdeaFragment();
+        getOpenNotHappyFragment();
 
         if (openHappyList) {
             getSupportFragmentManager()
@@ -51,6 +55,12 @@ public class MainActivity extends BottomNavigationActivity {
                     .replace(R.id.mainFragmentContainer,
                             new IdeaListFragment(), "OpenIdeaListFragment")
                     .commit();
+        } else if (openNotHappy) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.mainFragmentContainer,
+                            new NotHappyFragment(), "OpenNotHappyFragment")
+                    .commit();
         }
     }
 
@@ -62,12 +72,18 @@ public class MainActivity extends BottomNavigationActivity {
         } else {openHappyList = false;}
     }
 
-
     // get boolean if to load IdeaListFragment, default = false
     private void getOpenIdeaFragment() {
         if (getIntent().hasExtra(KEY_OPEN_IDEA_LIST)) {
             openIdeaList = getIntent().getBooleanExtra(KEY_OPEN_IDEA_LIST, false);
         } else {openIdeaList = false;}
+    }
+
+    // get boolean if to load HappyListFragment, default = false
+    private void getOpenNotHappyFragment() {
+        if (getIntent().hasExtra(KEY_OPEN_NOT_HAPPY)) {
+            openNotHappy = getIntent().getBooleanExtra(KEY_OPEN_NOT_HAPPY, false);
+        } else {openNotHappy = false;}
     }
 
 }

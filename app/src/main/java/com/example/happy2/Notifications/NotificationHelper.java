@@ -18,6 +18,7 @@ import static com.example.happy2.BaseApplication.CHANNEL_ID_DAILY_NOTIFICATION;
 import static com.example.happy2.BaseApplication.CHANNEL_ID_UNHAPPY_ALERT;
 import static com.example.happy2.MainActivity.KEY_OPEN_HAPPY_LIST;
 import static com.example.happy2.MainActivity.KEY_OPEN_IDEA_LIST;
+import static com.example.happy2.MainActivity.KEY_OPEN_NOT_HAPPY;
 
 
 public class NotificationHelper extends ContextWrapper {
@@ -37,6 +38,8 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public void sendOnChannelDaily() {
+        Intent unhappyIntent = new Intent(getBaseContext(), MainActivity.class);
+        unhappyIntent.putExtra(KEY_OPEN_NOT_HAPPY, true);
         Notification notification = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID_DAILY_NOTIFICATION)
                 .setContentTitle(getResources().getString(R.string.question_are_you_happy))
                 .setSmallIcon(R.drawable.ic_app_icon_white)
@@ -57,7 +60,7 @@ public class NotificationHelper extends ContextWrapper {
                         PendingIntent.getActivity(
                                 getBaseContext(),
                                 01,
-                                new Intent(getBaseContext(), MainActivity.class),
+                                unhappyIntent,
                                 0)
                 )
                 .build();
