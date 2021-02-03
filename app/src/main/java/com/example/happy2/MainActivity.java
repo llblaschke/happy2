@@ -2,6 +2,7 @@ package com.example.happy2;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.happy2.DataHandling.HappyViewModel;
@@ -48,19 +49,24 @@ public class MainActivity extends BottomNavigationActivity {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.mainFragmentContainer,
-                            new HappyListFragment(), "OpenHappyListFragment")
+                            new HappyListFragment(),
+                            "OpenHappyListFragment")
+                    .addToBackStack(null)
                     .commit();
         } else if (openIdeaList) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.mainFragmentContainer,
-                            new IdeaListFragment(), "OpenIdeaListFragment")
+                            new IdeaListFragment(),
+                            "OpenIdeaListFragment")
+                    .addToBackStack(null)
                     .commit();
         } else if (openNotHappy) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.mainFragmentContainer,
-                            new NotHappyFragment(), "OpenNotHappyFragment")
+                            new NotHappyFragment(),
+                            "OpenNotHappyFragment")
                     .commit();
         }
     }

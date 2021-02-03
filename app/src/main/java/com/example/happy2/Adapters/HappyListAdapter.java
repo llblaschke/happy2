@@ -126,10 +126,13 @@ public class HappyListAdapter extends RecyclerView.Adapter<HappyListAdapter.MyVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.Q)
                 public void onClick(View v) {
-                    // TODO implement loading of inner list happy fragment
-                    // public static HappyInnerListFragment newInstance(int showIndex, String showValue, int showAsTitle, int showAsDescription)
                     HappyInnerListFragment fragment = HappyInnerListFragment.newInstance(showAsTitle, title.getText().toString(), showAsDesc);
-                    happyListFragment.getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer, fragment).commit();
+                    happyListFragment
+                            .getParentFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainFragmentContainer, fragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
             });
         }

@@ -23,24 +23,28 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.mainFragmentContainer, new HomeFragment())
+                            .addToBackStack(null)
                             .commit();
                     break;
                 case R.id.navigation_happy_list:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.mainFragmentContainer, new HappyListFragment())
+                            .addToBackStack(null)
                             .commit();
                     break;
                 case R.id.navigation_ideas:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.mainFragmentContainer, new IdeaListFragment())
+                            .addToBackStack(null)
                             .commit();
                     break;
                 case R.id.navigation_calendar:
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.mainFragmentContainer, new CalendarFragment())
+                            .addToBackStack(null)
                             .commit();
                     break;
                 case R.id.navigation_settings:
