@@ -27,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
     public static final String SETTINGS_PREFERENCE = "com.example.happy2.SETTINGS_PREFERENCE";
     public static final String KEY_NOTIFICATION_ON_OFF = "com.example.happy2.KEY_NOTIFICATION_ON_OFF";
     public static final String KEY_NOTIFICATION_TIME = "com.example.happy2.KEY_NOTIFICATION_TIME";
+    public static final String KEY_NOTIFICATION_TIME_MILLIS = "com.example.happy2.KEY_NOTIFICATION_TIME_MILLIS";
     public static final String KEY_NR_DAYS_UNHAPPY_OK = "com.example.happy2.KEY_NR_DAYS_UNHAPPY_OK";
     public static final String KEY_NR_HOURS_STILL_YESTERDAY = "com.example.happy2.KEY_NR_HOURS_STILL_YESTERDAY";
 
@@ -147,6 +148,7 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
         updateTimeText();
+        saveAlarmTimeInMillis();
         startAlarm();
         saveNotificationTime();
     }
@@ -158,20 +160,25 @@ public class SettingsActivity extends AppCompatActivity implements TimePickerDia
     private String getTimeString() {
         return DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
     }
+    private void saveAlarmTimeInMillis() {
+        sharedPreferences
+                .edit()
+                .putLong(KEY_NOTIFICATION_TIME_MILLIS, calendar.getTimeInMillis())
+                .apply();
+    }
     private void startAlarm() {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1);
         }
         //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                //AlarmManager.INTERVAL_,
-                //
-                2*60*1000, pendingIntent);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent);
     }
-
     private void cancelAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
