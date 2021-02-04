@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.happy2.DataHandling.HappyViewModel;
 import com.example.happy2.DataHandling.IdeaViewModel;
-import com.example.happy2.DataHandling.UnhappyDayViewModel;
 import com.example.happy2.Fragments.HappyListFragment;
+import com.example.happy2.Fragments.HomeFragment;
 import com.example.happy2.Fragments.IdeaListFragment;
 import com.example.happy2.Fragments.NotHappyFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,7 +23,6 @@ public class MainActivity extends BottomNavigationActivity {
     public BottomNavigationView bottomNavigationView;
     private IdeaViewModel ideaViewModel;
     private HappyViewModel happyViewModel;
-    private UnhappyDayViewModel unhappyDayViewModel;
 
     private boolean openHappyList;
     private boolean openIdeaList;
@@ -58,7 +57,6 @@ public class MainActivity extends BottomNavigationActivity {
 
         ideaViewModel = ViewModelProviders.of(this).get(IdeaViewModel.class);
         happyViewModel = ViewModelProviders.of(this).get(HappyViewModel.class);
-        unhappyDayViewModel = ViewModelProviders.of(this).get(UnhappyDayViewModel.class);
 
         getOpenHappyFragment();
         getOpenIdeaFragment();
@@ -86,6 +84,14 @@ public class MainActivity extends BottomNavigationActivity {
                     .replace(R.id.mainFragmentContainer,
                             new NotHappyFragment(),
                             "OpenNotHappyFragment")
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.mainFragmentContainer,
+                            new HomeFragment(),
+                            "OpenHomeFragment")
+                    .addToBackStack(null)
                     .commit();
         }
     }
