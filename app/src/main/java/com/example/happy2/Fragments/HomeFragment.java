@@ -64,8 +64,11 @@ public class HomeFragment extends Fragment {
     private View.OnClickListener btnClickNotHappy = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            getParentFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer,
-                    new NotHappyFragment()).commit();
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.mainFragmentContainer,
+                            new NotHappyFragment())
+                    .commit();
         }
     };
 
