@@ -66,8 +66,11 @@ public class NotHappyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-    }
-
+        int selectedItemId = ((MainActivity) getActivity()).bottomNavigationView.getSelectedItemId();
+        if (selectedItemId != R.id.navigation_home) {
+            ((MainActivity) getActivity()).bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        }
+    };
 
 
     private void getLastXDaysUnhappy(List<String> unhappyDates) {
