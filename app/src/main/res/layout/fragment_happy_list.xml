@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context=".Fragments.HappyListFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -37,6 +38,7 @@
                     android:singleLine="false"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorTextLight"
                     android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@+id/tvSortBy"
@@ -49,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sort_by"
+                    android:textColor="@color/colorTextLight"
                     app:layout_constraintBottom_toBottomOf="@+id/btnSortBy"
                     app:layout_constraintEnd_toStartOf="@+id/btnSortBy"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -59,6 +62,9 @@
                     android:id="@+id/btnSortBy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorButtonsInHappyList"
+                    android:shadowColor="@color/colorHappyDark"
+                    android:textColor="@color/colorTextLight"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvAnd"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -69,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/and"
+                    android:textColor="@color/colorTextLight"
                     app:layout_constraintBottom_toBottomOf="@+id/btnSortBy"
                     app:layout_constraintEnd_toStartOf="@+id/btnSortBy2"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -79,6 +86,9 @@
                     android:id="@+id/btnSortBy2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorButtonsInHappyList"
+                    android:shadowColor="@color/colorHappyDark"
+                    android:textColor="@color/colorTextLight"
                     app:layout_constraintBottom_toBottomOf="@+id/btnSortBy"
                     app:layout_constraintStart_toEndOf="@+id/tvAnd"
                     app:layout_constraintTop_toTopOf="@+id/btnSortBy" />

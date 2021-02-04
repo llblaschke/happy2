@@ -6,7 +6,19 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:theme="@android:style/Theme.Holo.Dialog.NoActionBar">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimary"
+        />
 
 
     <androidx.fragment.app.FragmentContainerView
@@ -18,14 +30,14 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_view_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorNotHappyDark"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

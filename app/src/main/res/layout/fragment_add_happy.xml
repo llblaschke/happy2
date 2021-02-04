@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
+    android:background="@color/colorBackground"
     tools:context=".Fragments.AddHappyThingFragment">
 
 
@@ -83,6 +84,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/button_change_date"
+        android:backgroundTint="@color/colorAccent"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextWhen"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -92,6 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/Save"
+        android:backgroundTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextWhen" />
