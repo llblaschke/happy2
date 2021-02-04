@@ -1,6 +1,7 @@
 package com.example.happy2;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,7 +33,25 @@ public class MainActivity extends BottomNavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+                        getSupportFragmentManager().popBackStack();
+                    } else {
+                        onBackPressed();
+                    }
+                }
+            });
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         bottomNavigationView = findViewById(R.id.nav_view_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
@@ -68,6 +87,25 @@ public class MainActivity extends BottomNavigationActivity {
                             new NotHappyFragment(),
                             "OpenNotHappyFragment")
                     .commit();
+        }
+    }
+
+    @Override
+    public boolean onNavigateUp() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onNavigateUp();
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 
