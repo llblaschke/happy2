@@ -2,6 +2,8 @@ package com.example.happy2.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.happy2.AddActivity;
 import com.example.happy2.MainActivity;
@@ -57,6 +60,22 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ||
+                newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            try {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                if (Build.VERSION.SDK_INT >= 26) {
+                    ft.setReorderingAllowed(false);
+                }
+                ft.detach(this).attach(this).commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 
